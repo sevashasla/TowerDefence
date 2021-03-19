@@ -1,5 +1,3 @@
-import sys
-import os
 from Display import Display
 
 class DisplayConsole(Display):
@@ -8,6 +6,9 @@ class DisplayConsole(Display):
 
 	def start(self):
 		print("Let's stars!")
+
+	def end(self):
+		print("Game is over!")
 
 	def show(self, items):
 		for item in items:
