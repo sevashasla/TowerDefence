@@ -27,7 +27,7 @@ class Unit(ABC):
 	def decrease_health(self, damage):
 		self.health -= damage
 
-	@abstractmethod
+
 	def make_step(self):
 		pass
 
@@ -36,7 +36,7 @@ class Unit(ABC):
                 pass
 
 
-class UnitCreator(C):
+class UnitCreator(ABC):
 		
 	def __init__(self):
 		pass
