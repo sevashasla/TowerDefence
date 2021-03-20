@@ -10,6 +10,10 @@ class DisplayConsole(Display):
 	def end(self):
 		print("Game is over!")
 
-	def show(self, items):
-		for item in items:
-			print(item)
+	def show(self, field):
+		#don't want to print road coordinates 
+		for unit in field.units:
+			print(unit)
+
+		for tower in field.towers:
+			print(tower)
