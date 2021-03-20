@@ -1,40 +1,41 @@
 from road import Road, FieldError
 from castle import Castle
-
+from random import randint
 
 
 class Field:
 
-	x_size = 20
-	y_size = 20
+	x_size = 500
+	y_size = 500
 
 	def __init__(self):
 		self.cells = []
 		for i in range(self.x_size):
 			self.cells.append([None] * self.y_size)
-		self.road = Road()
+		self.road = Road(self.x_size, self.y_size)
 		self.castle = Castle()
 
 
-	def can_make_step(self, coordinates) -> bool:
-		try:
-			if self.road.belongs_to_road(coordinates):
-				return self.road[coordinates[0]][coordinates[1]] is None
-			return False
+	def can_make_step(self, unit) -> bool:
+		try:    
+                        new_coords_x = unit.position[0] + randint(2, 10) * speed[0]
+                        new_coords_y = unit.position[1] + randint(2, 10) * speed[1]
+	        	if self.road.belongs_to_road((new_coords_x, new_coords_y)):
+				return self.road[new_coords_x][new_coords_y]
 		except IndexError:
 			return False
 
 
-	def can_place_tower(self, coordinates) -> bool:
+	def can_place_tower(self, coords) -> bool:
 		try:
-			if not self.road.belongs_to_road(coordinates) and not self.castle.belongs_to_castle(coordinates):
-				return self.cells[coordinates[0]][coordinates[1]] is None
+			if not self.road.belongs_to_road(coords) and not self.castle.belongs_to_castle(coords):
+				return self.cells[coords[0]][coords[1]] is None
 		except IndexError:
 			return False
 
 
-	def place_tower(self, tower, coordinates):
-		if self.can_place_tower(coordinates):
+	def place_tower(self, tower, coords):
+		if self.can_place_tower(coords):
 			self.cells[coordinates[0]][coordinates[1]] = tower
 		else:
 			raise FieldError
