@@ -35,6 +35,9 @@ class Unit(ABC):
 		# Pocket.addMoney(self.bounty)
                 pass
 
+        def __str__(self) -> str:
+            return ('Unit ' + str(type(self)) + '; coords = ' + self.position.__str__())
+
 
 class UnitCreator(ABC):
 		
