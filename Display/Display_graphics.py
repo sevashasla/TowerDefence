@@ -19,5 +19,3 @@ class DisplayGraphics(Display):
 
 	def show(self, items):
 		pass
-
-	
