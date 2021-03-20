@@ -26,21 +26,29 @@ class DisplayGraphics(Display):
 		
 		self.screen.fill(WHITE)
 		
-		pygame.draw.poly(self.screen, field.road.edges)
+		#draw road
+		pygame.draw.polygon(self.screen, BLACK, field.road.edges)
 
+		current_path = os.path.abspath(os.getcwd())
+
+		#draw units
 		for unit in field.units:
 			if not hasattr(unit, "loaded_image"):
-				unit.loaded_image = pygame.image.load(unit.image_name).convert()
+				unit.loaded_image = pygame.image.load(os.path.join(current_path, "../Unit", unit.image_name)).convert() #change?
 				unit.loaded_image = pygame.transform.scale(unit.loaded_image, (20, 20))
 			screen.blit(unit.loaded_image, (unit.coordinates.x, unit.coordinates.y))
 
+		#draw tower
 		for tower in field.towers:
 			if not hasattr(tower, "loaded_image"):
-				tower.loaded_image = pygame.image.load(tower.image_name).convert()
+				tower.loaded_image = pygame.image.load(os.path.join(current_path, "../Tower", tower.image_name)).convert() #change?
 				tower.loaded_image = pygame.transform.scale(tower.loaded_image, (20, 20))
 			screen.blit(tower.loaded_image, (tower.coordinates.x, tower.coordinates.y))
 
+
+
 		pygame.display.flip()
+
 
 	def finish(self):
 		pygame.quit()
