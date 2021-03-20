@@ -8,8 +8,8 @@ class WeakUnit(Unit):
 	damage = 1
 	speed_of_attack = 1	
 	range_of_attack = 5
-	speed = 1
-        step = [1, 0]
+	speed = 2
+        step = [0, -1]
 	bounty = 5
 		
 
