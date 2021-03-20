@@ -47,9 +47,11 @@ class Road:
 		self.vertices.append((x_size * 9 // 20, y_size - 1))
 		self.vertices.append((x_size * 11 // 20, y_size - 1))
 
+		# self.edges = self.pixels
+
 
 	def belongs_to_road(self, coordinates):
-		if coordinates[0] < 0 or coordinates[0] >= self.x_size or coordinates[1] < 0 or coordinates[1] >= self.y_size:
+		if coordinates.x < 0 or coordinates.x >= self.x_size or coordinates.y < 0 or coordinates.y >= self.y_size:
 			raise FieldError
-		return self.pixels[coordinates[0]][coordinates[1]] 
+		return self.pixels[coordinates.x][coordinates.y] 
 

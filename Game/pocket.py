@@ -1,6 +1,3 @@
-import Game
-
-
 class MoneyError(Exception):
     pass
 

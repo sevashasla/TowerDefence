@@ -8,7 +8,7 @@ class Castle:
 
 
     def belongs_to_castle(self, coordinates):
-        return 0 <= coordinates[1] <= self.y_size//20 and self.x_size*7//20 <= coordinates[0] <= self.x_size*12//20
+        return 0 <= coordinates.y<= self.y_size//20 and self.x_size*7//20 <= coordinates.x <= self.x_size*12//20
 
 
     def get_health(self):

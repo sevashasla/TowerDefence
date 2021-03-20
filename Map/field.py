@@ -18,6 +18,7 @@ class Field:
 		self.castle = Castle(self.x_size, self.y_size)
 		self.spawn_point = SpawnPoint(self.x_size, self.y_size)
 		self.units = []
+		self.towers = []
 
 
 	def can_make_step(self, unit) -> bool:
@@ -31,16 +32,20 @@ class Field:
 
 
 	def can_place_tower(self, coords) -> bool:
-		try:
-			if not self.road.belongs_to_road(coords) and not self.castle.belongs_to_castle(coords):
-				return self.cells[coords[0]][coords[1]] is None
-		except IndexError:
-			return False
+		# try:
+		# 	if not self.road.belongs_to_road(coords) and not self.castle.belongs_to_castle(coords):
+		# 		return self.cells[coords[0]][coords[1]] is None
+		# except IndexError:
+		# 	return False
+
+
+
+		return True
 
 
 	def place_tower(self, tower, coords):
 		if self.can_place_tower(coords):
-			self.cells[coordinates[0]][coordinates[1]] = tower
+			self.towers.append(tower)
 		else:
 			raise FieldError
 
@@ -60,3 +65,5 @@ class Field:
 			unit.make_step()
 			self.units.append(unit)
 
+	def step(self):
+		pass
