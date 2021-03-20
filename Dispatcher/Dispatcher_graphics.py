@@ -13,7 +13,11 @@ class DispatcherGraphics(Dispatcher):
 		pygame.quit()
 
 	def get_events(self) -> list:
+		events = []
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
-					return ["stop"] #stop
-		return ["continue"]
+				events.append(["stop"])
+			elif event.type == pygame.MOUSEBUTTONUP:
+				pos = pygame.mouse.get_pos()
+				events.append(["mouse_click", pos])
+		return events
