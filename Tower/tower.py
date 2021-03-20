@@ -1,10 +1,12 @@
 from abc import ABC, abstractmethod
 
-# https://refactoring.guru/ru/design-patterns/factory-method/python/example
-
 class Tower(ABC):
 	@abstractmethod
 	def __init__(self):
+		pass
+
+	@abstractmethod
+	def __str__(self):
 		pass
 
 	def attack(self, enemies: list) -> list:
@@ -25,14 +27,4 @@ class Tower(ABC):
 	def decrease_health(self, damage):
 		self.health -= damage
 
-
-
-class TowerCreator(ABC):
-	@abstractmethod
-	def __init__(self):
-		pass
-
-	@abstractmethod
-	def create(self, *args, **kwargs) -> Tower:
-		pass
 
