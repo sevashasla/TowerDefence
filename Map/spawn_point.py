@@ -1,6 +1,11 @@
 from random import randint
+import sys
 
+sys.path.insert(0, "../Game/")
+sys.path.insert(0, "../Unit/")
 
+from unit_factories import *
+from coordinates import Coordinates
 
 class SpawnPoint:
     
@@ -9,14 +14,14 @@ class SpawnPoint:
         self.x_size = x_size
         self.y_size = y_size
 
-    def wave(waves_count):
+    def wave(self, waves_count):
         creators = [WeakUnitCreator(), AverageUnitCreator(), ChadUnitCreator()]
         if waves_count <= 5:
             size_of_wave = randint(1, 3)
             wave = []
             for i in range(size_of_wave):
-                coords = (self.y_size-1, randint(self.x_size * 9//20, self.x_size*11//20))
-                unit = creator[1].create(coordinates=coords)
+                coords = Coordinates(randint(self.x_size * 9//20, self.x_size*11//20), randint(self.y_size - 30, self.y_size - 1))
+                unit = creators[1].create(coordinates=coords)
                 wave.append(unit)
             return wave
         elif waves_count <= 15:
@@ -24,7 +29,7 @@ class SpawnPoint:
             wave = []
             for i in range(size_of_wave):
                 type_of_unit = randint(0,1)
-                coords = (self.y_size-1, randint(self.x_size * 9//20, x_size*11//20))
+                coords = Coordinates(randint(self.x_size * 9//20, self.x_size*11//20), randint(self.y_size - 30, self.y_size - 1))
                 unit = creators[type_of_unit].create(coordinates=coords)
                 wave.append(unit)
             return wave
@@ -33,7 +38,7 @@ class SpawnPoint:
             wave = []
             for i in range(size_of_wave):
                 type_of_unit = randint(0,2)
-                coords = (self.y_size-1, randint(self.x_size * 9//20, self.x_size*11//20))
+                coords = Coordinates(randint(self.x_size * 9//20, self.x_size*11//20), randint(self.y_size - 30, self.y_size - 1))
                 unit = creators[type_of_unit].create(coordinates=coords)
                 wave.append(unit)
             return wave

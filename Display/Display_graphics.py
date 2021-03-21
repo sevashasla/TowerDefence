@@ -1,5 +1,8 @@
 import pygame
 from Display import Display
+import sys
+sys.path.insert(0, "../Game/")
+from coordinates import Coordinates
 import os
 
 WHITE = (255, 255, 255)
@@ -27,7 +30,7 @@ class DisplayGraphics(Display):
 		self.screen.fill(WHITE)
 		
 		#draw road
-		# pygame.draw.polygon(self.screen, BLACK, field.road.edges)
+		pygame.draw.polygon(self.screen, BLACK, field.road.vertices)
 
 		current_path = os.path.abspath(os.getcwd())
 

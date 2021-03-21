@@ -31,7 +31,6 @@ class Game:
 		else:
 			assert "wrong type of mode"
 
-		# self.field = Field(self.width, self.height)
 		self.field = Field()
 		self.pocket = Pocket()
 
@@ -42,7 +41,7 @@ class Game:
 		running = True
 
 
-		creator = WeakTowerCreator()
+		creator = WeakTowerCreator() #change later
 		
 
 		while running:
@@ -52,10 +51,9 @@ class Game:
 				elif(event[0] == "mouse_click"):
 					pos = event[1]
 					
-					self.field.place_tower(creator.create(Coordinates(pos[0], pos[1])), 
-						Coordinates(pos[0], pos[1]))
+					self.field.place_tower(creator.create(pos))
 
-					print("You've click at", event[1])
+					print("You've click at", pos)
 			self.display.show(self.field)
 			self.field.step()
 		self.dispatcher.finish()
