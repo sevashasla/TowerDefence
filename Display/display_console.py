@@ -5,9 +5,9 @@ import time
 
 class DisplayConsole(Display):
 	def __init__(self):
-	super().__init__()
-	self.last_time_update = time.time()
-	self.update_rate = 3
+		super().__init__()
+		self.last_time_update = time.time()
+		self.update_rate = 3
 
 	def start(self):
 		print("Let's start!")
