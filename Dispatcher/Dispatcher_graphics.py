@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from Dispatcher import Dispatcher
+
 import pygame
 
 import sys

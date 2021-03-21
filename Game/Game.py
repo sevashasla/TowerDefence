@@ -15,7 +15,7 @@ from field import Field
 from pocket import Pocket
 from coordinates import Coordinates
 from tower_factories import *
-# https://stackoverflow.com/questions/40336960/creating-rect-buttons-with-pygame
+
 # sys.intern - equate via reference?
 
 class Game:
@@ -41,17 +41,18 @@ class Game:
 		running = True
 
 
-		creator = WeakTowerCreator() #change later
+		creators = {"WeakTower": WeakTowerCreator(), "AverageTower": AverageTowerCreator()}
 		
 
 		while running:
 			for event in self.dispatcher.get_events():
 				if(event[0] == "stop"):
 					running = False
-				elif(event[0] == "mouse_click"):
-					pos = event[1]
+				elif(event[0] == "set"):
+					class_of_tower = event[1]
+					pos = event[2]
 					
-					self.field.place_tower(creator.create(pos))
+					self.field.place_tower(creators[class_of_tower].create(pos))
 
 					print("You've click at", pos)
 			self.display.show(self.field)
@@ -63,7 +64,7 @@ class Game:
 		self.finish()
 
 def main():
-	game = Game("graphics")
+	game = Game("console")
 	game.start()
 
 

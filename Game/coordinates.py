@@ -1,8 +1,16 @@
 class Coordinates:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-        # print('Point set at coordinates: x = {0}; y = {1};'.format(*[x, y]))
+	def __init__(self, x: int=None, y: int=None, coordinates: list=None):
+		self.x = x
+		self.y = y
+		self.coordinates = coordinates
 
-    def __str__(self):
-    	return str(self.x) + ' ' + str(self.y)
+		if not self.coordinates is None:
+			self.x = coordinates[0]
+			self.y = coordinates[1]
+
+	def to_list(self) -> list:
+		return [self.x, self.y]
+
+
+	def __str__(self) -> str:
+		return str(self.x) + ' ' + str(self.y)
