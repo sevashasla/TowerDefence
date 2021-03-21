@@ -22,7 +22,7 @@ class Unit(ABC):
 				break
 
 	def can_attack(self, tower) -> bool:
-		if time.clock() - self.last_attack_time >= self.attack_time * self.speed_of_attack:
+		if time.time() - self.last_attack_time >= self.attack_time * self.speed_of_attack:
 			return (self.coordinates.x - tower.coordinates.x)**2 + (self.coordinates.y - tower.coordinates.y)**2 <= self.range_of_attack**2
 		return False
 

@@ -1,5 +1,6 @@
 from random import randint
 import sys
+import time
 
 sys.path.insert(0, "./Game/")
 sys.path.insert(0, "./Unit/")
@@ -11,8 +12,10 @@ class SpawnPoint:
     
 
     def __init__(self, x_size, y_size):
+        self.last_wave = 0.0
         self.x_size = x_size
         self.y_size = y_size
+        self.time_out = 1.5
 
     def wave(self, waves_count):
         creators = [WeakUnitCreator(), AverageUnitCreator(), ChadUnitCreator()]

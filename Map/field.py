@@ -99,6 +99,7 @@ class Field:
 			for tower in self.towers:
 				if unit.can_attack(tower):
 					unit.attack(tower)	
+
 	def towers_attack(self):
 		for tower in self.towers:
 			for unit in self.units:
@@ -112,7 +113,7 @@ class Field:
 				self.units.remove(unit)
 		for tower in self.towers:
 			if tower.health <= 0:
-				self.towers.remov(tower)
+				self.towers.remove(tower)
 
 	def update(self):
 		current_time = time.time()
@@ -121,5 +122,8 @@ class Field:
 			self.towers_attack()
 			self.units_attack()
 			self.collect_garbage()
-
+			if current_time - self.spawn_point.last_wave >= self.spawn_point.time_out:
+				self.spawn_units()
+				self.spawn_point.last_wave = current_time
+			self.last_update = current_time
 
