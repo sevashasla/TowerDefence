@@ -11,8 +11,7 @@ class AverageTower(Tower):
 		self.damage = 7
 		self.speed_of_attack = 5
 		self.cost = 15
-		self.last_attack_time = 0 ####change
-		self.image_name = "weak_tower.jpg" ####change
+		self.last_attack_time = 0 ####chang
 
 	def __str__(self):
 		return "AverageTower " + str(self.coordinates) + ", health = " + str(self.health)

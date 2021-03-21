@@ -12,7 +12,6 @@ class WeakTower(Tower):
 		self.speed_of_attack = 1
 		self.cost = 5
 		self.last_attack_time = 0 
-		self.image_name = "weak_tower.jpg"
 
 	def __str__(self):
 		return "weak tower " + str(self.coordinates) + ", health = " + str(self.health)
