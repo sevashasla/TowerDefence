@@ -70,8 +70,11 @@ class Field:
 			self.units.append(unit)
 
 	def step(self):
+<<<<<<< HEAD
 		self.spawn_units()
 		
+=======
+>>>>>>> 585b772da578a7523f92f23d20a031b3a5cb29f6
 		for unit in self.units:
 			if self.can_make_step(unit):
 				unit.make_step()
