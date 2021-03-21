@@ -2,8 +2,9 @@ import pygame
 from coordinates import Coordinates
 
 class Button():
-	def __init__(self, color, coordinates, width, height, text="", text_color=None, text_size=None):
+	def __init__(self, task, color, coordinates, width, height, text="", text_color=None, text_size=None):
 		self.color = color
+		self.task = task
 		
 		self.coordinates = coordinates
 
@@ -23,8 +24,9 @@ class Button():
 		return False
 
 	def draw(self, screen):
+		if not hasattr(self, "rect"):
+			self.rect = pygame.Rect((self.coordinates.x, self.coordinates.y, self.width, self.height))
 
-		self.rect = pygame.Rect((self.coordinates.x, self.coordinates.y, self.width, self.height))
 		pygame.draw.rect(screen, self.color, self.rect)
 		if(self.text != ""):
 			font = pygame.font.SysFont("comicsans", self.text_size)
