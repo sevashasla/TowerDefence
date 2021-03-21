@@ -1,8 +1,9 @@
 import sys
-sys.path.insert(0, "../Display/")
-sys.path.insert(0, "../Dispatcher/")
-sys.path.insert(0, "../Map/")
-sys.path.insert(0, "../Tower/")
+sys.path.insert(0, "./Display/")
+sys.path.insert(0, "./Dispatcher/")
+sys.path.insert(0, "./Map/")
+sys.path.insert(0, "./Tower/")
+
 
 from Display_graphics import DisplayGraphics
 from Dispatcher_graphics import DispatcherGraphics
@@ -65,12 +66,3 @@ class Game:
 
 	def finish(self):
 		self.finish()
-
-def main():
-	game = Game("graphics")
-	game.start()
-
-
-if __name__ == "__main__":
-	main()
-

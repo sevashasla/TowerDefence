@@ -4,7 +4,7 @@ from Dispatcher import Dispatcher
 import pygame
 import sys
 
-sys.path.insert(0, "../Game/")
+sys.path.insert(0, "/Game/")
 from coordinates import Coordinates
 from interface import Interface
 
