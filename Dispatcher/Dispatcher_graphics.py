@@ -2,6 +2,10 @@ from abc import ABC, abstractmethod
 from Dispatcher import Dispatcher
 import pygame
 
+import sys
+sys.path.insert(0, "../Game/")
+from coordinates import Coordinates
+
 class DispatcherGraphics(Dispatcher):
 	def __init__(self):
 		super().__init__()
@@ -19,5 +23,5 @@ class DispatcherGraphics(Dispatcher):
 				events.append(["stop"])
 			elif event.type == pygame.MOUSEBUTTONUP:
 				pos = pygame.mouse.get_pos()
-				events.append(["mouse_click", pos])
+				events.append(["mouse_click", Coordinates(pos[0], pos[1])])
 		return events
