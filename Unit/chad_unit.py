@@ -10,6 +10,7 @@ class ChadUnit(Unit):
 	range_of_attack = 5
 	step = 1
 	bounty = 20
+	
 		
 
 	def __init__(self, *args, **kwargs):
@@ -17,8 +18,7 @@ class ChadUnit(Unit):
 		self.last_attack_time = 0
 		self.health = 10	
 		self.speed = [0, -1]
-		self.image_name = "weak_unit.jpeg" #change later
 
 
 	def __str__(self):
-		print('ChadUnit:' + '{:.>20}'.format(self.coordinates.__str__()))
+		return 'ChadUnit:' + '{:.>20}'.format(self.coordinates.__str__())

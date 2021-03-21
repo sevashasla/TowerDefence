@@ -40,19 +40,20 @@ class DisplayGraphics(Display):
 
 		current_path = os.path.abspath(os.getcwd())
 
-		#draw tower
-		for tower in field.towers:
-			if not hasattr(tower, "loaded_image"):
-				tower.loaded_image = pygame.image.load(os.path.join(current_path, "../Tower", tower.image_name)).convert() #change?
-				tower.loaded_image = pygame.transform.scale(tower.loaded_image, (30, 30))
-			self.screen.blit(tower.loaded_image, (tower.coordinates.x, tower.coordinates.y))
 
 		#draw units
 		for unit in field.units:
 			if not hasattr(unit, "loaded_image"):
-				unit.loaded_image = pygame.image.load(os.path.join(current_path, "../Unit", unit.image_name)).convert() #change?
+				unit.loaded_image = pygame.image.load(os.path.join(current_path, "../Unit", type(unit).__name__ + ".jpg")).convert() #change?
 				unit.loaded_image = pygame.transform.scale(unit.loaded_image, (20, 20))
 			self.screen.blit(unit.loaded_image, (unit.coordinates.x, unit.coordinates.y))
+
+		#draw tower
+		for tower in field.towers:
+			if not hasattr(tower, "loaded_image"):
+				tower.loaded_image = pygame.image.load(os.path.join(current_path, "../Tower", type(tower).__name__ + ".jpg")).convert() #change?
+				tower.loaded_image = pygame.transform.scale(tower.loaded_image, (30, 30))
+			self.screen.blit(tower.loaded_image, (tower.coordinates.x, tower.coordinates.y))
 
 		pygame.display.flip()
 
