@@ -1,8 +1,10 @@
-from dispatcher import Dispatcher
 import fcntl
 import sys
 import os
 
+from dispatcher import Dispatcher
+sys.path.insert(0, "./Game/")
+from coordinates import Coordinates
 
 class DispatcherConsole(Dispatcher):
 	def __init__(self):
@@ -14,13 +16,18 @@ class DispatcherConsole(Dispatcher):
 		fcntl.fcntl(sys.stdin, fcntl.F_SETFL, orig_fl | os.O_NONBLOCK)
 		print("I am ready to check your signals")
 
-
 	def finish(self):
 		pass
 
 	def get_events(self) -> list:
+		events = []
 		try:
-			events = [[i] for i in sys.stdin.read().split('\n')[:-1]]
+			for event in sys.stdin.read().split('\n')[:-1]:
+				event = event.split(' ')
+				if(event[0] == "place"):
+					pos = [int(event[2]), int(event[3])]
+					event[2] = Coordinates(coordinates=pos)
+				events.append(event)
 		except TypeError:
-			events = []
+			pass
 		return events
