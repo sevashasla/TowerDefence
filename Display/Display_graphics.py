@@ -27,19 +27,27 @@ class DisplayGraphics(Display):
 		self.screen = pygame.display.set_mode((self.width, self.height))
 		self.clock = pygame.time.Clock()
 
-	def show(self, field):
+	def show(self, field, pocket):
 		self.clock.tick(self.fps)
 		
 		self.screen.fill(WHITE)
 
 		#draw interface
 		self.interface.draw(self.screen)
+
+
 		
 		#draw road
 		pygame.draw.polygon(self.screen, BLACK, field.road.vertices)
 
-		current_path = os.path.abspath(os.getcwd())
 
+		#draw pocket
+		font = pygame.font.SysFont("comicsans", 20)
+		text = font.render("Money: {}".format(pocket.getMoney()), True, BLACK)
+		text_rect = text.get_rect(center=Coordinates(450, 15).to_tuple())
+		self.screen.blit(text, text_rect)		
+
+		current_path = os.path.abspath(os.getcwd())
 
 		#draw units
 		for unit in field.units:

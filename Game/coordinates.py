@@ -8,8 +8,8 @@ class Coordinates:
 			self.x = coordinates[0]
 			self.y = coordinates[1]
 
-	def to_list(self) -> list:
-		return [self.x, self.y]
+	def to_tuple(self) -> tuple:
+		return (self.x, self.y)
 
 
 	def __str__(self) -> str:
