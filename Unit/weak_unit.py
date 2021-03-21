@@ -6,11 +6,10 @@ from unit import Unit
 class WeakUnit(Unit):
 
 	damage = 1
-	speed_of_attack = 1	
+	speed_of_attack = 1.25
 	range_of_attack = 5
-	step = 1
 	bounty = 5
-		
+	
 
 	def __init__(self, *args, **kwargs):
 		self.coordinates= kwargs['coordinates']

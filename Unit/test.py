@@ -1,17 +1,24 @@
 import unit_factories
+import sys
+sys.path.insert(0, "../Game/")
+from coordinates import Coordinates
+
+a = Coordinates(2, 5)
 
 weak_creator = unit_factories.WeakUnitCreator()
-weak = weak_creator.create(coordinates = [2, 5])
+weak = weak_creator.create(coordinates = a)
 
-print('weak set at coordinates x = {}, y = {}'.format(weak.position[0], weak.position[1]), '; health = ', weak.health, '; damage = ', weak.damage)
+print('weak set at coordinates x = {}, y = {}'.format(weak.coordinates.x, weak.coordinates.y), '; health = ', weak.health, '; damage = ', weak.damage)
 
 
 average_creator = unit_factories.AverageUnitCreator()
-average = average_creator.create(coordinates = [0, -3])
+average = average_creator.create(coordinates = a)
 
-print('average set at coordinates x = {}, y = {}'.format(average.position[0], average.position[1]), '; health = ', average.health, '; damage = ', average.damage)
+print('average set at coordinates x = {}, y = {}'.format((average.coordinates.x, average.coordinates.y), '; health = ', average.health, '; damage = ', average.damage))
 
 chad_creator = unit_factories.ChadUnitCreator()
-chad = chad_creator.create(coordinates = [7, 3])
+chad = chad_creator.create(coordinates = a)
 
-print('chad set at coordinates x = {}, y = {}'.format(chad.position[0], chad.position[1]), '; health = ', chad.health, '; damage = ', chad.damage)
+print('chad set at coordinates x = {}, y = {}'.format(chad.coordinates.x, chad.coordinates.y), '; health = ', chad.health, '; damage = ', chad.damage)
+
+print(chad.update_time)

@@ -8,7 +8,6 @@ class ChadUnit(Unit):
 	damage = 4
 	speed_of_attack = 0.75
 	range_of_attack = 5
-	step = 1
 	bounty = 20
 		
 
