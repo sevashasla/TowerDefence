@@ -1,4 +1,4 @@
-from Display import Display
+from display import Display
 import os
 import sys
 

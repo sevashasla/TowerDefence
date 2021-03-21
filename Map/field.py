@@ -2,6 +2,7 @@ from road import Road, FieldError
 from castle import Castle
 from random import randint
 from spawn_point import SpawnPoint
+import time
 
 
 import sys
@@ -18,14 +19,14 @@ class Field:
 	x_size = 500
 	y_size = 500
 
-	def __init__(self, update_rate):
+	def __init__(self):
 		self.road = Road(self.x_size, self.y_size)
 		self.castle = Castle(self.x_size, self.y_size)
 		self.spawn_point = SpawnPoint(self.x_size, self.y_size)
 		self.units = []
 		self.towers = []
 		self.waves_spawned = 0
-		self.update_rate = update_rate
+		self.update_rate = 0.1
 		self.last_update = 0.0
 
 
@@ -41,11 +42,11 @@ class Field:
 
 
 	def can_place_tower(self, coords) -> bool:
-		# try:
-		# 	if not self.road.belongs_to_road(coords) and not self.castle.belongs_to_castle(coords):
-		# 		return self.cells[coords[0]][coords[1]] is None
-		# except IndexError:
-		# 	return False
+		try:
+			if not self.road.belongs_to_road(coords) and not self.castle.belongs_to_castle(coords):
+				return True
+		except IndexError:
+			return False
 
 		return True
 
@@ -59,12 +60,6 @@ class Field:
 
 	def destroy (self, tower):
 		self.towers.remove(tower)
-
-
-	def move(self, coords_1, coords_2):
-		# self.cells[coords_2[0]][coords_2[1]] = self.cells[coords_1[0]][coords_1[1]]
-		# self.cells[coords_1[0]][coords_1[1]] = None
-		pass
 
 
 	def spawn_units(self):
@@ -110,14 +105,17 @@ class Field:
 					tower.attack(unit)
 
 	def collect_garbage(self):
-		for unit in units:
+		for unit in self.units:
 			if unit.health <= 0:
 				Pocket.addMoney(unit.bounty)
-				units.remove(unit)
+				self.units.remove(unit)
+		for tower in self.towers:
+			if tower.health <= 0:
+				self.towers.remov(tower)
 
-	def field_update():
-		current_time = time.clock()
-		if current_time - self.last_update >= update_rate:
+	def update(self):
+		current_time = time.time()
+		if current_time - self.last_update >= self.update_rate:
 			self.units_step()
 			self.towers_attack()
 			self.units_attack()

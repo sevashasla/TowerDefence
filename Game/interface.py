@@ -1,5 +1,5 @@
 import pygame
-from Button import Button
+from button import Button
 from coordinates import Coordinates
 
 WHITE = (255, 255, 255)

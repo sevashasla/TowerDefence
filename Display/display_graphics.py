@@ -3,7 +3,7 @@ import sys
 import os
 
 sys.path.insert(0, "../Game/")
-from Display import Display
+from display import Display
 from coordinates import Coordinates
 from interface import Interface
 

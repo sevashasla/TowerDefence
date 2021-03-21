@@ -1,4 +1,4 @@
-from Dispatcher import Dispatcher
+from dispatcher import Dispatcher
 import fcntl
 import sys
 import os

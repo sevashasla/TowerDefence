@@ -5,7 +5,6 @@ class MoneyError(Exception):
 class Pocket:
 
         __isinstance = None
-
         money = 0
 
         def __init__(self):
@@ -13,7 +12,7 @@ class Pocket:
                 pass
             else:
                 self.getInstance()
-
+        
         @classmethod
         def getInstance(cls):
             if not cls.__isinstance:

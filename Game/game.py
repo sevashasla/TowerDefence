@@ -4,11 +4,11 @@ sys.path.insert(0, "../Dispatcher/")
 sys.path.insert(0, "../Map/")
 sys.path.insert(0, "../Tower/")
 
-from Display_graphics import DisplayGraphics
-from Dispatcher_graphics import DispatcherGraphics
+from display_graphics import DisplayGraphics
+from dispatcher_graphics import DispatcherGraphics
 
-from Display_console import DisplayConsole
-from Dispatcher_console import DispatcherConsole
+from display_console import DisplayConsole
+from dispatcher_console import DispatcherConsole
 
 from field import Field
 from interface import Interface
@@ -59,7 +59,7 @@ class Game:
 
 					print("You've click at", pos)
 			self.display.show(self.field)
-			self.field.step()
+			self.field.update()
 		self.dispatcher.finish()
 		self.display.finish()
 
