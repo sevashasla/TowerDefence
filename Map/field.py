@@ -6,8 +6,8 @@ import time
 
 
 import sys
-sys.path.insert(0, "../Game/")
-sys.path.insert(0, "../Tower/")
+sys.path.insert(0, "/Game/")
+sys.path.insert(0, "/Tower/")
 
 
 from coordinates import Coordinates
@@ -48,7 +48,7 @@ class Field:
 		except IndexError:
 			return False
 
-		return True
+		return True #change later
 
 
 	def place_tower(self, tower):
@@ -67,6 +67,7 @@ class Field:
 		for unit in self.spawn_point.wave(self.waves_spawned):
 			unit.make_step()
 			self.units.append(unit)
+
 
 	def units_step(self):
 		

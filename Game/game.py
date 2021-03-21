@@ -1,8 +1,9 @@
 import sys
-sys.path.insert(0, "../Display/")
-sys.path.insert(0, "../Dispatcher/")
-sys.path.insert(0, "../Map/")
-sys.path.insert(0, "../Tower/")
+sys.path.insert(0, "./Display/")
+sys.path.insert(0, "./Dispatcher/")
+sys.path.insert(0, "./Map/")
+sys.path.insert(0, "./Tower/")
+
 
 from display_graphics import DisplayGraphics
 from dispatcher_graphics import DispatcherGraphics
@@ -23,6 +24,7 @@ class Game:
 	def __init__(self, mode):
 		self.width = 512
 		self.height = 512 + 256
+		self.pocket = Pocket()
 
 		if(mode == "console"):
 			self.display = DisplayConsole()
@@ -58,19 +60,11 @@ class Game:
 					self.field.place_tower(creators[class_of_tower].create(pos))
 
 					print("You've click at", pos)
-			self.display.show(self.field)
+
+			self.display.show(self.field, self.pocket)
 			self.field.update()
 		self.dispatcher.finish()
 		self.display.finish()
 
 	def finish(self):
 		self.finish()
-
-def main():
-	game = Game("graphics")
-	game.start()
-
-
-if __name__ == "__main__":
-	main()
-

@@ -12,8 +12,10 @@ class DisplayConsole(Display):
 	def end(self):
 		print("Game is over!")
 
-	def show(self, field):
+	def show(self, field, pocket):
 		os.system('clear')
+		print(pocket.getMoney())
+
 		for unit in field.units:
 			print(unit)
 

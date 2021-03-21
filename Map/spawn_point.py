@@ -1,8 +1,8 @@
 from random import randint
 import sys
 
-sys.path.insert(0, "../Game/")
-sys.path.insert(0, "../Unit/")
+sys.path.insert(0, "./Game/")
+sys.path.insert(0, "./Unit/")
 
 from unit_factories import *
 from coordinates import Coordinates
