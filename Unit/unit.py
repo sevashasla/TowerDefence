@@ -19,7 +19,7 @@ class Unit(ABC):
 				break
 
 	def can_attack(self, tower):
-		return (self.position.x - tower.position.x)**2 + (self.position.y - tower.position.y)**2 <= range_of_attack**2
+		return (self.coordinates.x - tower.coordinates.x)**2 + (self.coordinates.y - tower.coordinates.y)**2 <= range_of_attack**2
 
 	def get_health(self):
 		return self.health
@@ -29,14 +29,16 @@ class Unit(ABC):
 
 
 	def make_step(self):
-		pass
+		self.coordinates.x += self.speed[0]
+		self.coordinates.y += self.speed[1]
 
 	def __del__(self):
 		# Pocket.addMoney(self.bounty)
-                pass
-
-        def __str__(self) -> str:
-            return ('Unit ' + str(type(self)) + '; coords = ' + self.position.__str__())
+		pass
+		
+	@abstractmethod
+	def __str__(self) -> str:
+		pass
 
 
 class UnitCreator(ABC):

@@ -1,3 +1,5 @@
+
+
 class FieldError(Exception):
 	pass
 
@@ -31,22 +33,21 @@ class Road:
 				
 		self.vertices = []
 		self.vertices.append((x_size * 9 // 20, 0))
-		self.vertices.append((x_size * 11 // 20, 0))
 		self.vertices.append((x_size * 9 // 20, y_size * 8 // 20))
-		self.vertices.append((x_size * 11 // 20, y_size * 6 // 20))
-		self.vertices.append((x_size * 17 // 20, y_size * 6 // 20))
 		self.vertices.append((x_size * 15 // 20, y_size * 8 // 20))
-		self.vertices.append((x_size * 11 // 20, y_size * 10 // 20))
-		self.vertices.append((x_size * 17 // 20, y_size * 12 // 20))
+		self.vertices.append((x_size * 15 // 20, y_size * 10 // 20))
 		self.vertices.append((x_size * 3 // 20, y_size * 10 // 20))
-		self.vertices.append((x_size * 5 // 20, y_size * 12 // 20))
 		self.vertices.append((x_size * 3 // 20, y_size * 16 // 20))
-		self.vertices.append((x_size * 5 // 20, y_size * 14 // 20))
-		self.vertices.append((x_size * 11 // 20, y_size * 14 // 20))
 		self.vertices.append((x_size * 9 // 20, y_size * 16 // 20))
 		self.vertices.append((x_size * 9 // 20, y_size - 1))
 		self.vertices.append((x_size * 11 // 20, y_size - 1))
-
+		self.vertices.append((x_size * 11 // 20, y_size * 14 // 20))
+		self.vertices.append((x_size * 5 // 20, y_size * 14 // 20))
+		self.vertices.append((x_size * 5 // 20, y_size * 12 // 20))
+		self.vertices.append((x_size * 17 // 20, y_size * 12 // 20))		
+		self.vertices.append((x_size * 17 // 20, y_size * 6 // 20))
+		self.vertices.append((x_size * 11 // 20, y_size * 6 // 20))
+		self.vertices.append((x_size * 11 // 20, 0))
 		# self.edges = self.pixels
 
 
