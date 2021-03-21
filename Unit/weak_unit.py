@@ -17,10 +17,7 @@ class WeakUnit(Unit):
 		self.last_attack_time = 0
 		self.health = 3
 		self.speed = [0, -2]
-<<<<<<< HEAD
 		self.image_name = "weak_unit.jpeg"
-=======
->>>>>>> 585b772da578a7523f92f23d20a031b3a5cb29f6
 
 	def __str__(self):
 		print('WeakUnit:' + '{:.>20}'.format(self.coordinates.__str__()))
