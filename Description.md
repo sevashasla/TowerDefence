@@ -7,89 +7,89 @@
 
 Модель игры:
     Все классы юнитов - наследники абстрактного класса Unit
-Методы и поля Unit: 
-поле - coordinates  
-поле - health
-поле - damage
-поле - speed_of_attack
-поле - range_of_attack
-поле - speed
-поле - image_name
-поле - bounty
-метод  - attack
-def __str__
+Методы и поля Unit:
+1) поле - coordinates
+2) поле - health
+3) поле - damage
+4) поле - speed_of_attack
+5) поле - range_of_attack
+6) поле - speed
+7) поле - image_name
+8) поле - bounty
+9) метод  - attack
+10) def __str__
 
 
-    Все классы башен - наследники абстрактного класса Tower
+Все классы башен - наследники абстрактного класса Tower
 Методы Tower:
-поле - coordinates
-поле -  health
-поле - damage
-поле - range_of_attack
-поле -  speed_of_attack
-поле - image_name
-поле - cost
-метод - attack
-def __str__
+1) поле - coordinates
+2) поле -  health
+3) поле - damage
+4) поле - range_of_attack
+5) поле -  speed_of_attack
+6) поле - image_name
+7) поле - cost
+8) метод - attack
+9) def __str__
     
 
 
-    Против игрока играет компьютер, класс Spawn point создает волны врагов, передает классу Field, который следит за ними.
+Против игрока играет компьютер, класс Spawn point создает волны врагов, передает классу Field, который следит за ними.
 
 Базовые юниты:
-Быстрый Weak
-Средний Average
-Сильный  - Chad
+1) Быстрый Weak
+2) Средний Average
+3) Сильный  - Chad
 Все распределены по силе, скорости передвижения, количеству здоровья.
 
 Башни:
-Weak
-Average
-Chad 
+1) Weak
+2) Average
+3) Chad 
 
 Spawn point: Возвращает массив unit-ов, которые выпускаются на поле
 
 class Pocket:
-поле Money
-метод getMoney - проверить запрошенное количество денег
-метод lendMoney - выделить деньги
-метод addMoney - получить деньги
+1) поле Money
+2) метод getMoney - проверить запрошенное количество денег
+3) метод lendMoney - выделить деньги
+4) метод addMoney - получить деньги
 
 class Castle:
-поле HP
-поле - image_name
+1) поле HP
+2) поле - image_name
 
 class Road:
-поле vertices - координаты вершин
-поле pixels - массив bool
+1) поле vertices - координаты вершин
+2) поле pixels - массив bool
 
 class Coordinates
-поля x и y.
-def __str__
+1) поля x и y.
+2) def __str__
 
 class Field
-поле - Road 
-поле - Castle 
-метод - place_tower
-метод - create_unit
-массив Tower-ов
-массив Unit-ов
-метод update - делает “шаг” цикла
+1) поле - Road 
+2) поле - Castle 
+3) метод - place_tower
+4) метод - create_unit
+5) towers - массив Tower-ов
+6) units - массив Unit-ов
+7) метод update - делает “шаг” цикла
 
 Game:
-поле pocket
-метод - start
-метод - finish
+1) поле pocket
+2) метод - start
+3) метод - finish
 
 Display
-start
-finish
-draw
+1) метод start
+2) метод finish
+3) метод draw
 
 Dispatcher
-start
-finish
-get_events
+1) метод start
+2) метод finish
+3) метод get_events
 
 Interface
 массив кнопок
