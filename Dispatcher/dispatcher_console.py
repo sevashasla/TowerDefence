@@ -2,9 +2,8 @@ import fcntl
 import sys
 import os
 
-from dispatcher import Dispatcher
-sys.path.insert(0, "./Game/")
-from coordinates import Coordinates
+from .dispatcher import Dispatcher
+from ..Game.coordinates import Coordinates
 
 class DispatcherConsole(Dispatcher):
 	def __init__(self):

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
-from weak_tower import WeakTower
-from average_tower import AverageTower
-from tower import Tower
+from .weak_tower import WeakTower
+from .average_tower import AverageTower
+from .tower import Tower
 
 class TowerCreator(ABC):
 	@abstractmethod

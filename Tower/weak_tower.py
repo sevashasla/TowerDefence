@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from tower import Tower
+from .tower import Tower
 
 
 class WeakTower(Tower):

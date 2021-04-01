@@ -1,22 +1,15 @@
-import sys
-sys.path.insert(0, "./Display/")
-sys.path.insert(0, "./Dispatcher/")
-sys.path.insert(0, "./Map/")
-sys.path.insert(0, "./Tower/")
+from ..Display.display_graphics import DisplayGraphics
+from ..Dispatcher.dispatcher_graphics import DispatcherGraphics
 
+from ..Display.display_console import DisplayConsole
+from ..Dispatcher.dispatcher_console import DispatcherConsole
 
-from display_graphics import DisplayGraphics
-from dispatcher_graphics import DispatcherGraphics
+from ..Map.field import Field
+from .interface import Interface
 
-from display_console import DisplayConsole
-from dispatcher_console import DispatcherConsole
-
-from field import Field
-from interface import Interface
-
-from pocket import Pocket
-from coordinates import Coordinates
-from tower_factories import *
+from .pocket import Pocket
+from .coordinates import Coordinates
+from ..Tower.tower_factories import *
 
 # sys.intern - equate via reference?
 

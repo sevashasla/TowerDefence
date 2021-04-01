@@ -1,5 +1,5 @@
 import pygame
-from coordinates import Coordinates
+from .coordinates import Coordinates
 
 class Button():
 	def __init__(self, task, color, coordinates, width, height, text="", text_color=None, text_size=None):

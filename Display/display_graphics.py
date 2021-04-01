@@ -2,10 +2,9 @@ import pygame
 import sys
 import os
 
-sys.path.insert(0, "./Game/")
-from display import Display
-from coordinates import Coordinates
-from interface import Interface
+from .display import Display
+from ..Game.coordinates import Coordinates
+from ..Game.interface import Interface
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -52,14 +51,14 @@ class DisplayGraphics(Display):
 		#draw units
 		for unit in field.units:
 			if not hasattr(unit, "loaded_image"):
-				unit.loaded_image = pygame.image.load(os.path.join(current_path, "Unit", type(unit).__name__ + ".jpg")).convert() #change?
+				unit.loaded_image = pygame.image.load(os.path.join(current_path, "TowerDefence/Unit", type(unit).__name__ + ".jpg")).convert() #change?
 				unit.loaded_image = pygame.transform.scale(unit.loaded_image, (20, 20))
 			self.screen.blit(unit.loaded_image, (unit.coordinates.x, unit.coordinates.y))
 
 		#draw tower
 		for tower in field.towers:
 			if not hasattr(tower, "loaded_image"):
-				tower.loaded_image = pygame.image.load(os.path.join(current_path, "Tower", type(tower).__name__ + ".jpg")).convert() #change?
+				tower.loaded_image = pygame.image.load(os.path.join(current_path, "TowerDefence/Tower", type(tower).__name__ + ".jpg")).convert() #change?
 				tower.loaded_image = pygame.transform.scale(tower.loaded_image, (30, 30))
 			self.screen.blit(tower.loaded_image, (tower.coordinates.x, tower.coordinates.y))
 

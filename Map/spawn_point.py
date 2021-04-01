@@ -1,12 +1,9 @@
 from random import randint
-import sys
 import time
 
-sys.path.insert(0, "./Game/")
-sys.path.insert(0, "./Unit/")
 
-from unit_factories import *
-from coordinates import Coordinates
+from ..Unit.unit_factories import *
+from ..Game.coordinates import Coordinates
 
 class SpawnPoint:
     

@@ -1,8 +1,8 @@
-from weak_unit import WeakUnit
-from unit import UnitCreator
-from weak_unit import WeakUnit
-from average_unit import AverageUnit
-from chad_unit import ChadUnit
+from .weak_unit import WeakUnit
+from .unit import UnitCreator
+from .weak_unit import WeakUnit
+from .average_unit import AverageUnit
+from .chad_unit import ChadUnit
 
 
 class WeakUnitCreator(UnitCreator):

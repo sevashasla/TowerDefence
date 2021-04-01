@@ -1,4 +1,4 @@
-from display import Display
+from .display import Display
 import os
 import sys
 import time
@@ -21,9 +21,10 @@ class DisplayConsole(Display):
 			os.system('clear')
 			print(pocket.getMoney())
 
-		for unit in field.units:
-			print(unit)
+			for unit in field.units:
+				print(unit)
 
-		for tower in field.towers:
-			print(tower)
+			for tower in field.towers:
+				print(tower)
+
 			self.last_time_update = time.time()

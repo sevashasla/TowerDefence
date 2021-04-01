@@ -1,18 +1,13 @@
-from road import Road, FieldError
-from castle import Castle
+from .road import Road, FieldError
+from .castle import Castle
 from random import randint
-from spawn_point import SpawnPoint
+from .spawn_point import SpawnPoint
 import time
 
 
-import sys
-sys.path.insert(0, "/Game/")
-sys.path.insert(0, "/Tower/")
-
-
-from coordinates import Coordinates
-from tower_factories import *
-from pocket import Pocket
+from ..Game.coordinates import Coordinates
+from ..Tower.tower_factories import *
+from ..Game.pocket import Pocket
 
 class Field:
 

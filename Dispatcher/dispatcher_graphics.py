@@ -1,12 +1,11 @@
 from abc import ABC, abstractmethod
-from dispatcher import Dispatcher
+from .dispatcher import Dispatcher
 
 import pygame
 import sys
 
-sys.path.insert(0, "/Game/")
-from coordinates import Coordinates
-from interface import Interface
+from ..Game.coordinates import Coordinates
+from ..Game.interface import Interface
 
 class DispatcherGraphics(Dispatcher):
 	def __init__(self):

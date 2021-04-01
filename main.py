@@ -1,9 +1,9 @@
 import sys
-from Game import game
+from .Game.game import Game
 
 def main():
 	mode = sys.argv[1]
-	game_ = game.Game(mode)
+	game_ = Game(mode)
 	game_.start()
 
 if __name__ == "__main__":
