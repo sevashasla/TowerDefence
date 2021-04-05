@@ -2,22 +2,14 @@ class MoneyError(Exception):
     pass
 
 
-class Pocket:
+class Pocket(object):
 
-        __isinstance = None
         money = 0
 
-        def __init__(self):
-            if not Pocket.__isinstance:
-                pass
-            else:
-                self.getInstance()
-        
-        @classmethod
-        def getInstance(cls):
-            if not cls.__isinstance:
-                cls.__isinstance = Pocket()
-            return cls.__isinstance
+        def __new__(cls):
+            if not hasattr(cls, 'instance'):
+                cls.__instance = super(Pocket, cls).__new__(cls)
+            return cls.__instance
 
         @classmethod
         def getMoney(cls):
