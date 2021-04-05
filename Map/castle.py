@@ -1,19 +1,20 @@
 class Castle:
 
-    def __init__(self, x_size, y_size):
-        self.health = 100
-        self.produce_money = 1
-        self.x_size = x_size
-        self.y_size = y_size
+    def __init__(self, width, height, castle_parameters):
+        self.health = castle_parameters["health"]
+        self.produce_money = castle_parameters["produce_money"]
+        self.width = width
+        self.height = height
 
 
-    def belongs_to_castle(self, coordinates):
-        return 0 <= coordinates.y<= self.y_size//20 and self.x_size*7//20 <= coordinates.x <= self.x_size*12//20
+    def belongs_to_castle(self, coordinates) -> bool:
+        #####STRANGE#######
+        return 0 <= coordinates.y <= self.height//20 and self.width*7//20 <= coordinates.x <= self.width*12//20
 
 
-    def get_health(self):
+    def get_health(self) -> int:
         return self.health
 
     
-    def decrease_health(self, damage):
+    def decrease_health(self, damage) -> None:
         self.health -= damage

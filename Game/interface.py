@@ -10,12 +10,12 @@ BLUE = (0, 0, 255)
 
 class Interface:
 	# def __init__(self, color, coordinates, width, height):
-	def __init__(self):
+	def __init__(self, screen_width, screen_height, width, height):
 
 		self.color = BLUE
-		self.coordinates = Coordinates(0, 512)
-		self.width = 512
-		self.height = 256
+		self.coordinates = Coordinates(screen_height, 0)
+		self.width = width
+		self.height = height
 
 		self.buttons = [Button("WeakTower", GREEN, Coordinates(128, 512 + 128 + 64), 128, 64, "weak tower", BLACK, 25), 
 						Button("AverageTower", RED, Coordinates(256 + 128, 512 + 128 + 64), 128, 64, "average tower", BLACK, 25)]

@@ -14,12 +14,12 @@ BLUE = (0, 0, 255)
 
 
 class DisplayGraphics(Display):
-	def __init__(self, width, height):
+	def __init__(self, interface, width, height):
 		super().__init__()
 		self.width = width
 		self.height = height
 		self.fps = 30
-		self.interface = Interface()
+		self.interface = interface
 	
 	def start(self):
 		pygame.init()
@@ -34,16 +34,14 @@ class DisplayGraphics(Display):
 		#draw interface
 		self.interface.draw(self.screen)
 
-
-		
 		#draw road
-		pygame.draw.polygon(self.screen, BLACK, field.road.vertices)
-
+		for rectangle in field.road.rectangles:
+			pygame.draw.rect(self.screen, BLACK, rectangle.to_tuple())
 
 		#draw pocket
 		font = pygame.font.SysFont("comicsans", 20)
 		text = font.render("Money: {}".format(pocket.getMoney()), True, BLACK)
-		text_rect = text.get_rect(center=Coordinates(450, 15).to_tuple())
+		text_rect = text.get_rect(center=Coordinates(450, 15).to_tuple()) #STRANGE?
 		self.screen.blit(text, text_rect)		
 
 		current_path = os.path.abspath(os.getcwd())

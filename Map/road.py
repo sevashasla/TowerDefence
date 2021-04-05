@@ -1,58 +1,35 @@
+from dataclasses import dataclass
 
+@dataclass
+class Rectangle:
+	x1: int
+	y1: int
+	x2: int
+	y2: int
+	def to_tuple(self):
+		return (self.x1, self.y1, self.x2, self.y2)
 
 class FieldError(Exception):
 	pass
 
 
 class Road: 
+	def __init__(self, width, height, rectangles):
+		self.width = width
+		self.height = height
+		self.rectangles = []
+		for rectangle in rectangles:
+			self.rectangles.append(Rectangle(min(rectangle["x1"], rectangle["x2"]), 
+				min(rectangle["y1"], rectangle["y2"]), 
+				max(rectangle["x1"], rectangle["x2"]), 
+				max(rectangle["y1"], rectangle["y2"])))
 
-	def __init__(self, x_size, y_size):
-		self.pixels = []
-		self.x_size = x_size
-		self.y_size = y_size
-		for i in range(self.y_size):
-			self.pixels.append([False] * self.x_size)
-		for y in range(0, y_size * 8 // 20):
-			for x in range(x_size * 9 // 20, x_size * 11 // 20):
-				self.pixels[x][y] = True
-		for y in range(y_size * 6 // 20, y_size * 8 // 20):
-			for x in range(x_size * 11 // 20, x_size * 17 // 20):
-				self.pixels[x][y] = True	
-		for y in range(y_size * 8 // 20, y_size * 12 // 20):
-			for x in range(x_size * 15 // 20, x_size * 17 // 20):
-				self.pixels[x][y] = True
-		for y in range(y_size * 10 // 20, y_size * 12 // 20):
-			for x in range(x_size * 3 // 20, x_size * 15 // 20):
-				self.pixels[x][y] = True
-		for y in range(y_size * 12 // 20, y_size * 16 // 20):
-			for x in range(x_size * 5 // 20, x_size * 9 // 20):
-				self.pixels[x][y] = True
-		for y in range(y_size * 16 // 20, y_size):
-			for x in range(x_size * 9 // 20, x_size * 11 // 20):
-				self.pixels[x][y] = True
-				
-		self.vertices = []
-		self.vertices.append((x_size * 9 // 20, 0))
-		self.vertices.append((x_size * 9 // 20, y_size * 8 // 20))
-		self.vertices.append((x_size * 15 // 20, y_size * 8 // 20))
-		self.vertices.append((x_size * 15 // 20, y_size * 10 // 20))
-		self.vertices.append((x_size * 3 // 20, y_size * 10 // 20))
-		self.vertices.append((x_size * 3 // 20, y_size * 16 // 20))
-		self.vertices.append((x_size * 9 // 20, y_size * 16 // 20))
-		self.vertices.append((x_size * 9 // 20, y_size - 1))
-		self.vertices.append((x_size * 11 // 20, y_size - 1))
-		self.vertices.append((x_size * 11 // 20, y_size * 14 // 20))
-		self.vertices.append((x_size * 5 // 20, y_size * 14 // 20))
-		self.vertices.append((x_size * 5 // 20, y_size * 12 // 20))
-		self.vertices.append((x_size * 17 // 20, y_size * 12 // 20))		
-		self.vertices.append((x_size * 17 // 20, y_size * 6 // 20))
-		self.vertices.append((x_size * 11 // 20, y_size * 6 // 20))
-		self.vertices.append((x_size * 11 // 20, 0))
-		# self.edges = self.pixels
+	def belong_to_rectangle(self, rectangle, coordinates) -> bool:
+		return (rectangle.x1 <= coordinates.x <= rectangle.x2) and (rectangle.y1 <= coordinates.y <= rectangle.y2)
 
-
-	def belongs_to_road(self, coordinates):
-		if coordinates.x < 0 or coordinates.x >= self.x_size or coordinates.y < 0 or coordinates.y >= self.y_size:
+	def belongs_to_road(self, coordinates) -> bool:
+		if coordinates.x < 0 or coordinates.x >= self.width or coordinates.y < 0 or coordinates.y >= self.height:
 			raise FieldError
-		return self.pixels[coordinates.x][coordinates.y] 
-
+		for rectangle in self.rectangles:
+			if self.belong_to_rectangle(rectangle, coordinates):
+				return True

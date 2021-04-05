@@ -3,7 +3,7 @@ from .castle import Castle
 from random import randint
 from .spawn_point import SpawnPoint
 import time
-
+import json
 
 from ..Game.coordinates import Coordinates
 from ..Tower.tower_factories import *
@@ -11,13 +11,14 @@ from ..Game.pocket import Pocket
 
 class Field:
 
-	x_size = 500
-	y_size = 500
 
-	def __init__(self):
-		self.road = Road(self.x_size, self.y_size)
-		self.castle = Castle(self.x_size, self.y_size)
-		self.spawn_point = SpawnPoint(self.x_size, self.y_size)
+	def __init__(self, data):
+		self.width = data["shape"]["width"]
+		self.height = data["shape"]["height"]
+		self.road = Road(self.width, self.height, data["road"])
+		self.castle = Castle(self.width, self.height, data["castle"])
+		self.spawn_point = SpawnPoint(self.width, self.height, data["waves"])
+		
 		self.units = []
 		self.towers = []
 		self.waves_spawned = 0
@@ -31,7 +32,7 @@ class Field:
 			new_coords_y = unit.coordinates.y + randint(2, 18) * unit.speed[1]
 			new_coords = Coordinates(new_coords_x, new_coords_y)
 			if self.road.belongs_to_road(new_coords):
-				return self.road.pixels[new_coords.x][new_coords.y]
+				return True
 		except IndexError:
 			return False
 

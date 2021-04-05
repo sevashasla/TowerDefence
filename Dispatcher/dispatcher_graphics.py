@@ -8,9 +8,9 @@ from ..Game.coordinates import Coordinates
 from ..Game.interface import Interface
 
 class DispatcherGraphics(Dispatcher):
-	def __init__(self):
+	def __init__(self, interface):
 		super().__init__()
-		self.interface = Interface()
+		self.interface = interface
 		self.button_with_pos = []
 
 	def start(self):

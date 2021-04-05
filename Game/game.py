@@ -10,13 +10,22 @@ from .interface import Interface
 from .pocket import Pocket
 from .coordinates import Coordinates
 from ..Tower.tower_factories import *
-
-# sys.intern - equate via reference?
+import os
+import json
 
 class Game:
 	def __init__(self, mode):
-		self.width = 512
-		self.height = 512 + 256
+		current_path = os.getcwd()
+		with open(os.path.join(current_path, "TowerDefence/Data/last_completed_level.json")) as f:
+			level = json.loads(os.path.join(f.read()))["last_completed_level"] + 1
+
+		with open(os.path.join(current_path, "TowerDefence/Data/level" + str(level) + ".json")) as f:
+			data = json.loads(f.read())
+			interface_width = data["interface"]["width"]
+			interface_height = data["interface"]["height"]
+			self.width = data["shape"]["width"]
+			self.height = data["shape"]["height"]
+
 		self.pocket = Pocket()
 
 		if(mode == "console"):
@@ -24,13 +33,13 @@ class Game:
 			self.dispatcher = DispatcherConsole()
 			self.interface = None
 		elif(mode == "graphics"):
-			self.display = DisplayGraphics(self.width, self.height)
-			self.dispatcher = DispatcherGraphics()
-			self.interface = Interface()
+			self.interface = Interface(self.width, self.height, interface_width, interface_height)
+			self.display = DisplayGraphics(self.interface, max(self.width, interface_width), self.height + interface_height)
+			self.dispatcher = DispatcherGraphics(self.interface)
 		else:
 			assert "wrong type of mode"
 
-		self.field = Field()
+		self.field = Field(data)
 		self.pocket = Pocket()
 
 	def start(self):
