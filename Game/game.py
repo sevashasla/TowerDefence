@@ -28,17 +28,16 @@ class Game:
 
 		self.pocket = Pocket()
 
-		if(mode == "console"):
+		if mode == "console":
 			self.display = DisplayConsole()
 			self.dispatcher = DispatcherConsole()
 			self.interface = None
-		elif(mode == "graphics"):
+		elif mode == "graphics":
 			self.interface = Interface(self.width, self.height, interface_width, interface_height)
 			self.display = DisplayGraphics(self.interface, max(self.width, interface_width), self.height + interface_height)
 			self.dispatcher = DispatcherGraphics(self.interface)
 		else:
-			assert "wrong type of mode"
-
+			raise ValueError("wrong type of mode")
 		self.field = Field(data)
 		self.pocket = Pocket()
 
@@ -48,9 +47,7 @@ class Game:
 
 		running = True
 
-
 		creators = {"WeakTower": WeakTowerCreator(), "AverageTower": AverageTowerCreator()}
-		
 
 		while running:
 			for event in self.dispatcher.get_events():
