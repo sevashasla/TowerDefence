@@ -2,6 +2,7 @@ import sys
 from .Game.game import Game
 
 def main():
+<<<<<<< HEAD
 	try:
 		mode = sys.argv[1]
 	except IndexError:
@@ -11,6 +12,9 @@ def main():
 			"To get more visit our github: https://github.com/sevashasla/TowerDefence/"
 			)
 		return
+=======
+	mode = sys.argv[1]
+>>>>>>> delete it later
 	game_ = Game(mode)
 	game_.start()
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import time
 from ..Game.coordinates import Coordinates
 
@@ -22,6 +23,20 @@ class Castle:
     def belongs_to_castle(self, coordinates) -> bool:
         return abs(coordinates.x - (self.coordinates.x + self.width / 2)) <= self.width / 2 and \
                abs(coordinates.y - (self.coordinates.y + self.height / 2)) <= self.height / 2
+=======
+class Castle:
+
+    def __init__(self, width, height, castle_parameters):
+        self.health = castle_parameters["health"]
+        self.produce_money = castle_parameters["produce_money"]
+        self.width = width
+        self.height = height
+
+
+    def belongs_to_castle(self, coordinates) -> bool:
+        #####STRANGE#######
+        return 0 <= coordinates.y <= self.height//20 and self.width*7//20 <= coordinates.x <= self.width*12//20
+>>>>>>> delete it later
 
 
     def get_health(self) -> int:

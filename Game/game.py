@@ -9,7 +9,10 @@ from .interface import Interface
 
 from .pocket import Pocket
 from .coordinates import Coordinates
+<<<<<<< HEAD
 from .errors import *	
+=======
+>>>>>>> delete it later
 from ..Tower.tower_factories import *
 import os
 import json
@@ -21,6 +24,7 @@ class Game:
 			level = json.loads(os.path.join(f.read()))["last_completed_level"] + 1
 
 		with open(os.path.join(current_path, "TowerDefence/Data/level" + str(level) + ".json")) as f:
+<<<<<<< HEAD
 			data = json.loads(os.path.join(f.read()))
 			self.width = data["shape"]["width"]
 			self.height = data["shape"]["height"]
@@ -42,13 +46,43 @@ class Game:
 		self.field = Field(data)
 		self.pocket = Pocket()
 		self.error_catcher = ErrorCatcher()
+=======
+			data = json.loads(f.read())
+			interface_width = data["interface"]["width"]
+			interface_height = data["interface"]["height"]
+			self.width = data["shape"]["width"]
+			self.height = data["shape"]["height"]
+
+		self.pocket = Pocket()
+
+		if(mode == "console"):
+			self.display = DisplayConsole()
+			self.dispatcher = DispatcherConsole()
+			self.interface = None
+		elif(mode == "graphics"):
+			self.interface = Interface(self.width, self.height, interface_width, interface_height)
+			self.display = DisplayGraphics(self.interface, max(self.width, interface_width), self.height + interface_height)
+			self.dispatcher = DispatcherGraphics(self.interface)
+		else:
+			assert "wrong type of mode"
+
+		self.field = Field(data)
+		self.pocket = Pocket()
+>>>>>>> delete it later
 
 	def start(self):
 		self.display.start()
 		self.dispatcher.start()
 
 		running = True
+<<<<<<< HEAD
 		creators = {"WeakTower": WeakTowerCreator(), "AverageTower": AverageTowerCreator()}
+=======
+
+
+		creators = {"WeakTower": WeakTowerCreator(), "AverageTower": AverageTowerCreator()}
+		
+>>>>>>> delete it later
 
 		while running:
 			for event in self.dispatcher.get_events():
@@ -56,6 +90,7 @@ class Game:
 					running = False
 				elif (event[0] == "place"):
 					class_of_tower = event[1]
+<<<<<<< HEAD
 					position = event[2]
 					try:
 						self.field.place_tower(creators[class_of_tower].create(position))
@@ -67,8 +102,20 @@ class Game:
 						self.display.error_catcher.search_for_errors('MoneyError')
 
 					print("You've click at", position)
+=======
+					pos = event[2]
+					self.field.place_tower(creators[class_of_tower].create(pos))
+
+					print("You've click at", pos)
+>>>>>>> delete it later
 
 			self.display.show(self.field, self.pocket)
 			self.field.update()
 		self.dispatcher.finish()
 		self.display.finish()
+<<<<<<< HEAD
+=======
+
+	def finish(self):
+		self.finish()
+>>>>>>> delete it later

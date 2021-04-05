@@ -18,8 +18,13 @@ class DisplayConsole(Display):
 	def show(self, field, pocket):
 
 		if((time.time() - self.last_time_update) >= self.update_rate):
+<<<<<<< HEAD
 			sys.stdout.flush()
 			print(pocket.get_money())
+=======
+			os.system('clear')
+			print(pocket.getMoney())
+>>>>>>> delete it later
 
 			for unit in field.units:
 				print(unit)

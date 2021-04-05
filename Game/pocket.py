@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from .errors import MoneyError
 
 class Pocket(object):
@@ -19,6 +20,39 @@ class Pocket(object):
 
         @classmethod
         def lend_money(cls, credit):
+=======
+class MoneyError(Exception):
+    pass
+
+
+class Pocket:
+
+        __isinstance = None
+        money = 0
+
+        def __init__(self):
+            if not Pocket.__isinstance:
+                pass
+            else:
+                self.getInstance()
+        
+        @classmethod
+        def getInstance(cls):
+            if not cls.__isinstance:
+                cls.__isinstance = Pocket()
+            return cls.__isinstance
+
+        @classmethod
+        def getMoney(cls):
+            return cls.money
+
+        @classmethod
+        def addMoney(cls, debet):
+            cls.money += debet
+
+        @classmethod
+        def lendMoney(cls, credit):
+>>>>>>> delete it later
             if cls.money < credit:
                 raise MoneyError
             cls.money -= credit

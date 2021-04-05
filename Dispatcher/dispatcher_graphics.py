@@ -7,7 +7,10 @@ import sys
 from ..Game.coordinates import Coordinates
 from ..Game.interface import Interface
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> delete it later
 class DispatcherGraphics(Dispatcher):
 	def __init__(self, interface):
 		super().__init__()
@@ -30,7 +33,11 @@ class DispatcherGraphics(Dispatcher):
 			elif event.type == pygame.MOUSEBUTTONUP:
 				pos = pygame.mouse.get_pos()
 				
+<<<<<<< HEAD
 				if len(self.button_with_pos) == 1:
+=======
+				if(len(self.button_with_pos) == 1):
+>>>>>>> delete it later
 					self.button_with_pos.append(Coordinates(coordinates=pos))
 					events.append(["place"] + self.button_with_pos)
 					self.button_with_pos = []
