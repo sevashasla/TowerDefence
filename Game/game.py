@@ -4,11 +4,12 @@ from ..Dispatcher.dispatcher_graphics import DispatcherGraphics
 from ..Display.display_console import DisplayConsole
 from ..Dispatcher.dispatcher_console import DispatcherConsole
 
-from ..Map.field import Field, FieldError
+from ..Map.field import Field
 from .interface import Interface
 
-from .pocket import Pocket, MoneyError
+from .pocket import Pocket
 from .coordinates import Coordinates
+from .errors import *	
 from ..Tower.tower_factories import *
 import os
 import json
@@ -40,6 +41,7 @@ class Game:
 			raise ValueError("wrong type of mode")
 		self.field = Field(data)
 		self.pocket = Pocket()
+		self.error_catcher = ErrorCatcher()
 
 	def start(self):
 		self.display.start()
@@ -59,10 +61,9 @@ class Game:
 					try:
 						self.field.place_tower(creators[class_of_tower].create(pos))
 					except FieldError:
-						self.display.has_FieldError = True
+						self.display.error_catcher.search_for_errors('FieldError')
 					except MoneyError:
-						self.display.has_MoneyError = True
-
+						self.display.error_catcher.search_for_errors('MoneyError')
 					print("You've click at", pos)
 
 			self.display.show(self.field, self.pocket)

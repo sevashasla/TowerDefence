@@ -1,6 +1,4 @@
-class MoneyError(Exception):
-    pass
-
+from .errors import MoneyError
 
 class Pocket(object):
 

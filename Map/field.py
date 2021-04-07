@@ -1,4 +1,4 @@
-from .road import Road, FieldError
+from .road import Road
 from .castle import Castle
 from random import randint
 from .spawn_point import SpawnPoint
@@ -7,7 +7,8 @@ import json
 
 from ..Game.coordinates import Coordinates
 from ..Tower.tower_factories import *
-from ..Game.pocket import Pocket, MoneyError
+from ..Game.pocket import Pocket
+from ..Game.errors import *
 
 class Field:
 
@@ -48,11 +49,10 @@ class Field:
 
 
 	def place_tower(self, tower):
-		if not self.can_place_tower:
+		if not self.can_place_tower(tower.coordinates):
 			raise FieldError
-		if self.can_place_tower(tower.coordinates):
-			Pocket.lend_money(tower.cost)
-			self.towers.append(tower)
+		Pocket.lend_money(tower.cost)
+		self.towers.append(tower)
 
 
 	def destroy (self, tower):
@@ -67,7 +67,6 @@ class Field:
 
 
 	def units_step(self):
-		
 		for unit in self.units:
 			distance = randint(2, 18)
 			if self.can_make_step(unit, distance):

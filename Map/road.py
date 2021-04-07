@@ -18,11 +18,7 @@ class Rectangle:
 
 	def point_and_size(self): 
 		return (self.x1, self.y1, self.width(), self.height())
-
-
-class FieldError(Exception):
-	pass
-
+		
 
 class Road: 
 	def __init__(self, width, height, rectangles):
