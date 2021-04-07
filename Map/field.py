@@ -7,7 +7,7 @@ import json
 
 from ..Game.coordinates import Coordinates
 from ..Tower.tower_factories import *
-from ..Game.pocket import Pocket
+from ..Game.pocket import Pocket, MoneyError
 
 class Field:
 
@@ -38,7 +38,8 @@ class Field:
 
 	def can_place_tower(self, coords) -> bool:
 		try:
-			if not self.road.belongs_to_road(coords) and not self.castle.belongs_to_castle(coords):
+			if not self.road.belongs_to_road(coords) and \
+			   not self.castle.belongs_to_castle(coords):
 				return True
 		except IndexError:
 			return False
@@ -47,10 +48,11 @@ class Field:
 
 
 	def place_tower(self, tower):
-		if self.can_place_tower(tower.coordinates):
-			self.towers.append(tower)
-		else:
+		if not self.can_place_tower:
 			raise FieldError
+		if self.can_place_tower(tower.coordinates):
+			Pocket.lend_money(tower.cost)
+			self.towers.append(tower)
 
 
 	def destroy (self, tower):
@@ -104,7 +106,7 @@ class Field:
 	def collect_garbage(self):
 		for unit in self.units:
 			if unit.health <= 0:
-				Pocket.addMoney(unit.bounty)
+				Pocket.add_money(unit.bounty)
 				self.units.remove(unit)
 		for tower in self.towers:
 			if tower.health <= 0:
@@ -113,6 +115,7 @@ class Field:
 	def update(self):
 		current_time = time.time()
 		if current_time - self.last_update >= self.update_rate:
+			Pocket.add_money(self.castle.send_money())
 			self.units_step()
 			self.towers_attack()
 			self.units_attack()

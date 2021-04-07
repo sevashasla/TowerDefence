@@ -12,15 +12,15 @@ class Pocket(object):
             return cls.__instance
 
         @classmethod
-        def getMoney(cls):
+        def get_money(cls):
             return cls.money
 
         @classmethod
-        def addMoney(cls, debet):
+        def add_money(cls, debet):
             cls.money += debet
 
         @classmethod
-        def lendMoney(cls, credit):
+        def lend_money(cls, credit):
             if cls.money < credit:
                 raise MoneyError
             cls.money -= credit

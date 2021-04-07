@@ -20,6 +20,8 @@ class DisplayGraphics(Display):
 		self.height = height
 		self.fps = 30
 		self.interface = interface
+		self.has_FieldError = False
+		self.has_MoneyError = False
 	
 	def start(self):
 		pygame.init()
@@ -40,9 +42,9 @@ class DisplayGraphics(Display):
 
 		#draw pocket
 		font = pygame.font.SysFont("comicsans", 20)
-		text = font.render("Money: {}".format(pocket.getMoney()), True, BLACK)
+		text = font.render("Money: {}".format(pocket.get_money()), True, BLACK)
 		text_rect = text.get_rect(center=Coordinates(450, 15).to_tuple()) #STRANGE?
-		self.screen.blit(text, text_rect)		
+		self.screen.blit(text, text_rect)
 
 		current_path = os.path.abspath(os.getcwd())
 
@@ -59,6 +61,20 @@ class DisplayGraphics(Display):
 				tower.loaded_image = pygame.image.load(os.path.join(current_path, "TowerDefence/Tower", type(tower).__name__ + ".jpg")).convert() #change?
 				tower.loaded_image = pygame.transform.scale(tower.loaded_image, (30, 30))
 			self.screen.blit(tower.loaded_image, (tower.coordinates.x, tower.coordinates.y))
+
+		if self.has_FieldError:
+				font = pygame.font.SysFont("comicsans", 16)
+				text = font.render("YOU CAN NOT PLACE TOWER HERE", True, RED)
+				text_rect = text.get_rect(center=Coordinates(350, 50).to_tuple())
+				self.screen.blit(text, text_rect)
+				self.has_FieldError = False
+
+		if self.has_MoneyError:
+			font = pygame.font.SysFont("comicsans", 16)
+			text = font.render("YOU DO NOT HAVE ENOUGH MONEY", True, RED)
+			text_rect = text.get_rect(center=Coordinates(350, 100).to_tuple())
+			self.screen.blit(text, text_rect)
+			self.has_MoneyError = False
 
 		pygame.display.flip()
 

@@ -7,7 +7,7 @@ class AverageUnit(Unit):
 
 	damage = 2
 	speed_of_attack = 1	
-	range_of_attack = 5
+	range_of_attack = 25
 	bounty = 10
 
 	def __init__(self, *args, **kwargs):

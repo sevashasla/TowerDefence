@@ -33,8 +33,8 @@ class SpawnPoint:
 
 	def wave(self):
 		units = []
-		for num in self.waves[-1]:
-			unit = self.creators[num].create(coordinates=self.generate_random_coordinate())
+		for unit_type in self.waves[-1]:
+			unit = self.creators[unit_type].create(coordinates=self.generate_random_coordinate())
 			units.append(unit)
 		self.last_wave = time.time()
 		if (len(self.timer) >= 2):

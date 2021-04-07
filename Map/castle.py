@@ -1,11 +1,20 @@
+import time
+
 class Castle:
 
     def __init__(self, width, height, castle_parameters):
         self.health = castle_parameters["health"]
         self.produce_money = castle_parameters["produce_money"]
+        self.cooldown = castle_parameters["cooldown"]
+        self.last_money_income = 0
         self.width = width
         self.height = height
 
+    def send_money(self) -> int:
+        if time.time() - self.cooldown >= self.last_money_income:
+            self.last_money_income = time.time()
+            return self.produce_money
+        return 0
 
     def belongs_to_castle(self, coordinates) -> bool:
         #####STRANGE#######

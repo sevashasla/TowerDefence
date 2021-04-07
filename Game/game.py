@@ -4,10 +4,10 @@ from ..Dispatcher.dispatcher_graphics import DispatcherGraphics
 from ..Display.display_console import DisplayConsole
 from ..Dispatcher.dispatcher_console import DispatcherConsole
 
-from ..Map.field import Field
+from ..Map.field import Field, FieldError
 from .interface import Interface
 
-from .pocket import Pocket
+from .pocket import Pocket, MoneyError
 from .coordinates import Coordinates
 from ..Tower.tower_factories import *
 import os
@@ -56,7 +56,12 @@ class Game:
 				elif (event[0] == "place"):
 					class_of_tower = event[1]
 					pos = event[2]
-					self.field.place_tower(creators[class_of_tower].create(pos))
+					try:
+						self.field.place_tower(creators[class_of_tower].create(pos))
+					except FieldError:
+						self.display.has_FieldError = True
+					except MoneyError:
+						self.display.has_MoneyError = True
 
 					print("You've click at", pos)
 
