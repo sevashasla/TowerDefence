@@ -11,7 +11,6 @@ from ..Game.pocket import Pocket
 
 class Field:
 
-
 	def __init__(self, data):
 		self.width = data["shape"]["width"]
 		self.height = data["shape"]["height"]
