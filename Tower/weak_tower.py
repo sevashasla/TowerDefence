@@ -7,7 +7,7 @@ class WeakTower(Tower):
 		super().__init__()
 		self.coordinates = coordinates
 		self.health = 10
-		self.range_attack = 5
+		self.range_of_attack = 50
 		self.damage = 3
 		self.speed_of_attack = 1
 		self.cost = 5

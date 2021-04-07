@@ -17,7 +17,7 @@ class Field:
 		self.height = data["shape"]["height"]
 		self.road = Road(self.width, self.height, data["road"])
 		self.castle = Castle(self.width, self.height, data["castle"])
-		self.spawn_point = SpawnPoint(self.width, self.height, data["waves"])
+		self.spawn_point = SpawnPoint(data["spawn_point"], data["waves"])
 		
 		self.units = []
 		self.towers = []
@@ -26,10 +26,10 @@ class Field:
 		self.last_update = 0.0
 
 
-	def can_make_step(self, unit) -> bool:
+	def can_make_step(self, unit, distance) -> bool:
 		try:    
-			new_coords_x = unit.coordinates.x + randint(2, 18) * unit.speed[0]
-			new_coords_y = unit.coordinates.y + randint(2, 18) * unit.speed[1]
+			new_coords_x = unit.coordinates.x + distance * unit.speed[0]
+			new_coords_y = unit.coordinates.y + distance * unit.speed[1]
 			new_coords = Coordinates(new_coords_x, new_coords_y)
 			if self.road.belongs_to_road(new_coords):
 				return True
@@ -44,7 +44,7 @@ class Field:
 		except IndexError:
 			return False
 
-		return True #change later
+		return False
 
 
 	def place_tower(self, tower):
@@ -60,7 +60,7 @@ class Field:
 
 	def spawn_units(self):
 		self.waves_spawned += 1
-		for unit in self.spawn_point.wave(self.waves_spawned):
+		for unit in self.spawn_point.wave():
 			unit.make_step()
 			self.units.append(unit)
 
@@ -68,39 +68,39 @@ class Field:
 	def units_step(self):
 		
 		for unit in self.units:
-			if self.can_make_step(unit):
+			distance = randint(2, 18)
+			if self.can_make_step(unit, distance):
 				unit.make_step()
 				continue
-			if unit.speed[1] == 0:
-				unit.speed[1] = -abs(unit.speed[0])
-				unit.speed[0] = 0
-			if self.can_make_step(unit):
+			if unit.speed[0] != 0:
+				unit.speed[0], unit.speed[1] = unit.speed[1], -abs(unit.speed[0])
 				unit.make_step()
-				continue
-			unit.speed[0], unit.speed[1] = unit.speed[1], unit.speed[0]
-			if self.can_make_step(unit):
-				unit.make_step()
-				continue
-			unit.speed[0] *= -1
-			if self.can_make_step(unit):
-				unit.make_step()
-				continue
-			continue
-			for unit in self.units:
-				print(unit.__str__())
-			print()
+			else:
+				unit.speed[0], unit.speed[1] = unit.speed[1], unit.speed[0]
+				distance = 75
+				if self.can_make_step(unit, distance):
+					unit.make_step()
+				else:
+					unit.speed[0] *= -1
+					unit.make_step()
+		
+		# for unit in self.units:
+		# 	print(unit.__str__())
+		# print()
 
 	def units_attack(self):
 		for unit in self.units:
 			for tower in self.towers:
 				if unit.can_attack(tower):
-					unit.attack(tower)	
+					unit.attack(tower)
+					break
 
 	def towers_attack(self):
 		for tower in self.towers:
 			for unit in self.units:
 				if tower.can_attack(unit):
 					tower.attack(unit)
+					break
 
 	def collect_garbage(self):
 		for unit in self.units:
@@ -118,8 +118,9 @@ class Field:
 			self.towers_attack()
 			self.units_attack()
 			self.collect_garbage()
-			if current_time - self.spawn_point.last_wave >= self.spawn_point.time_out:
+			if len(self.spawn_point.waves) and \
+			   self.spawn_point != -1 and \
+			   current_time - self.spawn_point.last_wave >= self.spawn_point.cooldown:
 				self.spawn_units()
-				self.spawn_point.last_wave = current_time
 			self.last_update = current_time
 

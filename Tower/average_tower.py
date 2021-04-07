@@ -7,7 +7,7 @@ class AverageTower(Tower):
 		super().__init__()
 		self.coordinates = coordinates
 		self.health = 20
-		self.range_attack = 10
+		self.range_of_attack = 100
 		self.damage = 7
 		self.speed_of_attack = 5
 		self.cost = 15

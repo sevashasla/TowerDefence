@@ -36,7 +36,7 @@ class DisplayGraphics(Display):
 
 		#draw road
 		for rectangle in field.road.rectangles:
-			pygame.draw.rect(self.screen, BLACK, rectangle.to_tuple())
+			pygame.draw.rect(self.screen, BLACK, rectangle.point_and_size())
 
 		#draw pocket
 		font = pygame.font.SysFont("comicsans", 20)

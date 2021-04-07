@@ -20,7 +20,7 @@ class Game:
 			level = json.loads(os.path.join(f.read()))["last_completed_level"] + 1
 
 		with open(os.path.join(current_path, "TowerDefence/Data/level" + str(level) + ".json")) as f:
-			data = json.loads(f.read())
+			data = json.loads(os.path.join(f.read()))
 			interface_width = data["interface"]["width"]
 			interface_height = data["interface"]["height"]
 			self.width = data["shape"]["width"]
