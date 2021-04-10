@@ -6,6 +6,7 @@ class Tower(ABC):
 
 	update_time = 0.1
 	attack_time = 1.0
+	shape = (40, 30)
 
 	@abstractmethod
 	def __init__(self):

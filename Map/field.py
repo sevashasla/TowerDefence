@@ -16,7 +16,7 @@ class Field:
 		self.width = data["shape"]["width"]
 		self.height = data["shape"]["height"]
 		self.road = Road(self.width, self.height, data["road"])
-		self.castle = Castle(self.width, self.height, data["castle"])
+		self.castle = Castle(data["castle"])
 		self.spawn_point = SpawnPoint(data["spawn_point"], data["waves"])
 		
 		self.units = []
@@ -40,7 +40,8 @@ class Field:
 	def can_place_tower(self, coords) -> bool:
 		try:
 			if not self.road.belongs_to_road(coords) and \
-			   not self.castle.belongs_to_castle(coords):
+			   not self.castle.belongs_to_castle(coords) and \
+			   self.belong_to_field(coords):
 				return True
 		except IndexError:
 			return False
@@ -64,6 +65,9 @@ class Field:
 		for unit in self.spawn_point.wave():
 			unit.make_step()
 			self.units.append(unit)
+
+	def belong_to_field(self, coords):
+		return 0 <= coords.x <= self.width and 0 <= coords.y <= self.height
 
 
 	def units_step(self):

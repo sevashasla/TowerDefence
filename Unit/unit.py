@@ -8,6 +8,7 @@ class Unit(ABC):
 
 	update_time = 0.1
 	attack_time = 1.0
+	shape = (40, 30)
 
 	@abstractmethod
 	def __init__(self, spawn_point, update_time):
@@ -16,7 +17,7 @@ class Unit(ABC):
 
 	def attack(self, tower):
 		if self.can_attack(tower):
-			self.last_attack_time = time.clock()
+			self.last_attack_time = time.time()
 			tower.decrease_health(self.damage)
 
 	def can_attack(self, tower) -> bool:

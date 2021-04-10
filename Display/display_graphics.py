@@ -12,6 +12,7 @@ BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
+EMPTY = (255, 0, 255)
 
 
 class DisplayGraphics(Display):
@@ -51,23 +52,34 @@ class DisplayGraphics(Display):
 		#draw units
 		for unit in field.units:
 			if not hasattr(unit, "loaded_image"):
-				unit.loaded_image = pygame.image.load(os.path.join(current_path, "TowerDefence/Unit", type(unit).__name__ + ".jpg")).convert() #change?
-				unit.loaded_image = pygame.transform.scale(unit.loaded_image, (20, 20))
+				unit.loaded_image = pygame.image.load(os.path.join(current_path, "TowerDefence/Assets", type(unit).__name__ + ".png"))
+				unit.loaded_image = pygame.transform.scale(unit.loaded_image, unit.shape)
+				unit.loaded_image.set_colorkey(EMPTY)
 			self.screen.blit(unit.loaded_image, (unit.coordinates.x, unit.coordinates.y))
 
 		#draw tower
 		for tower in field.towers:
 			if not hasattr(tower, "loaded_image"):
-				tower.loaded_image = pygame.image.load(os.path.join(current_path, "TowerDefence/Tower", type(tower).__name__ + ".jpg")).convert() #change?
-				tower.loaded_image = pygame.transform.scale(tower.loaded_image, (30, 30))
+				tower.loaded_image = pygame.image.load(os.path.join(current_path, "TowerDefence/Assets", type(tower).__name__ + ".png"))
+				tower.loaded_image = pygame.transform.scale(tower.loaded_image, tower.shape)
+				tower.loaded_image.set_colorkey(EMPTY)
 			self.screen.blit(tower.loaded_image, (tower.coordinates.x, tower.coordinates.y))
 
-		if self.error_catcher.FieldError_count > 0:
-			font = pygame.font.SysFont("comicsans", 16)
-			text = font.render("YOU CAN NOT PLACE TOWER HERE", True, RED)
-			text_rect = text.get_rect(center=Coordinates(350, 50).to_tuple())
-			self.screen.blit(text, text_rect)
-			self.error_catcher.search_for_errors(None)	
+		#draw castle
+		if not hasattr(field.castle, "loaded_image"):
+			field.castle.loaded_image = pygame.image.load(os.path.join(current_path, 
+				"TowerDefence/Assets/Castle.png"))
+			field.castle.loaded_image = pygame.transform.scale(field.castle.loaded_image, 
+				(field.castle.width, field.castle.height))
+			field.castle.loaded_image.set_colorkey(EMPTY)
+		self.screen.blit(field.castle.loaded_image, (field.castle.coordinates.x, field.castle.coordinates.y))
+
+		if self.has_FieldError:
+				font = pygame.font.SysFont("comicsans", 16)
+				text = font.render("YOU CAN NOT PLACE TOWER HERE", True, RED)
+				text_rect = text.get_rect(center=Coordinates(350, 50).to_tuple())
+				self.screen.blit(text, text_rect)
+				self.has_FieldError = False
 
 		if self.error_catcher.MoneyError_count > 0:
 			font = pygame.font.SysFont("comicsans", 16)
