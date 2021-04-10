@@ -10,17 +10,17 @@ BLUE = (0, 0, 255)
 
 class Interface:
 	# def __init__(self, color, coordinates, width, height):
-	def __init__(self, screen_width, screen_height, width, height):
+	def __init__(self, screen_width, screen_height, interface_data, buttons_data):
 
-		self.color = BLUE
+		self.color = tuple(interface_data["color"])
 		self.coordinates = Coordinates(screen_height, 0)
-		self.width = width
-		self.height = height
+		self.width = interface_data["width"]
+		self.height = interface_data["height"]
 
-		self.buttons = [Button("WeakTower", GREEN, Coordinates(128, 512 + 128 + 64), 128, 64, "weak tower", BLACK, 25), 
-						Button("AverageTower", RED, Coordinates(256 + 128, 512 + 128 + 64), 128, 64, "average tower", BLACK, 25)]
+		self.buttons = []
+		for button in buttons_data:
+			self.buttons.append(Button(button))
 
-		# self.image_name = 
 
 	def draw(self, screen):
 

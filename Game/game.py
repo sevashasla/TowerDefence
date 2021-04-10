@@ -21,10 +21,10 @@ class Game:
 
 		with open(os.path.join(current_path, "TowerDefence/Data/level" + str(level) + ".json")) as f:
 			data = json.loads(os.path.join(f.read()))
-			interface_width = data["interface"]["width"]
-			interface_height = data["interface"]["height"]
 			self.width = data["shape"]["width"]
 			self.height = data["shape"]["height"]
+			interface_width = data["interface"]["width"]
+			interface_height = data["interface"]["height"]
 
 		self.pocket = Pocket()
 
@@ -33,7 +33,7 @@ class Game:
 			self.dispatcher = DispatcherConsole()
 			self.interface = None
 		elif mode == "graphics":
-			self.interface = Interface(self.width, self.height, interface_width, interface_height)
+			self.interface = Interface(self.width, self.height, data["interface"], data["buttons"])
 			self.display = DisplayGraphics(self.interface, max(self.width, interface_width), self.height + interface_height)
 			self.dispatcher = DispatcherGraphics(self.interface)
 		else:
@@ -46,7 +46,6 @@ class Game:
 		self.dispatcher.start()
 
 		running = True
-
 		creators = {"WeakTower": WeakTowerCreator(), "AverageTower": AverageTowerCreator()}
 
 		while running:
@@ -55,20 +54,17 @@ class Game:
 					running = False
 				elif (event[0] == "place"):
 					class_of_tower = event[1]
-					pos = event[2]
+					position = event[2]
 					try:
-						self.field.place_tower(creators[class_of_tower].create(pos))
+						self.field.place_tower(creators[class_of_tower].create(position))
 					except FieldError:
 						self.display.has_FieldError = True
 					except MoneyError:
 						self.display.has_MoneyError = True
 
-					print("You've click at", pos)
+					print("You've click at", position)
 
 			self.display.show(self.field, self.pocket)
 			self.field.update()
 		self.dispatcher.finish()
 		self.display.finish()
-
-	def finish(self):
-		self.finish()
