@@ -31,6 +31,9 @@ class Field:
 			new_coords_x = unit.coordinates.x + distance * unit.speed[0]
 			new_coords_y = unit.coordinates.y + distance * unit.speed[1]
 			new_coords = Coordinates(new_coords_x, new_coords_y)
+			if self.castle.belongs_to_castle(new_coords):
+				unit.speed = [0, 0]
+				return False
 			if self.road.belongs_to_road(new_coords):
 				return True
 		except IndexError:
@@ -98,6 +101,9 @@ class Field:
 				if unit.can_attack(tower):
 					unit.attack(tower)
 					break
+			if unit.can_attack(self.castle):
+				unt.attack(self.castle)
+
 
 	def towers_attack(self):
 		for tower in self.towers:

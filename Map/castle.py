@@ -7,7 +7,8 @@ class Castle:
         self.health = castle_parameters["health"]
         self.produce_money = castle_parameters["produce_money"]
         self.cooldown = castle_parameters["cooldown"]
-        self.coordinates = Coordinates(coordinates=castle_parameters["coordinates"])
+        self.coordinates = Coordinates(castle_parameters["coordinates"][0],
+                                       castle_parameters["coordinates"][1])
         self.width = castle_parameters["width"]
         self.height = castle_parameters["height"]
         self.last_money_income = 0
@@ -19,8 +20,8 @@ class Castle:
         return 0
 
     def belongs_to_castle(self, coordinates) -> bool:
-        #####STRANGE#######
-        return 0 <= coordinates.y <= self.height//20 and self.width*7//20 <= coordinates.x <= self.width*12//20
+        return abs(coordinates.x - (self.coordinates.x + self.width / 2)) <= self.width / 2 and \
+               abs(coordinates.y - (self.coordinates.y + self.height / 2)) <= self.height / 2
 
 
     def get_health(self) -> int:

@@ -64,6 +64,7 @@ class Game:
 						self.display.error_catcher.search_for_errors('FieldError')
 					except MoneyError:
 						self.display.has_MoneyError = True
+						self.display.error_catcher.search_for_errors('MoneyError')
 
 					print("You've click at", position)
 

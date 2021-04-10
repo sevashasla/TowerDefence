@@ -55,7 +55,8 @@ class DisplayGraphics(Display):
 				unit.loaded_image = pygame.image.load(os.path.join(current_path, "TowerDefence/Assets", type(unit).__name__ + ".png"))
 				unit.loaded_image = pygame.transform.scale(unit.loaded_image, unit.shape)
 				unit.loaded_image.set_colorkey(EMPTY)
-			self.screen.blit(unit.loaded_image, (unit.coordinates.x, unit.coordinates.y))
+			self.screen.blit(unit.loaded_image, (unit.coordinates.x - unit.shape[0] / 2, 
+												 unit.coordinates.y - unit.shape[1] / 2))
 
 		#draw tower
 		for tower in field.towers:
@@ -63,7 +64,8 @@ class DisplayGraphics(Display):
 				tower.loaded_image = pygame.image.load(os.path.join(current_path, "TowerDefence/Assets", type(tower).__name__ + ".png"))
 				tower.loaded_image = pygame.transform.scale(tower.loaded_image, tower.shape)
 				tower.loaded_image.set_colorkey(EMPTY)
-			self.screen.blit(tower.loaded_image, (tower.coordinates.x, tower.coordinates.y))
+			self.screen.blit(tower.loaded_image, (tower.coordinates.x - tower.shape[0] / 2, 
+												  tower.coordinates.y - tower.shape[1] / 2))
 
 		#draw castle
 		if not hasattr(field.castle, "loaded_image"):
@@ -74,12 +76,12 @@ class DisplayGraphics(Display):
 			field.castle.loaded_image.set_colorkey(EMPTY)
 		self.screen.blit(field.castle.loaded_image, (field.castle.coordinates.x, field.castle.coordinates.y))
 
-		if self.has_FieldError:
-				font = pygame.font.SysFont("comicsans", 16)
-				text = font.render("YOU CAN NOT PLACE TOWER HERE", True, RED)
-				text_rect = text.get_rect(center=Coordinates(350, 50).to_tuple())
-				self.screen.blit(text, text_rect)
-				self.has_FieldError = False
+		if self.error_catcher.FieldError_count > 0:
+			font = pygame.font.SysFont("comicsans", 16)
+			text = font.render("YOU CAN NOT PLACE TOWER HERE", True, RED)
+			text_rect = text.get_rect(center=Coordinates(350, 50).to_tuple())
+			self.screen.blit(text, text_rect)
+			self.error_catcher.search_for_errors(None)
 
 		if self.error_catcher.MoneyError_count > 0:
 			font = pygame.font.SysFont("comicsans", 16)
