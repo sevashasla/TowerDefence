@@ -10,9 +10,13 @@ from .interface import Interface
 from .pocket import Pocket
 from .coordinates import Coordinates
 <<<<<<< HEAD
+<<<<<<< HEAD
 from .errors import *	
 =======
 >>>>>>> delete it later
+=======
+from .errors import *	
+>>>>>>> add files to checkpoint 2
 from ..Tower.tower_factories import *
 import os
 import json
@@ -25,6 +29,9 @@ class Game:
 
 		with open(os.path.join(current_path, "TowerDefence/Data/level" + str(level) + ".json")) as f:
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> add files to checkpoint 2
 			data = json.loads(os.path.join(f.read()))
 			self.width = data["shape"]["width"]
 			self.height = data["shape"]["height"]
@@ -46,6 +53,7 @@ class Game:
 		self.field = Field(data)
 		self.pocket = Pocket()
 		self.error_catcher = ErrorCatcher()
+<<<<<<< HEAD
 =======
 			data = json.loads(f.read())
 			interface_width = data["interface"]["width"]
@@ -69,12 +77,15 @@ class Game:
 		self.field = Field(data)
 		self.pocket = Pocket()
 >>>>>>> delete it later
+=======
+>>>>>>> add files to checkpoint 2
 
 	def start(self):
 		self.display.start()
 		self.dispatcher.start()
 
 		running = True
+<<<<<<< HEAD
 <<<<<<< HEAD
 		creators = {"WeakTower": WeakTowerCreator(), "AverageTower": AverageTowerCreator()}
 =======
@@ -83,6 +94,9 @@ class Game:
 		creators = {"WeakTower": WeakTowerCreator(), "AverageTower": AverageTowerCreator()}
 		
 >>>>>>> delete it later
+=======
+		creators = {"WeakTower": WeakTowerCreator(), "AverageTower": AverageTowerCreator()}
+>>>>>>> add files to checkpoint 2
 
 		while running:
 			for event in self.dispatcher.get_events():
@@ -91,6 +105,9 @@ class Game:
 				elif (event[0] == "place"):
 					class_of_tower = event[1]
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> add files to checkpoint 2
 					position = event[2]
 					try:
 						self.field.place_tower(creators[class_of_tower].create(position))
@@ -102,20 +119,26 @@ class Game:
 						self.display.error_catcher.search_for_errors('MoneyError')
 
 					print("You've click at", position)
+<<<<<<< HEAD
 =======
 					pos = event[2]
 					self.field.place_tower(creators[class_of_tower].create(pos))
 
 					print("You've click at", pos)
 >>>>>>> delete it later
+=======
+>>>>>>> add files to checkpoint 2
 
 			self.display.show(self.field, self.pocket)
 			self.field.update()
 		self.dispatcher.finish()
 		self.display.finish()
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 	def finish(self):
 		self.finish()
 >>>>>>> delete it later
+=======
+>>>>>>> add files to checkpoint 2

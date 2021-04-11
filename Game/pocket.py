@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> add files to checkpoint 2
 from .errors import MoneyError
 
 class Pocket(object):
@@ -20,6 +23,7 @@ class Pocket(object):
 
         @classmethod
         def lend_money(cls, credit):
+<<<<<<< HEAD
 =======
 class MoneyError(Exception):
     pass
@@ -53,6 +57,8 @@ class Pocket:
         @classmethod
         def lendMoney(cls, credit):
 >>>>>>> delete it later
+=======
+>>>>>>> add files to checkpoint 2
             if cls.money < credit:
                 raise MoneyError
             cls.money -= credit

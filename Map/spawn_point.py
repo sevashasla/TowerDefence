@@ -1,9 +1,13 @@
 from random import randint
 import time
 <<<<<<< HEAD
+<<<<<<< HEAD
 import json
 =======
 >>>>>>> delete it later
+=======
+import json
+>>>>>>> add files to checkpoint 2
 
 
 from ..Unit.unit_factories import *
@@ -11,6 +15,9 @@ from ..Game.coordinates import Coordinates
 
 class SpawnPoint:
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> add files to checkpoint 2
 	
 	creators = [WeakUnitCreator(), AverageUnitCreator(), ChadUnitCreator()]
 
@@ -48,6 +55,7 @@ class SpawnPoint:
 		self.waves.pop()
 		self.timer.pop()
 		return units
+<<<<<<< HEAD
 =======
     
 
@@ -94,3 +102,5 @@ class SpawnPoint:
                 wave.append(unit)
             return wave
 >>>>>>> delete it later
+=======
+>>>>>>> add files to checkpoint 2

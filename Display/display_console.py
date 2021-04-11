@@ -19,12 +19,17 @@ class DisplayConsole(Display):
 
 		if((time.time() - self.last_time_update) >= self.update_rate):
 <<<<<<< HEAD
+<<<<<<< HEAD
 			sys.stdout.flush()
 			print(pocket.get_money())
 =======
 			os.system('clear')
 			print(pocket.getMoney())
 >>>>>>> delete it later
+=======
+			sys.stdout.flush()
+			print(pocket.get_money())
+>>>>>>> add files to checkpoint 2
 
 			for unit in field.units:
 				print(unit)

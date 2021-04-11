@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> add files to checkpoint 2
 import time
 from ..Game.coordinates import Coordinates
 
@@ -23,6 +26,7 @@ class Castle:
     def belongs_to_castle(self, coordinates) -> bool:
         return abs(coordinates.x - (self.coordinates.x + self.width / 2)) <= self.width / 2 and \
                abs(coordinates.y - (self.coordinates.y + self.height / 2)) <= self.height / 2
+<<<<<<< HEAD
 =======
 class Castle:
 
@@ -37,6 +41,8 @@ class Castle:
         #####STRANGE#######
         return 0 <= coordinates.y <= self.height//20 and self.width*7//20 <= coordinates.x <= self.width*12//20
 >>>>>>> delete it later
+=======
+>>>>>>> add files to checkpoint 2
 
 
     def get_health(self) -> int:

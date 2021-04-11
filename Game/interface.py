@@ -11,6 +11,9 @@ BLUE = (0, 0, 255)
 class Interface:
 	# def __init__(self, color, coordinates, width, height):
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> add files to checkpoint 2
 	def __init__(self, screen_width, screen_height, interface_data, buttons_data):
 
 		self.color = tuple(interface_data["color"])
@@ -22,6 +25,7 @@ class Interface:
 		for button in buttons_data:
 			self.buttons.append(Button(button))
 
+<<<<<<< HEAD
 =======
 	def __init__(self, screen_width, screen_height, width, height):
 
@@ -35,6 +39,8 @@ class Interface:
 
 		# self.image_name = 
 >>>>>>> delete it later
+=======
+>>>>>>> add files to checkpoint 2
 
 	def draw(self, screen):
 

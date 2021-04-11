@@ -8,9 +8,13 @@ from ..Game.coordinates import Coordinates
 from ..Game.interface import Interface
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> delete it later
+=======
+
+>>>>>>> add files to checkpoint 2
 class DispatcherGraphics(Dispatcher):
 	def __init__(self, interface):
 		super().__init__()
@@ -34,10 +38,14 @@ class DispatcherGraphics(Dispatcher):
 				pos = pygame.mouse.get_pos()
 				
 <<<<<<< HEAD
+<<<<<<< HEAD
 				if len(self.button_with_pos) == 1:
 =======
 				if(len(self.button_with_pos) == 1):
 >>>>>>> delete it later
+=======
+				if len(self.button_with_pos) == 1:
+>>>>>>> add files to checkpoint 2
 					self.button_with_pos.append(Coordinates(coordinates=pos))
 					events.append(["place"] + self.button_with_pos)
 					self.button_with_pos = []

@@ -1,6 +1,9 @@
 import pygame
 from .coordinates import Coordinates
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> add files to checkpoint 2
 import os
 import sys
 
@@ -21,6 +24,7 @@ class Button():
 
 
 	def clicked(self, pos) -> bool:
+<<<<<<< HEAD
 =======
 
 class Button():
@@ -41,12 +45,17 @@ class Button():
 
 	def clicked(self, pos):
 >>>>>>> delete it later
+=======
+>>>>>>> add files to checkpoint 2
 		if ((self.center.x - self.width // 2 <= pos.x <= self.center.x + self.width // 2) and 
 			(self.center.y - self.height // 2 <= pos.y <= self.center.y + self.height // 2)):
 			return True
 		return False
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> add files to checkpoint 2
 	def draw(self, screen) -> None:
 		if not hasattr(self, "rect"):	
 			self.rect = pygame.Rect((self.coordinates.x, self.coordinates.y, self.width, self.height))
@@ -55,6 +64,7 @@ class Button():
 			self.image = pygame.transform.scale(self.image, (self.width, self.height))
 
 		screen.blit(self.image, self.coordinates.to_tuple())
+<<<<<<< HEAD
 =======
 	def draw(self, screen):
 		if not hasattr(self, "rect"):
@@ -62,6 +72,8 @@ class Button():
 
 		pygame.draw.rect(screen, self.color, self.rect)
 >>>>>>> delete it later
+=======
+>>>>>>> add files to checkpoint 2
 		if(self.text != ""):
 			font = pygame.font.SysFont("comicsans", self.text_size)
 			text = font.render(self.text, True, self.text_color)
