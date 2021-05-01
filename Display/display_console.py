@@ -1,30 +1,37 @@
 from .display import Display
-import os
 import sys
 import time
 
 class DisplayConsole(Display):
+	
 	def __init__(self):
 		super().__init__()
 		self.last_time_update = time.time()
 		self.update_rate = 3
 
 	def start(self):
-		print("Let's start!")
+		sys.stdout.write("Let's start!\n")
 
-	def end(self):
-		print("Game is over!")
+	def finish(self):
+		sys.stdout.write("Game is over!\n")
+
+
+	def show_menu(self):
+		pass
 
 	def show(self, field, pocket):
 
 		if((time.time() - self.last_time_update) >= self.update_rate):
 			sys.stdout.flush()
-			print(pocket.get_money())
+
+			sys.stdout.write("NEW STEP\n")
+
+			sys.stdout.write(str(pocket.get_money()) + "\n")
 
 			for unit in field.units:
-				print(unit)
+				sys.stdout.write(str(unit) + "\n")
 
 			for tower in field.towers:
-				print(tower)
+				sys.stdout.write(str(tower) + "\n")
 
 			self.last_time_update = time.time()

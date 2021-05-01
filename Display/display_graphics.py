@@ -16,18 +16,28 @@ EMPTY = (255, 0, 255)
 
 
 class DisplayGraphics(Display):
-	def __init__(self, interface, width, height):
+	def __init__(self, interface, width, height, other_display=None):
 		super().__init__()
 		self.width = width
 		self.height = height
 		self.fps = 30
 		self.interface = interface
 		self.error_catcher = ErrorCatcher()
+
+		self.copy_from_other = False
+
+		if not other_display is None:
+			self.copy_from_other = True
+			self.screen = other_display.screen
+			self.clock = other_display.clock
 	
 	def start(self):
-		pygame.init()
-		self.screen = pygame.display.set_mode((self.width, self.height))
-		self.clock = pygame.time.Clock()
+
+		if not self.copy_from_other:
+			pygame.init()
+			self.screen = pygame.display.set_mode((self.width, self.height))
+			self.clock = pygame.time.Clock()
+
 
 	def show_game(self, field, pocket):
 		self.clock.tick(self.fps)
@@ -110,5 +120,6 @@ class DisplayGraphics(Display):
 		pygame.display.flip()
 
 	def finish(self):
-		pygame.quit()
+		if not self.copy_from_other:
+			pygame.quit()
 

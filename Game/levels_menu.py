@@ -10,11 +10,12 @@ from .game import Game
 import os
 import json
 
+from ..Command.stop import StopCommand
+from ..Command.choose_level import ChooseLevelCommand
+
 class LevelsMenu:
-	def __init__(self, mode):
+	def __init__(self, mode, other_display):
 		current_path = os.getcwd()
-		with open(os.path.join(current_path, "TowerDefence/Data/last_completed_level.json")) as f:
-			last_completed_level = json.loads(os.path.join(f.read()))["last_completed_level"] + 1
 
 		with open(os.path.join(current_path, "TowerDefence/Data/levels_menu.json")) as f:
 			data = json.loads(os.path.join(f.read()))
@@ -29,9 +30,10 @@ class LevelsMenu:
 			self.display = DisplayConsole()
 			self.dispatcher = DispatcherConsole()
 			self.interface = None
+
 		elif mode == "graphics":
 			self.interface = Interface(self.width, self.height, data["interface"], data["buttons"])
-			self.display = DisplayGraphics(self.interface, max(self.width, interface_width), self.height + interface_height)
+			self.display = DisplayGraphics(self.interface, max(self.width, interface_width), self.height + interface_height, other_display)
 			self.dispatcher = DispatcherGraphics(self.interface)
 		else:
 			raise ValueError("wrong type of mode")
@@ -40,23 +42,22 @@ class LevelsMenu:
 		self.display.start()
 		self.dispatcher.start()
 
+		get_stop_command = False
 		running = True
-
+		
 		while running:
-			for event in self.dispatcher.get_events():
-				if(event[0] == "stop"):
-					running = False
-				elif (event[0] == "place"):
-					class_of_button = event[1]
-					position = event[2]
-					
-					print("You've click at", position)
-
-					if class_of_button > "level":
-						game = Game(self.mode, class_of_button)
-						game.start()
-
 			self.display.show_menu()
+			for event in self.dispatcher.get_events():
+				if isinstance(event, StopCommand):
+					running = False
+					get_stop_command = True
 
-		self.dispatcher.finish()
+				elif isinstance(event, ChooseLevelCommand):
+					game = Game(self.mode, event.level, self.display)
+					get_stop_command = game.start()
+					running = not get_stop_command
+
 		self.display.finish()
+		self.dispatcher.finish()
+
+		return get_stop_command

@@ -1,4 +1,3 @@
-from abc import ABC, abstractmethod
 from .dispatcher import Dispatcher
 
 import pygame
@@ -7,12 +6,18 @@ import sys
 from ..Game.coordinates import Coordinates
 from ..Game.interface import Interface
 
+from ..Command.levels_menu import LevelsMenuCommand
+from ..Command.rules_menu import RulesMenuCommand
+from ..Command.stop import StopCommand
+from ..Command.place_tower import PlaceTowerCommand
+from ..Command.choose_level import ChooseLevelCommand
+
 
 class DispatcherGraphics(Dispatcher):
 	def __init__(self, interface):
 		super().__init__()
 		self.interface = interface
-		self.button_with_pos = []
+		self.last_chosen_type_of_tower = None
 
 	def start(self):
 		pass
@@ -25,21 +30,27 @@ class DispatcherGraphics(Dispatcher):
 		events = []
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
-				events.append(["stop"])
+				events.append(StopCommand())
 
 			elif event.type == pygame.MOUSEBUTTONUP:
 				pos = pygame.mouse.get_pos()
-				
-				if len(self.button_with_pos) == 1:
-					self.button_with_pos.append(Coordinates(coordinates=pos))
-					events.append(["place"] + self.button_with_pos)
-					self.button_with_pos = []
+				coordinates_of_click = Coordinates(coordinates=pos)	
+				clicked = False
 
 				for button in self.interface.buttons:
-					if(button.clicked(Coordinates(coordinates=pos))):
-						if(len(self.button_with_pos) >= 1):
-							print("here")
-							self.button_with_pos.clear()
-						self.button_with_pos.append(button.task)
-	
+					if button.clicked(coordinates_of_click):
+						if button.task == "LevelsMenu":
+							events.append(LevelsMenuCommand())
+						elif button.task == "RulesMenu":
+							events.append(RulesMenuCommand())
+						elif button.task.startswith("level"):
+							events.append(ChooseLevelCommand(button.task))
+						elif button.task.endswith("Tower"):
+							self.last_chosen_type_of_tower = button.task
+						clicked = True
+						break
+
+				if not clicked and not self.last_chosen_type_of_tower is None:
+					events.append(PlaceTowerCommand(self.last_chosen_type_of_tower, 
+						coordinates_of_click))
 		return events
