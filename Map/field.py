@@ -4,6 +4,7 @@ from random import randint
 from .spawn_point import SpawnPoint
 import time
 import json
+from numpy import sign
 
 from ..Game.coordinates import Coordinates
 from ..Tower.tower_factories import *
@@ -24,12 +25,15 @@ class Field:
 		self.waves_spawned = 0
 		self.update_rate = 0.1
 		self.last_update = 0.0
+		self.min_step = data["movement_constants"]["min_step"]
+		self.max_step = data["movement_constants"]["max_step"]
+		self.big_step = data["movement_constants"]["big_step"]
 
 
 	def can_make_step(self, unit, distance) -> bool:
 		try:    
-			new_coords_x = unit.coordinates.x + distance * unit.speed[0]
-			new_coords_y = unit.coordinates.y + distance * unit.speed[1]
+			new_coords_x = unit.coordinates.x + distance * sign(unit.speed[0])
+			new_coords_y = unit.coordinates.y + distance * sign(unit.speed[1])
 			new_coords = Coordinates(new_coords_x, new_coords_y)
 			if self.castle.belongs_to_castle(new_coords):
 				unit.speed = [0, 0]
@@ -37,7 +41,11 @@ class Field:
 			if self.road.belongs_to_road(new_coords):
 				return True
 		except IndexError:
+			new_coords_x = unit.coordinates.x + distance * sign(unit.speed[0])
+			new_coords_y = unit.coordinates.y + distance * sign(unit.speed[1])
+			print(new_coords_x, new_coords_y)
 			return False
+		return False
 
 
 	def can_place_tower(self, coords) -> bool:
@@ -75,25 +83,27 @@ class Field:
 
 	def units_step(self):
 		for unit in self.units:
-			distance = randint(2, 18)
+			distance = randint(self.min_step, self.max_step)
+			far_distance = self.big_step
+			directions = [False] * 4
+			shift = unit.get_speed_mode()
 			if self.can_make_step(unit, distance):
+				directions[shift] = True
 				unit.make_step()
-				continue
-			if unit.speed[0] != 0:
-				unit.speed[0], unit.speed[1] = unit.speed[1], -abs(unit.speed[0])
-				unit.make_step()
-			else:
-				unit.speed[0], unit.speed[1] = unit.speed[1], unit.speed[0]
-				distance = 75
-				if self.can_make_step(unit, distance):
+				# print(shift, end=' ')
+				continue	
+			for i in range(1, 4):
+				unit.set_speed_mode((shift + i) % 4)
+				if self.can_make_step(unit, far_distance):
+					directions[(shift + i) % 4] = True
+			unit.set_speed_mode(shift)
+			for i in range(4):
+				if directions[i] and i != (shift + 2) % 4:
+					# print(i, end=' ')
+					unit.set_speed_mode(i)
 					unit.make_step()
-				else:
-					unit.speed[0] *= -1
-					unit.make_step()
-		
-		# for unit in self.units:
-		# 	print(unit.__str__())
 		# print()
+
 
 	def units_attack(self):
 		for unit in self.units:
@@ -135,8 +145,6 @@ class Field:
 			   current_time - self.spawn_point.last_wave >= self.spawn_point.cooldown:
 				self.spawn_units()
 			self.last_update = current_time
-
-			print(self.castle.get_health(), current_time)
 
 			if self.castle.get_health() <= 0:
 				raise CastleError

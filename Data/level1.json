@@ -3,6 +3,12 @@
 		"width": 512, "height": 512
 	},
 
+	"movement_constants": {
+		"min_step": 10,
+		"max_step": 30,
+		"big_step": 50
+	},
+
 	"road": [
 		{"x1": 200, "y1": 0, "x2": 250, "y2": 154},
 		{"x1": 250, "y1": 154, "x2": 76, "y2": 102},
@@ -46,12 +52,9 @@
 		"coordinates": [0, 0]
 	},
 
-	"spawn_point": {
-		"x1": 200,
-		"y1": 500, 
-		"x2": 250,
-		"y2": 511
-	},
+	"spawn_point": [
+		{"x1": 200, "y1": 500, "x2": 250, "y2": 511, "mode": 0}
+	],
 
 	"buttons": [
 		{

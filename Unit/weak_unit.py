@@ -15,7 +15,9 @@ class WeakUnit(Unit):
 		self.coordinates= kwargs['coordinates']
 		self.last_attack_time = 0
 		self.health = 3
-		self.speed = [0, -2]
+		self.speed_abs = 2
+		self.speed = [0, 0]
+		self.set_speed_mode(0)
 
 	def __str__(self):
 		return 'WeakUnit:' + '{:.>20}'.format(self.coordinates.__str__())

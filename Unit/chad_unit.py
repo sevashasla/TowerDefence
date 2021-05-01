@@ -10,13 +10,14 @@ class ChadUnit(Unit):
 	range_of_attack = 50
 	bounty = 20
 	
-		
 
 	def __init__(self, *args, **kwargs):
 		self.coordinates= kwargs['coordinates']
 		self.last_attack_time = 0
 		self.health = 10	
-		self.speed = [0, -1]
+		self.speed_abs = 1
+		self.speed = [0, 0]
+		self.set_speed_mode(0)
 
 
 	def __str__(self):

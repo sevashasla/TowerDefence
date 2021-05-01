@@ -13,7 +13,7 @@
 	
 	"buttons": [
 		{
-			"coordinates": [128, 170],
+			"coordinates": [196, 110],
 		 	"task": "level1", 
 		 	"text_size": 15, 
 		 	"text_color": [0, 0, 0], 
@@ -21,10 +21,10 @@
 		 	"text": "",
 		 	"color": [255, 0, 0],
 		 	"width": 120,
-		 	"height": 40
+		 	"height": 120
 		},
 		{
-			"coordinates": [128, 340], 
+			"coordinates": [196, 280], 
 			"task": "level2", 
 			"text_size": 15, 
 			"text_color": [0, 0, 0], 
@@ -32,7 +32,18 @@
 			"text": "",
 			"color": [255, 0, 0],
 			"width": 120,
-			"height": 40
+			"height": 120
+		},
+		{
+			"coordinates": [196, 450], 
+			"task": "level3", 
+			"text_size": 15, 
+			"text_color": [0, 0, 0], 
+			"image": "level_3.png", 
+			"text": "",
+			"color": [255, 0, 0],
+			"width": 120,
+			"height": 120
 		}
 	]
 }

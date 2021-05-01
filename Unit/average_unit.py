@@ -14,7 +14,9 @@ class AverageUnit(Unit):
 		self.coordinates = kwargs['coordinates']
 		self.last_attack_time = 0
 		self.health = 5
-		self.speed = [0, -1]
+		self.speed_abs = 1
+		self.speed = [0, 0]
+		self.set_speed_mode(0)
 
 
 	def __str__(self):

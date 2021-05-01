@@ -5,16 +5,18 @@ import json
 
 from ..Unit.unit_factories import *
 from ..Game.coordinates import Coordinates
+from ..Game.rectangle import Rectangle
 
 class SpawnPoint:
 	
 	creators = [WeakUnitCreator(), AverageUnitCreator(), ChadUnitCreator()]
 
 	def __init__(self, position, wvs):
-		self.x1 = position["x1"]
-		self.x2 = position["x2"]
-		self.y1 = position["y1"]
-		self.y2 = position["y2"]
+		self.places = []
+		for rectangle in position:
+			self.places.append(((Rectangle(rectangle)), rectangle["mode"]))
+
+
 		self.last_wave = 0.0
 		self.cooldown = 0
 		self.waves = []
@@ -27,14 +29,20 @@ class SpawnPoint:
 
 
 	def generate_random_coordinate(self) -> Coordinates:
-		return Coordinates(randint(self.x1 + 1, self.x2 - 1), 
-						   randint(self.y1 + 1, self.y2 - 1))
+		place = self.places[randint(0, len(self.places) - 1)]
+		point = place[0]
+		mode = place[1] 
+		coords = Coordinates(randint(point.x1 + 1, point.x2 - 1), 
+						   	 randint(point.y1 + 1, point.y2 - 1))
+		return (coords, mode)
 
 
 	def wave(self):
 		units = []
 		for unit_type in self.waves[-1]:
-			unit = self.creators[unit_type].create(coordinates=self.generate_random_coordinate())
+			coords, speed_mode = self.generate_random_coordinate()
+			unit = self.creators[unit_type].create(coordinates=coords)
+			unit.set_speed_mode(speed_mode)
 			units.append(unit)
 		self.last_wave = time.time()
 		if (len(self.timer) >= 2):

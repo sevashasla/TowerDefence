@@ -38,6 +38,22 @@ class Unit(ABC):
 		self.coordinates.x += self.speed[0]
 		self.coordinates.y += self.speed[1]
 
+	def set_speed_mode(self, mode):
+		if mode == 0:
+			self.speed = [0, -self.speed_abs]
+		if mode == 1:
+			self.speed = [self.speed_abs, 0]
+		if mode == 2:
+			self.speed = [0, self.speed_abs]
+		if mode == 3:
+			self.speed = [-self.speed_abs, 0]
+
+	def get_speed_mode(self):
+		return ((self.speed[1] < 0) * 0 + 
+				(self.speed[0] > 0) * 1 +
+				(self.speed[1] > 0) * 2 +
+				(self.speed[0] < 0) * 3)
+
 	def __del__(self):
 		# Pocket.addMoney(self.bounty)
 		pass
