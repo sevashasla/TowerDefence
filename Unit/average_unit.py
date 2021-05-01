@@ -20,4 +20,5 @@ class AverageUnit(Unit):
 
 
 	def __str__(self):
-		return 'AverageUnit:' + '{:.>20}'.format(self.coordinates.__str__())
+		return f'"Unit_{id(self)}": {{"name": "AverageUnit", "health": {self.health},' + \
+		f' "coordinates": {{"x": {self.coordinates.x}, "y": {self.coordinates.y}}} }}'

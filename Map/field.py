@@ -20,6 +20,9 @@ class Field:
 		self.castle = Castle(data["castle"])
 		self.spawn_point = SpawnPoint(data["spawn_point"], data["waves"])
 		
+		self.attacks_by_units = []
+		self.attacks_by_towers = []
+
 		self.units = []
 		self.towers = []
 		self.waves_spawned = 0
@@ -67,7 +70,7 @@ class Field:
 		self.towers.append(tower)
 
 
-	def destroy (self, tower):
+	def destroy(self, tower):
 		self.towers.remove(tower)
 
 
@@ -109,10 +112,12 @@ class Field:
 		for unit in self.units:
 			if unit.can_attack(self.castle):
 				unit.attack(self.castle)
+				self.attacks_by_units.append([unit.coordinates, self.castle.center])
 				continue
 			for tower in self.towers:
 				if unit.can_attack(tower):
 					unit.attack(tower)
+					self.attacks_by_units.append([unit.coordinates, tower.coordinates])
 					break
 
 
@@ -121,6 +126,7 @@ class Field:
 			for unit in self.units:
 				if tower.can_attack(unit):
 					tower.attack(unit)
+					self.attacks_by_towers.append([tower.coordinates, unit.coordinates])
 					break
 
 	def collect_garbage(self):
@@ -135,6 +141,8 @@ class Field:
 	def update(self):
 		current_time = time.time()
 		if current_time - self.last_update >= self.update_rate:
+			self.attacks_by_units = []
+			self.attacks_by_towers = []
 			Pocket.add_money(self.castle.send_money())
 			self.units_step()
 			self.towers_attack()

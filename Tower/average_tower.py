@@ -14,4 +14,5 @@ class AverageTower(Tower):
 		self.last_attack_time = 0 ####chang
 
 	def __str__(self):
-		return "AverageTower " + str(self.coordinates) + ", health = " + str(self.health)
+		return f'"Tower_{id(self)}": {{"name": "AverageTower", "health": {self.health},' + \
+		f' "coordinates": {{"x": {self.coordinates.tuple[0]}, "y": {self.coordinates.tuple[1]}}}}}'

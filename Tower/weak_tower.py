@@ -11,7 +11,8 @@ class WeakTower(Tower):
 		self.damage = 10
 		self.speed_of_attack = 1
 		self.cost = 5
-		self.last_attack_time = 0 
+		self.last_attack_time = 0
 
 	def __str__(self):
-		return "weak tower " + str(self.coordinates) + ", health = " + str(self.health)
+		return f'"Tower_{id(self)}": {{"name": "WeakTower", "health": {self.health},' + \
+		f' "coordinates": {{"x": {self.coordinates.tuple[0]}, "y": {self.coordinates.tuple[1]}}}}}'

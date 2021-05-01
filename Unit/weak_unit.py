@@ -20,6 +20,7 @@ class WeakUnit(Unit):
 		self.set_speed_mode(0)
 
 	def __str__(self):
-		return 'WeakUnit:' + '{:.>20}'.format(self.coordinates.__str__())
+		return f'"Unit_{id(self)}": {{"name": "WeakUnit", "health": {self.health},' + \
+		f' "coordinates": {{"x": {self.coordinates.x}, "y": {self.coordinates.y}}} }}'
 
 

@@ -32,7 +32,7 @@ class Button():
 			self.image = pygame.image.load(os.path.join(current_path, "TowerDefence/Assets/" + self.image_name))
 			self.image = pygame.transform.scale(self.image, (self.width, self.height))
 
-		screen.blit(self.image, self.coordinates.to_tuple())
+		screen.blit(self.image, self.coordinates.tuple)
 		if(self.text != ""):
 			font = pygame.font.SysFont("comicsans", self.text_size)
 			text = font.render(self.text, True, self.text_color)

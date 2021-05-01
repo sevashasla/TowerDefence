@@ -16,11 +16,9 @@ class DispatcherConsole(Dispatcher):
 		super().__init__()
 
 	def start(self):
-
 		#make non-blocking stdin
 		orig_fl = fcntl.fcntl(sys.stdin, fcntl.F_GETFL)
 		fcntl.fcntl(sys.stdin, fcntl.F_SETFL, orig_fl | os.O_NONBLOCK)
-		sys.stdout.write("I am ready to check your signals\n")
 
 	def finish(self):
 		pass

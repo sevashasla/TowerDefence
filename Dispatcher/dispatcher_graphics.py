@@ -34,6 +34,7 @@ class DispatcherGraphics(Dispatcher):
 
 			elif event.type == pygame.MOUSEBUTTONUP:
 				pos = pygame.mouse.get_pos()
+				print(pos)
 				coordinates_of_click = Coordinates(coordinates=pos)	
 				clicked = False
 

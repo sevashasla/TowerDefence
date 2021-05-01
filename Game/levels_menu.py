@@ -27,7 +27,7 @@ class LevelsMenu:
 		self.mode = mode
 
 		if mode == "console":
-			self.display = DisplayConsole()
+			self.display = DisplayConsole(other_display)
 			self.dispatcher = DispatcherConsole()
 			self.interface = None
 

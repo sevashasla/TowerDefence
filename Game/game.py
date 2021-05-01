@@ -32,7 +32,7 @@ class Game:
 		self.pocket = Pocket()
 
 		if mode == "console":
-			self.display = DisplayConsole()
+			self.display = DisplayConsole(other_display)
 			self.dispatcher = DispatcherConsole()
 			self.interface = None
 		elif mode == "graphics":
@@ -72,9 +72,6 @@ class Game:
 					except MoneyError:
 						self.display.has_MoneyError = True
 						self.display.error_catcher.search_for_errors('MoneyError')
-
-					print("You've click at", position)
-
 			
 			try:
 				self.field.update()

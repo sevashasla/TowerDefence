@@ -23,7 +23,7 @@ class RulesMenu:
 			interface_height = data["interface"]["height"]
 
 		if mode == "console":
-			self.display = DisplayConsole()
+			self.display = DisplayConsole(other_display)
 			self.dispatcher = DispatcherConsole()
 			self.interface = None
 		elif mode == "graphics":

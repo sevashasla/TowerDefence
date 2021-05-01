@@ -1,8 +1,6 @@
 from abc import ABC, abstractmethod
 from .unit import Unit
 
-#there is a lot of work to be done
-
 class ChadUnit(Unit):
 
 	damage = 20
@@ -21,4 +19,5 @@ class ChadUnit(Unit):
 
 
 	def __str__(self):
-		return 'ChadUnit:' + '{:.>20}'.format(self.coordinates.__str__())
+		return f'"Unit_{id(self)}": {{"name": "ChadUnit", "health": {self.health},' + \
+		f' "coordinates": {{"x": {self.coordinates.x}, "y": {self.coordinates.y}}} }}'

@@ -53,8 +53,14 @@ class DisplayGraphics(Display):
 
 		#draw pocket
 		font = pygame.font.SysFont("comicsans", 20)
-		text = font.render("Money: {}".format(pocket.get_money()), True, BLACK)
-		text_rect = text.get_rect(center=Coordinates(450, 15).to_tuple()) #STRANGE?
+		text = font.render(f"Money: {pocket.get_money()}", True, BLACK)
+		text_rect = text.get_rect(center=Coordinates(450, 15).tuple)
+		self.screen.blit(text, text_rect)
+
+		#draw health of the casle
+		font = pygame.font.SysFont("comicsans", 20)
+		text = font.render(f"Castle: {field.castle.health} HP", True, BLACK)
+		text_rect = text.get_rect(center=Coordinates(450, 40).tuple)
 		self.screen.blit(text, text_rect)
 
 		current_path = os.path.abspath(os.getcwd())
@@ -86,18 +92,26 @@ class DisplayGraphics(Display):
 			field.castle.loaded_image.set_colorkey(EMPTY)
 		self.screen.blit(field.castle.loaded_image, (field.castle.coordinates.x, field.castle.coordinates.y))
 
+		#draw attacks
+
+		for positions in field.attacks_by_units:
+			pygame.draw.line(self.screen, RED, positions[0].tuple, positions[1].tuple, 2)
+
+		for positions in field.attacks_by_towers:
+			pygame.draw.line(self.screen, GREEN, positions[0].tuple, positions[1].tuple, 2)			
+
 		# search for errors
 		if self.error_catcher.FieldError_count > 0:
 			font = pygame.font.SysFont("comicsans", 16)
 			text = font.render("YOU CAN NOT PLACE TOWER HERE", True, RED)
-			text_rect = text.get_rect(center=Coordinates(350, 50).to_tuple())
+			text_rect = text.get_rect(center=Coordinates(350, 50).tuple)
 			self.screen.blit(text, text_rect)
 			self.error_catcher.search_for_errors(None)
 
 		if self.error_catcher.MoneyError_count > 0:
 			font = pygame.font.SysFont("comicsans", 16)
 			text = font.render("YOU DO NOT HAVE ENOUGH MONEY", True, RED)
-			text_rect = text.get_rect(center=Coordinates(350, 75).to_tuple())
+			text_rect = text.get_rect(center=Coordinates(350, 75).tuple)
 			self.screen.blit(text, text_rect)
 			self.error_catcher.search_for_errors(None)
 
