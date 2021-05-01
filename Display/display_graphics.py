@@ -55,21 +55,21 @@ class DisplayGraphics(Display):
 
 		#draw units
 		for unit in field.units:
-			if not hasattr(unit, "loaded_image"):
-				unit.loaded_image = pygame.image.load(os.path.join(current_path, 
+			if not hasattr(type(unit), "loaded_image"):
+				type(unit).loaded_image = pygame.image.load(os.path.join(current_path, 
 					"TowerDefence/Assets", get_name(unit) + ".png"))
-				unit.loaded_image = pygame.transform.scale(unit.loaded_image, unit.shape)
-				unit.loaded_image.set_colorkey(EMPTY)
+				type(unit).loaded_image = pygame.transform.scale(type(unit).loaded_image, unit.shape)
+				type(unit).loaded_image.set_colorkey(EMPTY)
 			self.screen.blit(unit.loaded_image, (unit.coordinates.x - unit.shape[0] / 2, 
 												 unit.coordinates.y - unit.shape[1] / 2))
 
 		#draw tower
 		for tower in field.towers:
-			if not hasattr(tower, "loaded_image"):
-				tower.loaded_image = pygame.image.load(os.path.join(current_path, 
+			if not hasattr(type(tower), "loaded_image"):
+				type(tower).loaded_image = pygame.image.load(os.path.join(current_path, 
 					"TowerDefence/Assets", get_name(tower) + ".png"))
-				tower.loaded_image = pygame.transform.scale(tower.loaded_image, tower.shape)
-				tower.loaded_image.set_colorkey(EMPTY)
+				type(tower).loaded_image = pygame.transform.scale(type(tower).loaded_image, tower.shape)
+				type(tower).loaded_image.set_colorkey(EMPTY)
 			self.screen.blit(tower.loaded_image, (tower.coordinates.x - tower.shape[0] / 2, 
 												  tower.coordinates.y - tower.shape[1] / 2))
 
