@@ -68,7 +68,7 @@ class DisplayGraphics(Display):
 			if not hasattr(type(tower), "loaded_image"):
 				type(tower).loaded_image = pygame.image.load(os.path.join(current_path, 
 					"TowerDefence/Assets", get_name(tower) + ".png"))
-				type(tower).loaded_image = pygame.transform.scale(type(tower).loaded_image, tower.shape)
+				type(tower).loaded_image = pygame.transform.scale(type(tower).loaded_image, type(tower).shape)
 				type(tower).loaded_image.set_colorkey(EMPTY)
 			self.screen.blit(tower.loaded_image, (tower.coordinates.x - tower.shape[0] / 2, 
 												  tower.coordinates.y - tower.shape[1] / 2))
