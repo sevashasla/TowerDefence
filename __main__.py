@@ -28,7 +28,6 @@ def main():
 		menu_ = MainMenu("console")
 	else:
 		menu_ = MainMenu("graphics")
-
 	menu_.start()
 
 if __name__ == "__main__":
