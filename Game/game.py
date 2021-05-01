@@ -72,6 +72,8 @@ class Game:
 			
 			try:
 				self.field.update()
+				if 0 < self.display.error_catcher.CastleError_count <= 2:
+					break
 			except CastleError:
 				self.display.has_CastleError = True
 				self.display.error_catcher.search_for_errors('CastleError')

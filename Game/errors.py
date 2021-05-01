@@ -28,8 +28,9 @@ class ErrorCatcher:
 			self.has_CastleError = True
 			self.CastleError_count = 30
 		if error is None:
-			self.CastleError_count = max(self.FieldError_count - 1, 0)
-			self.CastleError_count = max(self.MoneyError_count - 1, 0)
+			self.FieldError_count = max(self.FieldError_count - 1, 0)
+			self.MoneyError_count = max(self.MoneyError_count - 1, 0)
+			self.CastleError_count = max(self.CastleError_count - 1, 0)
 
 	def reset(self):
 		self.has_FieldError = False

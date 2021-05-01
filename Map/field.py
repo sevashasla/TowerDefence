@@ -138,7 +138,7 @@ class Field:
 
 			print(self.castle.get_health(), current_time)
 
-		if self.castle.get_health() <= 0:
-			raise CastleError
+			if self.castle.get_health() <= 0:
+				raise CastleError
 
 
