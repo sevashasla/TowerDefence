@@ -5,9 +5,9 @@ from .unit import Unit
 
 class AverageUnit(Unit):
 
-	damage = 2
+	damage = 10
 	speed_of_attack = 1	
-	range_of_attack = 25
+	range_of_attack = 100
 	bounty = 10
 
 	def __init__(self, *args, **kwargs):

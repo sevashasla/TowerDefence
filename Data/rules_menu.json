@@ -1,0 +1,38 @@
+{
+	"shape": {
+		"width": 512, "height": 512
+	},
+
+	
+	"interface": {
+		"width" : 512,
+		"height" : 256,
+		"color": [0, 0, 255]
+	},
+
+	
+	"buttons": [
+		{
+			"coordinates": [128, 170],
+		 	"task": "LevelsMenu", 
+		 	"text_size": 15, 
+		 	"text_color": [0, 0, 0], 
+		 	"image": "LevelsMenuButton.png", 
+		 	"text": "",
+		 	"color": [255, 0, 0],
+		 	"width": 120,
+		 	"height": 40
+		},
+		{
+			"coordinates": [128, 340], 
+			"task": "RulesMenu", 
+			"text_size": 15, 
+			"text_color": [0, 0, 0], 
+			"image": "RulesMenuButton.png", 
+			"text": "",
+			"color": [255, 0, 0],
+			"width": 120,
+			"height": 40
+		}
+	]
+}

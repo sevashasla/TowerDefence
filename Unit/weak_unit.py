@@ -5,9 +5,9 @@ from .unit import Unit
 
 class WeakUnit(Unit):
 
-	damage = 1
+	damage = 4
 	speed_of_attack = 1.25
-	range_of_attack = 5
+	range_of_attack = 50
 	bounty = 5
 	
 

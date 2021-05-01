@@ -1,0 +1,38 @@
+{
+	"shape": {
+		"width": 512, "height": 512
+	},
+
+	
+	"interface": {
+		"width" : 512,
+		"height" : 256,
+		"color": [0, 0, 255]
+	},
+
+	
+	"buttons": [
+		{
+			"coordinates": [128, 170],
+		 	"task": "level1", 
+		 	"text_size": 15, 
+		 	"text_color": [0, 0, 0], 
+		 	"image": "level_1.png", 
+		 	"text": "",
+		 	"color": [255, 0, 0],
+		 	"width": 120,
+		 	"height": 40
+		},
+		{
+			"coordinates": [128, 340], 
+			"task": "level2", 
+			"text_size": 15, 
+			"text_color": [0, 0, 0], 
+			"image": "level_2.png", 
+			"text": "",
+			"color": [255, 0, 0],
+			"width": 120,
+			"height": 40
+		}
+	]
+}

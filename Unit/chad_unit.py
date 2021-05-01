@@ -5,9 +5,9 @@ from .unit import Unit
 
 class ChadUnit(Unit):
 
-	damage = 4
+	damage = 20
 	speed_of_attack = 0.75
-	range_of_attack = 5
+	range_of_attack = 50
 	bounty = 20
 	
 		

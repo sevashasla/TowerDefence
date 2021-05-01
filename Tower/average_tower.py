@@ -6,9 +6,9 @@ class AverageTower(Tower):
 	def __init__(self, coordinates):
 		super().__init__()
 		self.coordinates = coordinates
-		self.health = 20
+		self.health = 50
 		self.range_of_attack = 100
-		self.damage = 7
+		self.damage = 15
 		self.speed_of_attack = 5
 		self.cost = 15
 		self.last_attack_time = 0 ####chang

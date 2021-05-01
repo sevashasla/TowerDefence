@@ -29,7 +29,7 @@ class DisplayGraphics(Display):
 		self.screen = pygame.display.set_mode((self.width, self.height))
 		self.clock = pygame.time.Clock()
 
-	def show(self, field, pocket):
+	def show_game(self, field, pocket):
 		self.clock.tick(self.fps)
 		
 		self.screen.fill(WHITE)
@@ -76,6 +76,7 @@ class DisplayGraphics(Display):
 			field.castle.loaded_image.set_colorkey(EMPTY)
 		self.screen.blit(field.castle.loaded_image, (field.castle.coordinates.x, field.castle.coordinates.y))
 
+		# search for errors
 		if self.error_catcher.FieldError_count > 0:
 			font = pygame.font.SysFont("comicsans", 16)
 			text = font.render("YOU CAN NOT PLACE TOWER HERE", True, RED)
@@ -90,9 +91,23 @@ class DisplayGraphics(Display):
 			self.screen.blit(text, text_rect)
 			self.error_catcher.search_for_errors(None)
 
+		if self.error_catcher.CastleError_count > 0:
+			lose_game_image = pygame.image.load(os.path.join(current_path, "TowerDefence/Assets/YouDied.png"))
+			self.screen.blit(lose_game_image, (0, self.height / 3 * 2))
+			self.error_catcher.search_for_errors(None)
+
 		pygame.display.flip()
 
 
+	def show_menu(self):
+		self.clock.tick(self.fps)
+		
+		self.screen.fill(WHITE)
+
+		#draw interface
+		self.interface.draw(self.screen)
+
+		pygame.display.flip()
 
 	def finish(self):
 		pygame.quit()

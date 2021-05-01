@@ -97,12 +97,13 @@ class Field:
 
 	def units_attack(self):
 		for unit in self.units:
+			if unit.can_attack(self.castle):
+				unit.attack(self.castle)
+				continue
 			for tower in self.towers:
 				if unit.can_attack(tower):
 					unit.attack(tower)
 					break
-			if unit.can_attack(self.castle):
-				unt.attack(self.castle)
 
 
 	def towers_attack(self):
@@ -134,4 +135,10 @@ class Field:
 			   current_time - self.spawn_point.last_wave >= self.spawn_point.cooldown:
 				self.spawn_units()
 			self.last_update = current_time
+
+			print(self.castle.get_health(), current_time)
+
+		if self.castle.get_health() <= 0:
+			raise CastleError
+
 
