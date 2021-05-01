@@ -2,10 +2,6 @@ import sys
 from .Game.game import Game
 
 def main():
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> add files to checkpoint 2
 	try:
 		mode = sys.argv[1]
 	except IndexError:
@@ -15,12 +11,7 @@ def main():
 			"To get more visit our github: https://github.com/sevashasla/TowerDefence/"
 			)
 		return
-<<<<<<< HEAD
-=======
-	mode = sys.argv[1]
->>>>>>> delete it later
-=======
->>>>>>> add files to checkpoint 2
+
 	game_ = Game(mode)
 	game_.start()
 

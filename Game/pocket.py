@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> add files to checkpoint 2
 from .errors import MoneyError
 
 class Pocket(object):
@@ -9,7 +5,7 @@ class Pocket(object):
         money = 0
 
         def __new__(cls):
-            if not hasattr(cls, 'instance'):
+            if not hasattr(cls, '__instance'):
                 cls.__instance = super(Pocket, cls).__new__(cls)
             return cls.__instance
 
@@ -23,45 +19,12 @@ class Pocket(object):
 
         @classmethod
         def lend_money(cls, credit):
-<<<<<<< HEAD
-=======
-class MoneyError(Exception):
-    pass
-
-
-class Pocket:
-
-        __isinstance = None
-        money = 0
-
-        def __init__(self):
-            if not Pocket.__isinstance:
-                pass
-            else:
-                self.getInstance()
-        
-        @classmethod
-        def getInstance(cls):
-            if not cls.__isinstance:
-                cls.__isinstance = Pocket()
-            return cls.__isinstance
-
-        @classmethod
-        def getMoney(cls):
-            return cls.money
-
-        @classmethod
-        def addMoney(cls, debet):
-            cls.money += debet
-
-        @classmethod
-        def lendMoney(cls, credit):
->>>>>>> delete it later
-=======
->>>>>>> add files to checkpoint 2
             if cls.money < credit:
                 raise MoneyError
             cls.money -= credit
             return credit
+
+        def __str__(self):
+            return f'"Pocket": {{"money": {self.get_money()}}}'
 
  

@@ -3,11 +3,13 @@
 		"width": 512, "height": 512
 	},
 
+	"movement_constants": {
+		"min_step": 10,
+		"max_step": 30,
+		"big_step": 50
+	},
+
 	"road": [
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> add files to checkpoint 2
 		{"x1": 200, "y1": 0, "x2": 250, "y2": 154},
 		{"x1": 250, "y1": 154, "x2": 76, "y2": 102},
 		{"x1": 76, "y1": 102, "x2": 126, "y2": 254},
@@ -15,22 +17,18 @@
 		{"x1": 385, "y1": 204, "x2": 435, "y2": 357},
 		{"x1": 435, "y1": 357, "x2": 200, "y2": 307},
 		{"x1": 200, "y1": 307, "x2": 250, "y2": 511}
-<<<<<<< HEAD
-=======
-		{"x1": 200, "y1": 0, "x2": 250, "y2": 512}
->>>>>>> delete it later
-=======
->>>>>>> add files to checkpoint 2
 	],
 
 	"waves": [
 		{"wave": [0, 0, 0, 1, 1], "time": 0.0}, 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> add files to checkpoint 2
 		{"wave": [1, 0, 0, 2], "time": 5.0},
-		{"wave": [1, 2, 1, 2], "time": 10.0}
+		{"wave": [1, 2, 1, 2], "time": 10.0},
+		{"wave": [1, 2, 1, 2, 0, 0, 2, 2], "time": 15.0},
+		{"wave": [1, 2, 1, 2, 2, 2, 2, 2, 2, 2], "time": 17.0},
+		{"wave": [1, 2, 1, 2, 0, 0, 0, 0, 2, 1, 1], "time": 25.0},
+		{"wave": [1, 2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1], "time": 30.0},
+		{"wave": [0, 0, 0 ,0, 0, 0, 1, 1, 1, 1, 1, 1], "time": 35.0},
+		{"wave": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "time": 40.0}
 	],
 
 	"castle": {
@@ -41,50 +39,22 @@
 		"produce_money": 1,
 		"cooldown": 3.0,
 		"x1": 200, "y1": 0, "x2": 250, "y2": 50
-<<<<<<< HEAD
-=======
-		{"wave": [1, 0, 0, 2], "time": 30.0},
-		{"wave": [1, 2, 1, 2], "time": 60.0}
-	],
-
-	"castle": {
-		"health": 500,
-		"produce_money": 1
->>>>>>> delete it later
-=======
->>>>>>> add files to checkpoint 2
 	},
 
 	"interface": {
 		"width" : 512,
-<<<<<<< HEAD
-<<<<<<< HEAD
 		"height" : 256,
 		"color": [0, 0, 255]
-=======
-		"height" : 256
->>>>>>> delete it later
-=======
-		"height" : 256,
-		"color": [0, 0, 255]
->>>>>>> add files to checkpoint 2
 	},
 
 	"pocket": {
-		"init_money": 0,
+		"init_money": 5,
 		"coordinates": [0, 0]
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> add files to checkpoint 2
 	},
 
-	"spawn_point": {
-		"x1": 200,
-		"y1": 500, 
-		"x2": 250,
-		"y2": 511
-	},
+	"spawn_point": [
+		{"x1": 200, "y1": 500, "x2": 250, "y2": 511, "mode": 0}
+	],
 
 	"buttons": [
 		{
@@ -110,10 +80,4 @@
 			"height": 40
 		}
 	]
-<<<<<<< HEAD
-=======
-	}
->>>>>>> delete it later
-=======
->>>>>>> add files to checkpoint 2
 }

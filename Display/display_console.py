@@ -2,12 +2,15 @@ from .display import Display
 import os
 import sys
 import time
+from ..Game.errors import ErrorCatcher
+
 
 class DisplayConsole(Display):
 	def __init__(self):
 		super().__init__()
 		self.last_time_update = time.time()
 		self.update_rate = 3
+		self.error_catcher = ErrorCatcher()
 
 	def start(self):
 		print("Let's start!")
@@ -18,18 +21,10 @@ class DisplayConsole(Display):
 	def show(self, field, pocket):
 
 		if((time.time() - self.last_time_update) >= self.update_rate):
-<<<<<<< HEAD
-<<<<<<< HEAD
 			sys.stdout.flush()
 			print(pocket.get_money())
-=======
-			os.system('clear')
-			print(pocket.getMoney())
->>>>>>> delete it later
-=======
 			sys.stdout.flush()
 			print(pocket.get_money())
->>>>>>> add files to checkpoint 2
 
 			for unit in field.units:
 				print(unit)
