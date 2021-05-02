@@ -7,9 +7,9 @@ class AverageUnit(Unit):
 
 	damage = 10
 	speed_of_attack = 1	
-	range_of_attack = 100
+	range_of_attack = 50
 	bounty = 10
-	max_health = 5
+	max_health = 10
 	speed_abs = 1
 
 	def __init__(self, *args, **kwargs):

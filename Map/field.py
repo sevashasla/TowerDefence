@@ -16,15 +16,17 @@ class Field:
 	def __init__(self, data):
 		self.width = data["shape"]["width"]
 		self.height = data["shape"]["height"]
+		
 		self.road = Road(self.width, self.height, data["road"])
 		self.castle = Castle(data["castle"])
 		self.spawn_point = SpawnPoint(data["spawn_point"], data["waves"])
-		
+		Pocket.add_money(data["pocket"]["init_money"])
+
+		self.units = []
+		self.towers = []		
 		self.attacks_by_units = []
 		self.attacks_by_towers = []
 
-		self.units = []
-		self.towers = []
 		self.waves_spawned = 0
 		self.update_rate = 0.1
 		self.last_update = 0.0
@@ -32,7 +34,8 @@ class Field:
 		self.max_step = data["movement_constants"]["max_step"]
 		self.big_step = data["movement_constants"]["big_step"]
 
-		self.attacks = [0] * len(self.units)
+		self.towers_placed = 0
+
 
 
 	def can_make_step(self, unit, distance) -> bool:
@@ -70,6 +73,8 @@ class Field:
 			raise FieldError
 		Pocket.lend_money(tower.cost)
 		self.towers.append(tower)
+		self.towers_placed += 1
+		print('total towers: ', self.towers_placed)
 
 
 	def destroy(self, tower):
@@ -110,13 +115,9 @@ class Field:
 		# print()
 
 	def units_attack(self):
-		for i in range(len(self.units)):
-			if i >= len(self.attacks):
-				self.attacks.append(0)
 		for unit in self.units:
 			if unit.can_attack(self.castle):
 				unit.attack(self.castle)
-				self.attacks[self.units.index(unit)] += 1
 				self.attacks_by_units.append([unit.coordinates, self.castle.center])
 				continue
 			for tower in self.towers:
@@ -124,7 +125,6 @@ class Field:
 					unit.attack(tower)
 					self.attacks_by_units.append([unit.coordinates, tower.coordinates])
 					break
-		print(self.attacks)
 
 
 	def towers_attack(self):

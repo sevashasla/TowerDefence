@@ -7,9 +7,9 @@ class WeakUnit(Unit):
 
 	damage = 4
 	speed_of_attack = 1.25
-	range_of_attack = 75
+	range_of_attack = 50
 	bounty = 5
-	max_health = 3
+	max_health = 5
 	speed_abs = 2
 
 	def __init__(self, *args, **kwargs):

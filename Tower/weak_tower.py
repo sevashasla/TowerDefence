@@ -5,9 +5,9 @@ from .tower import Tower
 class WeakTower(Tower):
 
 	max_health = 30
-	damage = 10
+	damage = 5
 	speed_of_attack = 1
-	range_of_attack = 125
+	range_of_attack = 50
 	cost = 5
 
 	def __init__(self, coordinates):

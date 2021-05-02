@@ -4,10 +4,10 @@ from .tower import Tower
 
 class AverageTower(Tower):
 
-	max_health = 50
-	damage = 15
+	max_health = 70
+	damage = 10
 	speed_of_attack = 5
-	range_of_attack = 150
+	range_of_attack = 75
 	cost = 15
 
 	def __init__(self, coordinates):
