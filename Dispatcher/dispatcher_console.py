@@ -23,18 +23,19 @@ class DispatcherConsole(Dispatcher):
 	def get_events(self) -> list:
 		events = []
 
-		if (time.time() - self.last_time_update) >= self.update_rate:
+		if (time.time() - self.last_time_update) <= self.update_rate:
 			return events
 
 		input_ = sys.stdin.readline()
 
 		event_split = input_.split()
 
-		if event_split[0] == "stop":
+		if event_split == []:
+			pass
+
+		elif event_split[0] == "stop":
 			events.append(StopCommand())
 
-		elif event_split[0] == "c":
-			pass
 
 		elif event_split[0] == "place":
 			if event_split[1] == "weak":
