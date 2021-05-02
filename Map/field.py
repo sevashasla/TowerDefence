@@ -32,6 +32,8 @@ class Field:
 		self.max_step = data["movement_constants"]["max_step"]
 		self.big_step = data["movement_constants"]["big_step"]
 
+		self.attacks = [0] * len(self.units)
+
 
 	def can_make_step(self, unit, distance) -> bool:
 		try:    
@@ -107,11 +109,14 @@ class Field:
 					unit.make_step()
 		# print()
 
-
 	def units_attack(self):
+		for i in range(len(self.units)):
+			if i >= len(self.attacks):
+				self.attacks.append(0)
 		for unit in self.units:
 			if unit.can_attack(self.castle):
 				unit.attack(self.castle)
+				self.attacks[self.units.index(unit)] += 1
 				self.attacks_by_units.append([unit.coordinates, self.castle.center])
 				continue
 			for tower in self.towers:
@@ -119,6 +124,7 @@ class Field:
 					unit.attack(tower)
 					self.attacks_by_units.append([unit.coordinates, tower.coordinates])
 					break
+		print(self.attacks)
 
 
 	def towers_attack(self):

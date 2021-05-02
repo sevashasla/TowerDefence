@@ -3,14 +3,17 @@ from .tower import Tower
 
 
 class WeakTower(Tower):
+
+	max_health = 30
+	damage = 10
+	speed_of_attack = 1
+	range_of_attack = 125
+	cost = 5
+
 	def __init__(self, coordinates):
 		super().__init__()
 		self.coordinates = coordinates
-		self.health = 30
-		self.range_of_attack = 50
-		self.damage = 10
-		self.speed_of_attack = 1
-		self.cost = 5
+		self.health = WeakTower.max_health
 		self.last_attack_time = 0
 
 	def __str__(self):

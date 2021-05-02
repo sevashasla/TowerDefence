@@ -3,14 +3,17 @@ from .tower import Tower
 
 
 class AverageTower(Tower):
+
+	max_health = 50
+	damage = 15
+	speed_of_attack = 5
+	range_of_attack = 150
+	cost = 15
+
 	def __init__(self, coordinates):
 		super().__init__()
 		self.coordinates = coordinates
-		self.health = 50
-		self.range_of_attack = 100
-		self.damage = 15
-		self.speed_of_attack = 5
-		self.cost = 15
+		self.health = AverageTower.max_health
 		self.last_attack_time = 0 ####chang
 
 	def __str__(self):

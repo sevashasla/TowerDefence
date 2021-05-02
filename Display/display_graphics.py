@@ -19,6 +19,13 @@ def get_name(variable_to_find_name):
 	return type(variable_to_find_name).__name__
 
 
+def get_health_color(unit):
+		normalized_health = unit.health / unit.max_health
+		green = min(255, round(255 * 2 * normalized_health))
+		red = min(255, 255 * 2 - round(255 * 2 * normalized_health))
+		return (red, green, 0)
+
+
 class DisplayGraphics(Display):
 	def __init__(self, interface, width, height, other_display=None):
 		super().__init__()
@@ -75,6 +82,7 @@ class DisplayGraphics(Display):
 					"TowerDefence/Assets", get_name(unit) + ".png"))
 				type(unit).loaded_image = pygame.transform.scale(type(unit).loaded_image, unit.shape)
 				type(unit).loaded_image.set_colorkey(EMPTY)
+			
 			self.screen.blit(unit.loaded_image, (unit.coordinates.x - unit.shape[0] / 2, 
 												 unit.coordinates.y - unit.shape[1] / 2))
 
@@ -85,6 +93,11 @@ class DisplayGraphics(Display):
 					"TowerDefence/Assets", get_name(tower) + ".png"))
 				type(tower).loaded_image = pygame.transform.scale(type(tower).loaded_image, type(tower).shape)
 				type(tower).loaded_image.set_colorkey(EMPTY)
+
+			pygame.draw.rect(self.screen, get_health_color(tower), (tower.coordinates.x - tower.shape[0] / 2 + 2, 
+																	tower.coordinates.y - tower.shape[1] / 2 - 2, 
+																	tower.shape[0],
+																	2))
 			self.screen.blit(tower.loaded_image, (tower.coordinates.x - tower.shape[0] / 2, 
 												  tower.coordinates.y - tower.shape[1] / 2))
 
