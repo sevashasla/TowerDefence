@@ -28,7 +28,7 @@ class SpawnPoint:
         self.timer.reverse()
 
 
-    def generate_random_coordinate(self) -> Coordinates:
+    def generate_random_coordinate_and_set_speed(self) -> Coordinates:
         place = self.places[randint(0, len(self.places) - 1)]
         point = place[0]
         mode = place[1] 
@@ -37,10 +37,10 @@ class SpawnPoint:
         return (coords, mode)
 
 
-    def wave(self):
+    def spawn_wave(self):
         units = []
         for unit_type in self.waves[-1]:
-            coords, speed_mode = self.generate_random_coordinate()
+            coords, speed_mode = self.generate_random_coordinate_and_set_speed()
             unit = self.creators[unit_type].create(coordinates=coords)
             unit.set_speed_mode(speed_mode)
             units.append(unit)

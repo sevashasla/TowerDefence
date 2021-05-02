@@ -24,7 +24,9 @@ class Tower(ABC):
 			enemy.decrease_health(self.damage)
 
 	def can_attack(self, enemy) -> bool:
-		if time.time() - self.last_attack_time >= self.attack_time * self.speed_of_attack:
+		cooldown = self.attack_time * self.speed_of_attack
+		passed_time = time.time() - self.last_attack_time
+		if passed_time >= cooldown:
 			return hypot(self.coordinates.x - enemy.coordinates.x, 
 				self.coordinates.y - enemy.coordinates.y) <= self.range_of_attack
 		return False

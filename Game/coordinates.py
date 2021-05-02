@@ -1,7 +1,12 @@
 import functools
+from dataclasses import dataclass
 
-
+@dataclass
 class Coordinates:
+
+	x: int
+	y: int
+
 	def __init__(self, x: int=None, y: int=None, coordinates: list=None):
 		self.x = x
 		self.y = y

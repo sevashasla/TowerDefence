@@ -85,30 +85,38 @@ class Field:
 
 	def spawn_units(self):
 		self.waves_spawned += 1
-		for unit in self.spawn_point.wave():
+		for unit in self.spawn_point.spawn_wave():
 			unit.make_step()
 			self.units.append(unit)
 
 	def belong_to_field(self, coords):
 		return 0 <= coords.x <= self.width and 0 <= coords.y <= self.height
 
+		
+	def generate_random_distance(self):
+		return randint(self.min_step, self.max_step)
+
 
 	def units_step(self):
 		for unit in self.units:
-			distance = randint(2, 18)
+			
+			distance = self.generate_random_distance()
 			far_distance = self.big_step
 			directions = [False] * 4
 			shift = unit.get_speed_mode()
+			
 			if self.can_make_step(unit, distance):
 				directions[shift] = True
 				unit.make_step()
-				# print(shift, end=' ')
 				continue	
+			
 			for i in range(1, 4):
 				unit.set_speed_mode((shift + i) % 4)
 				if self.can_make_step(unit, far_distance):
 					directions[(shift + i) % 4] = True
+			
 			unit.set_speed_mode(shift)
+			
 			for i in range(4):
 				if directions[i] and i != (shift + 2) % 4:
 					unit.set_speed_mode(i)
@@ -155,4 +163,5 @@ class Field:
 			current_time - self.spawn_point.last_wave >= self.spawn_point.cooldown:
 				self.spawn_units()
 			self.last_update = current_time
+
 

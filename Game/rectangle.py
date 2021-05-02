@@ -15,9 +15,9 @@ class Rectangle:
 		self.x2 = max(coordinates['x1'], coordinates['x2']) 
 		self.y2 = max(coordinates['y1'], coordinates['y2'])
 
-	@property
-	def tuple(self):
-		return (self.x1, self.y1, self.x2, self.y2)
+#	@property
+#	def tuple(self):
+#		return (self.x1, self.y1, self.x2, self.y2)
 	
 	def width(self):
 		return abs(self.x2 - self.x1)
