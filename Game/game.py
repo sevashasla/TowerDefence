@@ -4,6 +4,9 @@ from ..Dispatcher.dispatcher_graphics import DispatcherGraphics
 from ..Display.display_console import DisplayConsole
 from ..Dispatcher.dispatcher_console import DispatcherConsole
 
+from ..Display.error_catcher_console import ErrorCatcherConsole
+from ..Display.error_catcher_graphics import ErrorCatcherGraphics
+
 from ..Map.field import Field
 from .interface import Interface
 
@@ -35,15 +38,17 @@ class Game:
 			self.display = DisplayConsole(other_display)
 			self.dispatcher = DispatcherConsole()
 			self.interface = None
+			self.error_catcher = ErrorCatcherConsole()
 		elif mode == "graphics":
 			self.interface = Interface(self.width, self.height, data["interface"], data["buttons"])
 			self.display = DisplayGraphics(self.interface, max(self.width, interface_width), self.height + interface_height, other_display)
 			self.dispatcher = DispatcherGraphics(self.interface)
+			self.error_catcher = ErrorCatcherGraphics()
 		else:
 			raise ValueError("wrong type of mode")
 		self.field = Field(data)
 		self.pocket = Pocket()
-		self.error_catcher = ErrorCatcher()
+
 
 	def start(self):
 		self.display.start()
@@ -54,7 +59,7 @@ class Game:
 		creators = {"WeakTower": WeakTowerCreator(), "AverageTower": AverageTowerCreator()}
 
 		while running:
-			self.display.show_game(self.field, self.pocket)
+			self.display.show_game(self.field, self.pocket, self.error_catcher)
 			
 			for event in self.dispatcher.get_events():
 				if isinstance(event, StopCommand):
@@ -67,19 +72,20 @@ class Game:
 					try:
 						self.field.place_tower(creators[class_of_tower].create(position))
 					except FieldError:
-						self.display.has_FieldError = True
-						self.display.error_catcher.search_for_errors('FieldError')
+						self.error_catcher.has_FieldError = True
+						self.error_catcher.search_for_errors('FieldError')
 					except MoneyError:
-						self.display.has_MoneyError = True
-						self.display.error_catcher.search_for_errors('MoneyError')
+						self.error_catcher.has_MoneyError = True
+						self.error_catcher.search_for_errors('MoneyError')
 			
 			try:
 				self.field.update()
-				if self.display.error_catcher.CastleError_count == 1:
+				print(self.error_catcher.CastleError_count)
+				if self.error_catcher.CastleError_count == 1:
 					break
 			except CastleError:
-				self.display.has_CastleError = True
-				self.display.error_catcher.search_for_errors('CastleError')
+				self.error_catcher.has_CastleError = True
+				self.error_catcher.search_for_errors('CastleError')
 				
 		self.dispatcher.finish()
 		self.display.finish()
