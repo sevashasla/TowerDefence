@@ -1,4 +1,4 @@
-import fcntl
+import time
 import sys
 import os
 
@@ -11,36 +11,42 @@ from ..Command.place_tower import PlaceTowerCommand
 class DispatcherConsole(Dispatcher):
 	def __init__(self):
 		super().__init__()
+		self.last_time_update = time.time()
+		self.update_rate = 0.5
 
 	def start(self):
-		#make non-blocking stdin
-		orig_fl = fcntl.fcntl(sys.stdin, fcntl.F_GETFL)
-		fcntl.fcntl(sys.stdin, fcntl.F_SETFL, orig_fl | os.O_NONBLOCK)
+		pass
 
 	def finish(self):
 		pass
 
-	def read_stdin(self):
-		input_ = sys.stdin.readlines()
-		return input_
-
 	def get_events(self) -> list:
 		events = []
-		input_ = self.read_stdin()
-		if input_:
-			for event in input_:
-				event = event.replace("\n", "")
-				event_split = event.split()
 
-				if event_split[0] == "stop":
-					events.append(StopCommand())
+		if (time.time() - self.last_time_update) >= self.update_rate:
+			return events
 
-				elif event_split[0] == "place":
-					if event_split[1] == "weak":
-						class_of_tower = "WeakTower"
-					elif event_split[1] == "average":
-						class_of_tower = "AverageTower"
-					position = Coordinates(int(event_split[2]), int(event_split[3]))
-					events.append(PlaceTowerCommand(class_of_tower, position))
+		input_ = sys.stdin.readline()
+
+		event_split = input_.split()
+
+		if event_split[0] == "stop":
+			events.append(StopCommand())
+
+		elif event_split[0] == "c":
+			pass
+
+		elif event_split[0] == "place":
+			if event_split[1] == "weak":
+				class_of_tower = "WeakTower"
+			elif event_split[1] == "average":
+				class_of_tower = "AverageTower"
+			position = Coordinates(int(event_split[2]), int(event_split[3]))
+			events.append(PlaceTowerCommand(class_of_tower, position))
+
+		else:
+			raise TypeError("wrong type!")
+
+		self.last_time_update = time.time()
 
 		return events
