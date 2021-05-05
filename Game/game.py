@@ -14,6 +14,9 @@ from ..Tower.tower_factories import *
 import os
 import json
 
+from ..Command.stop import StopCommand
+from ..Command.place_tower import PlaceTowerCommand
+
 class Game:
 	def __init__(self, mode):
 		current_path = os.getcwd()
@@ -51,12 +54,16 @@ class Game:
 		creators = {"WeakTower": WeakTowerCreator(), "AverageTower": AverageTowerCreator()}
 
 		while running:
+			self.display.show(self.field, self.pocket)
+			
 			for event in self.dispatcher.get_events():
-				if(event[0] == "stop"):
+				if isinstance(event, StopCommand):
 					running = False
-				elif (event[0] == "place"):
-					class_of_tower = event[1]
-					position = event[2]
+					get_stop_command = True
+
+				elif isinstance(event, PlaceTowerCommand):
+					class_of_tower = event.class_of_tower
+					position = event.position
 					try:
 						self.field.place_tower(creators[class_of_tower].create(position))
 					except FieldError:
@@ -65,10 +72,16 @@ class Game:
 					except MoneyError:
 						self.display.has_MoneyError = True
 						self.display.error_catcher.search_for_errors('MoneyError')
+			
+			try:
+				self.field.update()
+			except CastleError:
+				self.display.has_CastleError = True
+				self.display.error_catcher.search_for_errors('CastleError')
 
-					print("You've click at", position)
 
-			self.display.show(self.field, self.pocket)
-			self.field.update()
 		self.dispatcher.finish()
 		self.display.finish()
+
+	def finish(self):
+		pass

@@ -13,6 +13,10 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 EMPTY = (255, 0, 255)
+FONT = "comicsans"
+
+def get_name(variable_to_find_name):
+	return type(variable_to_find_name).__name__
 
 
 class DisplayGraphics(Display):
@@ -42,28 +46,30 @@ class DisplayGraphics(Display):
 			pygame.draw.rect(self.screen, BLACK, rectangle.point_and_size())
 
 		#draw pocket
-		font = pygame.font.SysFont("comicsans", 20)
+		font = pygame.font.SysFont(FONT, 20)
 		text = font.render("Money: {}".format(pocket.get_money()), True, BLACK)
-		text_rect = text.get_rect(center=Coordinates(450, 15).to_tuple()) #STRANGE?
+		text_rect = text.get_rect(center=Coordinates(450, 15).tuple) #STRANGE?
 		self.screen.blit(text, text_rect)
 
 		current_path = os.path.abspath(os.getcwd())
 
 		#draw units
 		for unit in field.units:
-			if not hasattr(unit, "loaded_image"):
-				unit.loaded_image = pygame.image.load(os.path.join(current_path, "TowerDefence/Assets", type(unit).__name__ + ".png"))
-				unit.loaded_image = pygame.transform.scale(unit.loaded_image, unit.shape)
-				unit.loaded_image.set_colorkey(EMPTY)
+			if not hasattr(type(unit), "loaded_image"):
+				type(unit).loaded_image = pygame.image.load(os.path.join(current_path, 
+					"TowerDefence/Assets", get_name(unit) + ".png"))
+				type(unit).loaded_image = pygame.transform.scale(type(unit).loaded_image, unit.shape)
+				type(unit).loaded_image.set_colorkey(EMPTY)
 			self.screen.blit(unit.loaded_image, (unit.coordinates.x - unit.shape[0] / 2, 
 												 unit.coordinates.y - unit.shape[1] / 2))
 
 		#draw tower
 		for tower in field.towers:
-			if not hasattr(tower, "loaded_image"):
-				tower.loaded_image = pygame.image.load(os.path.join(current_path, "TowerDefence/Assets", type(tower).__name__ + ".png"))
-				tower.loaded_image = pygame.transform.scale(tower.loaded_image, tower.shape)
-				tower.loaded_image.set_colorkey(EMPTY)
+			if not hasattr(type(tower), "loaded_image"):
+				type(tower).loaded_image = pygame.image.load(os.path.join(current_path, 
+					"TowerDefence/Assets", get_name(tower) + ".png"))
+				type(tower).loaded_image = pygame.transform.scale(type(tower).loaded_image, type(tower).shape)
+				type(tower).loaded_image.set_colorkey(EMPTY)
 			self.screen.blit(tower.loaded_image, (tower.coordinates.x - tower.shape[0] / 2, 
 												  tower.coordinates.y - tower.shape[1] / 2))
 
@@ -74,25 +80,25 @@ class DisplayGraphics(Display):
 			field.castle.loaded_image = pygame.transform.scale(field.castle.loaded_image, 
 				(field.castle.width, field.castle.height))
 			field.castle.loaded_image.set_colorkey(EMPTY)
-		self.screen.blit(field.castle.loaded_image, (field.castle.coordinates.x, field.castle.coordinates.y))
+		self.screen.blit(field.castle.loaded_image, (field.castle.coordinates.x, 
+			field.castle.coordinates.y))
 
+		# search for errors
 		if self.error_catcher.FieldError_count > 0:
-			font = pygame.font.SysFont("comicsans", 16)
+			font = pygame.font.SysFont(FONT, 16)
 			text = font.render("YOU CAN NOT PLACE TOWER HERE", True, RED)
-			text_rect = text.get_rect(center=Coordinates(350, 50).to_tuple())
+			text_rect = text.get_rect(center=Coordinates(350, 50).tuple)
 			self.screen.blit(text, text_rect)
 			self.error_catcher.search_for_errors(None)
 
 		if self.error_catcher.MoneyError_count > 0:
-			font = pygame.font.SysFont("comicsans", 16)
+			font = pygame.font.SysFont(FONT, 16)
 			text = font.render("YOU DO NOT HAVE ENOUGH MONEY", True, RED)
-			text_rect = text.get_rect(center=Coordinates(350, 75).to_tuple())
+			text_rect = text.get_rect(center=Coordinates(350, 75).tuple)
 			self.screen.blit(text, text_rect)
 			self.error_catcher.search_for_errors(None)
 
 		pygame.display.flip()
-
-
 
 	def finish(self):
 		pygame.quit()

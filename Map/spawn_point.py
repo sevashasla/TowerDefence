@@ -5,42 +5,50 @@ import json
 
 from ..Unit.unit_factories import *
 from ..Game.coordinates import Coordinates
+from ..Game.rectangle import Rectangle
 
 class SpawnPoint:
-	
-	creators = [WeakUnitCreator(), AverageUnitCreator(), ChadUnitCreator()]
+    
+    creators = [WeakUnitCreator(), AverageUnitCreator(), ChadUnitCreator()]
 
-	def __init__(self, position, wvs):
-		self.x1 = position["x1"]
-		self.x2 = position["x2"]
-		self.y1 = position["y1"]
-		self.y2 = position["y2"]
-		self.last_wave = 0.0
-		self.cooldown = 0
-		self.waves = []
-		self.timer = []
-		for each in wvs:
-			self.waves.append(each["wave"])
-			self.timer.append(each["time"])
-		self.waves.reverse()
-		self.timer.reverse()
+    def __init__(self, position, wvs):
+        self.places = []
+        for rectangle in position:
+            self.places.append(((Rectangle(rectangle)), rectangle["mode"]))
 
 
-	def generate_random_coordinate(self) -> Coordinates:
-		return Coordinates(randint(self.x1 + 1, self.x2 - 1), 
-						   randint(self.y1 + 1, self.y2 - 1))
+        self.last_wave = 0.0
+        self.cooldown = 0
+        self.waves = []
+        self.timer = []
+        for each in wvs:
+            self.waves.append(each["wave"])
+            self.timer.append(each["time"])
+        self.waves.reverse()
+        self.timer.reverse()
 
 
-	def wave(self):
-		units = []
-		for unit_type in self.waves[-1]:
-			unit = self.creators[unit_type].create(coordinates=self.generate_random_coordinate())
-			units.append(unit)
-		self.last_wave = time.time()
-		if (len(self.timer) >= 2):
-			self.cooldown = self.timer[-2] - self.timer[-1]
-		else:
-			self.cooldown = -1
-		self.waves.pop()
-		self.timer.pop()
-		return units
+    def generate_random_coordinate_and_set_speed(self) -> Coordinates:
+        place = self.places[randint(0, len(self.places) - 1)]
+        point = place[0]
+        mode = place[1] 
+        coords = Coordinates(randint(point.x1 + 1, point.x2 - 1), 
+                             randint(point.y1 + 1, point.y2 - 1))
+        return (coords, mode)
+
+
+    def spawn_wave(self):
+        units = []
+        for unit_type in self.waves[-1]:
+            coords, speed_mode = self.generate_random_coordinate_and_set_speed()
+            unit = self.creators[unit_type].create(coordinates=coords)
+            unit.set_speed_mode(speed_mode)
+            units.append(unit)
+        self.last_wave = time.time()
+        if (len(self.timer) >= 2):
+            self.cooldown = self.timer[-2] - self.timer[-1]
+        else:
+            self.cooldown = -1
+        self.waves.pop()
+        self.timer.pop()
+        return units

@@ -11,6 +11,7 @@ def main():
 			"To get more visit our github: https://github.com/sevashasla/TowerDefence/"
 			)
 		return
+
 	game_ = Game(mode)
 	game_.start()
 
