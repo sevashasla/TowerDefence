@@ -1,11 +1,9 @@
 from abc import ABC, abstractmethod
 import time
+import sys
 
-
-# https://refactoring.guru/ru/design-patterns/factory-method/python/example
 
 class Unit(ABC):
-
 	update_time = 0.1
 	attack_time = 1.0
 	shape = (40, 30)
@@ -13,7 +11,6 @@ class Unit(ABC):
 	@abstractmethod
 	def __init__(self, spawn_point, update_time):
 		pass
-
 
 	def attack(self, tower):
 		if self.can_attack(tower):
@@ -54,13 +51,12 @@ class Unit(ABC):
 				(self.speed[1] > 0) * 2 +
 				(self.speed[0] < 0) * 3)
 
-	def __del__(self):
-		# Pocket.addMoney(self.bounty)
-		pass
-		
 	@abstractmethod
 	def __str__(self) -> str:
 		pass
+
+	def dump(self, file=sys.stdout):
+		file.write(str(self))
 
 
 class UnitCreator(ABC):

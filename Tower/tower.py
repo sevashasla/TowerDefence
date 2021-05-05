@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 import time
-
+import sys
 
 class Tower(ABC):
 
@@ -15,7 +15,6 @@ class Tower(ABC):
 	@abstractmethod
 	def __str__(self):
 		pass
-
 
 	def attack(self, enemy):
 		if self.can_attack(enemy):
@@ -35,4 +34,5 @@ class Tower(ABC):
 	def decrease_health(self, damage):
 		self.health -= damage
 
-
+	def dump(self, file=sys.stdout):
+		file.write(str(self))

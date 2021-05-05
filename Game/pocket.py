@@ -1,7 +1,8 @@
 from .errors import MoneyError
+import sys
+
 
 class Pocket(object):
-
         money = 0
 
         def __new__(cls):
@@ -27,4 +28,5 @@ class Pocket(object):
         def __str__(self):
             return f'"Pocket": {{"money": {self.get_money()}}}'
 
- 
+        def dump(self, file=sys.stdout):
+            file.write(str(self))

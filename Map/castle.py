@@ -1,6 +1,7 @@
 import time
 from ..Game.coordinates import Coordinates
 import functools
+import sys
 
 class Castle:
 
@@ -39,3 +40,6 @@ class Castle:
     def __str__(self):
         return f'"Castle": {{"name": "Castle", "health": {self.health}, ' + \
         f'"coordinates": {{ "x": {self.coordinates.x}, "y":{self.coordinates.y}}}}}'
+
+    def dump(self, file=sys.stdout):
+        file.write(str(self))
