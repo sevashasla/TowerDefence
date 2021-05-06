@@ -31,7 +31,7 @@ class Castle:
 
 
     def get_health(self) -> int:
-        return self.health
+        return max(self.health, 0)
 
     
     def decrease_health(self, damage) -> None:

@@ -8,9 +8,10 @@ from ..Game.interface import Interface
 
 from ..Command.levels_menu import LevelsMenuCommand
 from ..Command.rules_menu import RulesMenuCommand
-from ..Command.stop import StopCommand
+from ..Command.forced_exit import ForcedExitCommand
 from ..Command.place_tower import PlaceTowerCommand
 from ..Command.choose_level import ChooseLevelCommand
+from ..Command.quit_page import QuitPageCommand
 
 
 class DispatcherGraphics(Dispatcher):
@@ -30,7 +31,7 @@ class DispatcherGraphics(Dispatcher):
 		events = []
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
-				events.append(StopCommand())
+				events.append(ForcedExitCommand())
 
 			elif event.type == pygame.MOUSEBUTTONUP:
 				pos = pygame.mouse.get_pos()

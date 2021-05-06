@@ -7,9 +7,10 @@ from ..Game.coordinates import Coordinates
 
 from ..Command.levels_menu import LevelsMenuCommand
 from ..Command.rules_menu import RulesMenuCommand
-from ..Command.stop import StopCommand
+from ..Command.forced_exit import ForcedExitCommand
 from ..Command.place_tower import PlaceTowerCommand
 from ..Command.choose_level import ChooseLevelCommand
+from ..Command.quit_page import QuitPageCommand
 
 
 class DispatcherConsole(Dispatcher):
@@ -42,8 +43,8 @@ class DispatcherConsole(Dispatcher):
 		elif event_split[0] == "rulesmenu":
 			events.append(RulesMenuCommand())
 
-		elif event_split[0] == "stop":
-			events.append(StopCommand())
+		elif event_split[0] == "quit":
+			events.append(ForcedExitCommand())
 
 		elif event_split[0] == "place":
 			if event_split[1] == "weak":

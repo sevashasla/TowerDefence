@@ -13,8 +13,9 @@ import json
 
 from ..Command.levels_menu import LevelsMenuCommand
 from ..Command.rules_menu import RulesMenuCommand
-from ..Command.stop import StopCommand
+from ..Command.forced_exit import ForcedExitCommand
 from ..Command.choose_level import ChooseLevelCommand
+from ..Command.quit_page import QuitPageCommand
 
 class MainMenu:
 	def __init__(self, mode):
@@ -55,15 +56,30 @@ class MainMenu:
 		while running:
 			self.display.show_menu()
 			for event in self.dispatcher.get_events():
-				if isinstance(event, StopCommand):
-					running = False
+				if isinstance(event, ForcedExitCommand):
+					self.dispatcher.finish()
+					self.display.finish()
+					return ForcedExitCommand()
 
 				elif isinstance(event, LevelsMenuCommand):
-					running = not self.levels.start()
+					thrown_command = self.levels.start()
+					if isinstance(thrown_command, ForcedExitCommand):
+						self.dispatcher.finish()
+						self.display.finish()
+						return
+					if isinstance(thrown_command, QuitPageCommand):
+						continue
 
 				elif isinstance(event, RulesMenuCommand):
-					running = not self.rules.start()
+					thrown_command = self.rules.start()
+					if isinstance(thrown_command, ForcedExitCommand):
+						self.dispatcher.finish()
+						self.display.finish()
+						return
+					if isinstance(thrown_command, QuitPageCommand):
+						continue
 
-		self.dispatcher.finish()
-		self.display.finish()
+				elif isinstance(event, QuitPageCommand):
+					return
+		
 

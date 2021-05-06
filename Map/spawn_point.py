@@ -37,7 +37,7 @@ class SpawnPoint:
 		return (coords, mode)
 
 
-	def wave(self):
+	def spawn_wave(self):
 		units = []
 		for unit_type in self.waves[-1]:
 			coords, speed_mode = self.generate_random_coordinate()

@@ -5,7 +5,8 @@ import os
 from .display import Display
 from ..Game.coordinates import Coordinates
 from ..Game.interface import Interface
-from ..Game.errors import ErrorCatcher
+from ..Game.errors import *
+from .error_catcher_graphics import ErrorCatcherGraphics
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -44,7 +45,7 @@ class DisplayGraphics(Display):
 		self.height = height
 		self.fps = 30
 		self.interface = interface
-		self.error_catcher = ErrorCatcher()
+
 		self.copy_from_other = False
 
 		if not other_display is None:
@@ -59,7 +60,7 @@ class DisplayGraphics(Display):
 			self.clock = pygame.time.Clock()
 
 
-	def show_game(self, field, pocket):
+	def show_game(self, field, pocket, error_catcher):
 		self.clock.tick(self.fps)
 		self.screen.fill(WHITE)
 
@@ -77,7 +78,7 @@ class DisplayGraphics(Display):
 		self.screen.blit(text, text_rect)
 
 		#draw health of the casle, 20)
-		text = font.render(f"Castle: {field.castle.health} HP", True, BLACK)
+		text = font.render(f"Castle: {field.castle.get_health()} HP", True, BLACK)
 		text_rect = text.get_rect(center=Coordinates(450, 40).tuple)
 		self.screen.blit(text, text_rect)
 
@@ -121,24 +122,24 @@ class DisplayGraphics(Display):
 			pygame.draw.line(self.screen, GREEN, positions[0].tuple, positions[1].tuple, 2)			
 
 		# search for errors
-		if self.error_catcher.FieldError_count > 0:
+		if error_catcher.FieldError_count > 0:
 			font = pygame.font.SysFont(FONT, 16)
 			text = font.render("YOU CAN NOT PLACE TOWER HERE", True, RED)
 			text_rect = text.get_rect(center=Coordinates(350, 50).tuple)
 			self.screen.blit(text, text_rect)
-			self.error_catcher.search_for_errors(None)
+			error_catcher.search_for_errors(None)
 
-		if self.error_catcher.MoneyError_count > 0:
+		if error_catcher.MoneyError_count > 0:
 			font = pygame.font.SysFont(FONT, 16)
 			text = font.render("YOU DO NOT HAVE ENOUGH MONEY", True, RED)
 			text_rect = text.get_rect(center=Coordinates(350, 75).tuple)
 			self.screen.blit(text, text_rect)
-			self.error_catcher.search_for_errors(None)
+			error_catcher.search_for_errors(None)
 
-		if self.error_catcher.CastleError_count > 0:
-			lose_game_image = pygame.image.load(os.path.join(get_assets_path(), "YouDied.png"))
+		if error_catcher.CastleError_count > 0:
+			lose_game_image = pygame.image.load(os.path.join(get_assets_path() + "/YouDied.png"))
 			self.screen.blit(lose_game_image, (0, self.height / 3 * 2))
-			self.error_catcher.search_for_errors(None)
+			error_catcher.search_for_errors(None)
 
 		pygame.display.flip()
 

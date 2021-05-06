@@ -1,6 +1,6 @@
 from .command import Command
 
-class StopCommand(Command):
+class ForcedExitCommand(Command):
 	def __init__(self):
 		pass
 

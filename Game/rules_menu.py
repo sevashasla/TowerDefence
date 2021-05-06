@@ -9,7 +9,8 @@ from .interface import Interface
 import os
 import json
 
-from ..Command.stop import StopCommand
+from ..Command.forced_exit import ForcedExitCommand
+from ..Command.quit_page import QuitPageCommand
 
 class RulesMenu:
 	def __init__(self, mode, other_display):
@@ -43,11 +44,12 @@ class RulesMenu:
 		while running:
 			self.display.show_menu()
 			for event in self.dispatcher.get_events():
-				if isinstance(event, StopCommand):
-					running = False
-					get_stop_command = True
-
-		self.dispatcher.finish()
-		self.display.finish()
-
-		return get_stop_command
+				if isinstance(event, ForcedExitCommand):
+					self.dispatcher.finish()
+					self.display.finish()
+					return ForcedExitCommand()
+				elif isinstance(event, QuitPageCommand):
+					self.dispatcher.finish()
+					self.display.finish()
+					return QuitPageCommand()
+		

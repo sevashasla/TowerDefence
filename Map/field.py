@@ -51,7 +51,6 @@ class Field:
 		except IndexError:
 			new_coords_x = unit.coordinates.x + distance * sign(unit.speed[0])
 			new_coords_y = unit.coordinates.y + distance * sign(unit.speed[1])
-			print(new_coords_x, new_coords_y)
 			return False
 		return False
 
@@ -74,7 +73,6 @@ class Field:
 		Pocket.lend_money(tower.cost)
 		self.towers.append(tower)
 		self.towers_placed += 1
-		print('total towers: ', self.towers_placed)
 
 
 	def destroy(self, tower):
@@ -83,7 +81,7 @@ class Field:
 
 	def spawn_units(self):
 		self.waves_spawned += 1
-		for unit in self.spawn_point.wave():
+		for unit in self.spawn_point.spawn_wave():
 			unit.make_step()
 			self.units.append(unit)
 
@@ -100,7 +98,6 @@ class Field:
 			if self.can_make_step(unit, distance):
 				directions[shift] = True
 				unit.make_step()
-				# print(shift, end=' ')
 				continue	
 			for i in range(1, 4):
 				unit.set_speed_mode((shift + i) % 4)
@@ -109,10 +106,9 @@ class Field:
 			unit.set_speed_mode(shift)
 			for i in range(4):
 				if directions[i] and i != (shift + 2) % 4:
-					# print(i, end=' ')
 					unit.set_speed_mode(i)
 					unit.make_step()
-		# print()
+
 
 	def units_attack(self):
 		for unit in self.units:
@@ -135,6 +131,7 @@ class Field:
 					self.attacks_by_towers.append([tower.coordinates, unit.coordinates])
 					break
 
+
 	def collect_garbage(self):
 		for unit in self.units:
 			if unit.health <= 0:
@@ -144,9 +141,13 @@ class Field:
 			if tower.health <= 0:
 				self.towers.remove(tower)
 
+
 	def update(self):
 		current_time = time.time()
-		if current_time - self.last_update >= self.update_rate:
+		current_castle_health = self.castle.get_health()
+		if current_time - self.last_update >= self.update_rate and \
+		   current_castle_health > 0:
+			
 			self.attacks_by_units = []
 			self.attacks_by_towers = []
 			Pocket.add_money(self.castle.send_money())

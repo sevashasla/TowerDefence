@@ -10,8 +10,9 @@ from .game import Game
 import os
 import json
 
-from ..Command.stop import StopCommand
+from ..Command.forced_exit import ForcedExitCommand
 from ..Command.choose_level import ChooseLevelCommand
+from ..Command.quit_page import QuitPageCommand
 
 class LevelsMenu:
 	def __init__(self, mode, other_display):
@@ -48,16 +49,20 @@ class LevelsMenu:
 		while running:
 			self.display.show_menu()
 			for event in self.dispatcher.get_events():
-				if isinstance(event, StopCommand):
+				if isinstance(event, ForcedExitCommand):
 					running = False
 					get_stop_command = True
+					return ForcedExitCommand()
 
 				elif isinstance(event, ChooseLevelCommand):
 					game = Game(self.mode, event.level, self.display)
-					get_stop_command = game.start()
-					running = not get_stop_command
+					thrown_command = game.start()
+					if isinstance(thrown_command, ForcedExitCommand):
+						self.display.finish()
+						self.dispatcher.finish()
+						return ForcedExitCommand()
+					if isinstance(thrown_command, QuitPageCommand):
+						continue
 
-		self.display.finish()
-		self.dispatcher.finish()
-
-		return get_stop_command
+				if isinstance(event, QuitPageCommand):
+					return QuitPageCommand()
