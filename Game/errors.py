@@ -11,6 +11,9 @@ class FieldError(Exception):
 class CastleError(Exception):
 	pass
 
+class WinError(Exception):
+	pass
+
 
 
 class ErrorCatcher:

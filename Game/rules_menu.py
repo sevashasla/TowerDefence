@@ -49,7 +49,5 @@ class RulesMenu:
 					self.display.finish()
 					return ForcedExitCommand()
 				elif isinstance(event, QuitPageCommand):
-					self.dispatcher.finish()
-					self.display.finish()
 					return QuitPageCommand()
 		

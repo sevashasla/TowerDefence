@@ -27,7 +27,7 @@ class Field:
 		self.attacks_by_units = []
 		self.attacks_by_towers = []
 
-		self.waves_spawned = 0
+		self.all_waves_spawned = False
 		self.update_rate = 0.1
 		self.last_update = 0.0
 		self.min_step = data["movement_constants"]["min_step"]
@@ -80,8 +80,11 @@ class Field:
 
 
 	def spawn_units(self):
-		self.waves_spawned += 1
-		for unit in self.spawn_point.spawn_wave():
+		new_wave = self.spawn_point.spawn_wave()
+		if new_wave is None:
+			self.all_waves_spawned = True
+			return
+		for unit in new_wave:
 			unit.make_step()
 			self.units.append(unit)
 
@@ -145,6 +148,8 @@ class Field:
 	def update(self):
 		current_time = time.time()
 		current_castle_health = self.castle.get_health()
+		if self.all_waves_spawned and len(self.units) == 0:
+			return
 		if current_time - self.last_update >= self.update_rate and \
 		   current_castle_health > 0:
 			
@@ -164,4 +169,6 @@ class Field:
 			if self.castle.get_health() <= 0:
 				raise CastleError
 
+			if self.all_waves_spawned and len(self.units) == 0:
+				raise WinError
 

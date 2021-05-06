@@ -7,9 +7,11 @@ class ErrorCatcherGraphics(ErrorCatcher):
 		self.has_FieldError = False
 		self.has_MoneyError = False
 		self.has_CastleError = False
+		self.has_WinError = False
 		self.FieldError_count = 0
 		self.MoneyError_count = 0
 		self.CastleError_count = 0
+		self.WinError_count = 0
 
 
 	def search_for_errors(self, error):
@@ -22,10 +24,14 @@ class ErrorCatcherGraphics(ErrorCatcher):
 		if error == 'CastleError':
 			self.has_CastleError = True
 			self.CastleError_count = 90
+		if error == 'WinError':
+			self.has_WinError = True
+			self.WinError_count = 90
 		if error is None:
 			self.FieldError_count = max(self.FieldError_count - 1, 0)
 			self.MoneyError_count = max(self.MoneyError_count - 1, 0)
 			self.CastleError_count = max(self.CastleError_count - 1, 0)
+			self.WinError_count = max(self.WinError_count - 1, 0)
 
 
 	def reset(self):

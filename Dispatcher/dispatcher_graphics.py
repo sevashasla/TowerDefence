@@ -41,7 +41,9 @@ class DispatcherGraphics(Dispatcher):
 
 				for button in self.interface.buttons:
 					if button.clicked(coordinates_of_click):
-						if button.task == "LevelsMenu":
+						if button.task == "Exit":
+							events.append(QuitPageCommand())
+						elif button.task == "LevelsMenu":
 							events.append(LevelsMenuCommand())
 						elif button.task == "RulesMenu":
 							events.append(RulesMenuCommand())

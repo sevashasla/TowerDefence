@@ -13,7 +13,7 @@
 	
 	"buttons": [
 		{
-			"coordinates": [128, 170],
+			"coordinates": [255, 170],
 		 	"task": "LevelsMenu", 
 		 	"text_size": 15, 
 		 	"text_color": [0, 0, 0], 
@@ -24,7 +24,7 @@
 		 	"height": 40
 		},
 		{
-			"coordinates": [128, 340], 
+			"coordinates": [255, 340], 
 			"task": "RulesMenu", 
 			"text_size": 15, 
 			"text_color": [0, 0, 0], 
@@ -33,6 +33,18 @@
 			"color": [255, 0, 0],
 			"width": 120,
 			"height": 40
+		},
+
+		{
+			"coordinates": [255, 510],
+		 	"task": "Exit", 
+		 	"text_size": 15, 
+		 	"text_color": [0, 0, 0], 
+		 	"image": "Exit.png", 
+		 	"text": "",
+		 	"color": [255, 0, 0],
+		 	"width": 120,
+		 	"height": 120
 		}
 	]
 }

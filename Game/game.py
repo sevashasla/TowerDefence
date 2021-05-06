@@ -63,14 +63,16 @@ class Game:
 			self.display.show_game(self.field, self.pocket, self.error_catcher)
 			
 			for event in self.dispatcher.get_events():
-				print(str(event), "in game")
 				if isinstance(event, ForcedExitCommand):
 					# running = False
-					# get_stop_command = True
+					# get_stop_command = Tr
 
 					self.dispatcher.finish()
 					self.display.finish()
 					return ForcedExitCommand()
+
+				if isinstance(event, QuitPageCommand):
+					return
 
 				elif isinstance(event, PlaceTowerCommand):
 					class_of_tower = event.class_of_tower
@@ -88,9 +90,14 @@ class Game:
 				self.field.update()
 				if self.error_catcher.CastleError_count == 1:
 					return QuitPageCommand()
+				if self.error_catcher.WinError_count == 1:
+					return QuitPageCommand()
 			except CastleError:
 				self.error_catcher.has_CastleError = True
 				self.error_catcher.search_for_errors('CastleError')
+			except WinError:
+				self.error_catcher.has_WinError = True
+				self.error_catcher.search_for_errors('WinError')
 				
 		# self.dispatcher.finish()
 		# self.display.finish()

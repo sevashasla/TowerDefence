@@ -141,6 +141,12 @@ class DisplayGraphics(Display):
 			self.screen.blit(lose_game_image, (0, self.height / 3 * 2))
 			error_catcher.search_for_errors(None)
 
+		if error_catcher.WinError_count > 0:
+			win_game_image = pygame.image.load(os.path.join(get_assets_path() + "/EpicWin.png"))
+			win_game_image = pygame.transform.scale(win_game_image, (self.width, self.height // 3))
+			self.screen.blit(win_game_image, (0, 511))
+			error_catcher.search_for_errors(None)
+
 		pygame.display.flip()
 
 
