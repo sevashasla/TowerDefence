@@ -32,10 +32,13 @@ def get_name(variable_to_find_name):
 
 
 def get_health_color(unit):
-		normalized_health = unit.health / unit.max_health
-		green = min(255, round(255 * 2 * normalized_health))
-		red = min(255, 255 * 2 - round(255 * 2 * normalized_health))
-		return (red, green, 0)
+	normalized_health = unit.health / unit.max_health
+	if normalized_health < 0.0:
+		return RED
+
+	green = min(255, round(255 * 2 * normalized_health))
+	red = min(255, 255 * 2 - round(255 * 2 * normalized_health))
+	return (red, green, 0)
 
 
 class DisplayGraphics(Display):
