@@ -18,12 +18,12 @@ from ..Command.choose_level import ChooseLevelCommand
 from ..Command.quit_page import QuitPageCommand
 
 class MainMenu:
-	def __init__(self, mode):
-		current_path = os.getcwd()
-
+	def __init__(self, mode, game_path):
+		self.game_path = game_path
 		self.mode = mode
 
-		with open(os.path.join(current_path, "TowerDefence/Data/main_menu.json")) as f:
+
+		with open(os.path.join(self.game_path, "Data/main_menu.json")) as f:
 			data = json.loads(os.path.join(f.read()))
 			self.width = data["shape"]["width"]
 			self.height = data["shape"]["height"]
@@ -32,13 +32,13 @@ class MainMenu:
 
 
 		if mode == "console":
-			self.display = DisplayConsole()
-			self.dispatcher = DispatcherConsole()
+			self.display = DisplayConsole(self.game_path)
+			self.dispatcher = DispatcherConsole(self.game_path)
 			self.interface = None
 		elif mode == "graphics":
-			self.interface = Interface(self.width, self.height, data["interface"], data["buttons"])
-			self.display = DisplayGraphics(self.interface, max(self.width, interface_width), self.height + interface_height)
-			self.dispatcher = DispatcherGraphics(self.interface)
+			self.interface = Interface(self.width, self.height, data["interface"], data["buttons"], game_path)
+			self.display = DisplayGraphics(self.interface, max(self.width, interface_width), self.height + interface_height, game_path)
+			self.dispatcher = DispatcherGraphics(self.interface, game_path)
 		else:
 			raise ValueError("wrong type of mode")
 
@@ -48,8 +48,8 @@ class MainMenu:
 		self.display.start()
 		self.dispatcher.start()
 
-		self.levels = LevelsMenu(self.mode, self.display)
-		self.rules = RulesMenu(self.mode, self.display)
+		self.levels = LevelsMenu(self.mode, self.game_path, self.display)
+		self.rules = RulesMenu(self.mode, self.game_path, self.display)
 		
 		running = True
 

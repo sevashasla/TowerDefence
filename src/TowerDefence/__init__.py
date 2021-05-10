@@ -10,8 +10,10 @@
 from argparse import ArgumentParser
 from .Game.game import Game
 from .Game.main_menu import MainMenu
+import os
 
-def main():
+
+def app():
 	try:
 		parser = ArgumentParser("Tower Defence")
 		parser.add_argument("--console", help="this type is good for debug", action="store_true")
@@ -25,10 +27,8 @@ def main():
 		return
 
 	if(args.console):
-		menu_ = MainMenu("console")
+		menu_ = MainMenu("console", os.path.split(__file__)[0])
 	else:
-		menu_ = MainMenu("graphics")
+		menu_ = MainMenu("graphics", os.path.split(__file__)[0])
 	menu_.start()
 
-if __name__ == "__main__":
-	main()

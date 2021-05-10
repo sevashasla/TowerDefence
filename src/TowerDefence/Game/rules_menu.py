@@ -13,10 +13,10 @@ from ..Command.forced_exit import ForcedExitCommand
 from ..Command.quit_page import QuitPageCommand
 
 class RulesMenu:
-	def __init__(self, mode, other_display):
-		current_path = os.getcwd()
+	def __init__(self, mode, game_path, other_display):
+		self.game_path = game_path
 
-		with open(os.path.join(current_path, "TowerDefence/Data/levels_menu.json")) as f:
+		with open(os.path.join(self.game_path, "Data/levels_menu.json")) as f:
 			data = json.loads(os.path.join(f.read()))
 			self.width = data["shape"]["width"]
 			self.height = data["shape"]["height"]
@@ -24,13 +24,14 @@ class RulesMenu:
 			interface_height = data["interface"]["height"]
 
 		if mode == "console":
-			self.display = DisplayConsole(other_display)
-			self.dispatcher = DispatcherConsole()
+			self.display = DisplayConsole(other_display, self.game_path)
+			self.dispatcher = DispatcherConsole(self.game_path)
 			self.interface = None
+
 		elif mode == "graphics":
-			self.interface = Interface(self.width, self.height, data["interface"], data["buttons"])
-			self.display = DisplayGraphics(self.interface, max(self.width, interface_width), self.height + interface_height, other_display)
-			self.dispatcher = DispatcherGraphics(self.interface)
+			self.interface = Interface(self.width, self.height, data["interface"], data["buttons"], self.game_path)
+			self.display = DisplayGraphics(self.interface, max(self.width, interface_width), self.height + interface_height, game_path, other_display)
+			self.dispatcher = DispatcherGraphics(self.interface, self.game_path)
 		else:
 			raise ValueError("wrong type of mode")
 

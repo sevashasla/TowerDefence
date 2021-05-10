@@ -15,10 +15,11 @@ from ..Command.quit_page import QuitPageCommand
 
 
 class DispatcherGraphics(Dispatcher):
-	def __init__(self, interface):
+	def __init__(self, interface, game_path):
 		super().__init__()
 		self.interface = interface
 		self.last_chosen_type_of_tower = None
+		self.game_path = game_path
 
 	def start(self):
 		pass
