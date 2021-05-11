@@ -7,7 +7,7 @@ class AverageTower(Tower):
 	max_health = 70
 	damage = 10
 	speed_of_attack = 5
-	range_of_attack = 75
+	range_of_attack = 100
 	cost = 15
 
 	def __init__(self, coordinates):

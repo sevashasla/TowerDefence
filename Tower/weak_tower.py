@@ -7,7 +7,7 @@ class WeakTower(Tower):
 	max_health = 30
 	damage = 5
 	speed_of_attack = 1
-	range_of_attack = 50
+	range_of_attack = 75
 	cost = 5
 
 	def __init__(self, coordinates):
