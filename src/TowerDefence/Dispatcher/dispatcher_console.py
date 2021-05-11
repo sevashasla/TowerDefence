@@ -14,10 +14,11 @@ from ..Command.quit_page import QuitPageCommand
 
 
 class DispatcherConsole(Dispatcher):
-	def __init__(self):
+	def __init__(self, game_path):
 		super().__init__()
 		self.last_time_update = time.time()
 		self.update_rate = 0.5
+		self.game_path = game_path
 
 	def start(self):
 		pass

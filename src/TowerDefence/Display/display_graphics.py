@@ -19,12 +19,11 @@ UPPER = 2
 HEALTH_WIDTH = 2
 
 
-def get_assets_path(element=None):
-	current_path = os.path.abspath(os.getcwd())
+def get_assets_path(game_path, element=None):
 	if element is None:
-		return os.path.join(current_path, "TowerDefence/Assets")
+		return os.path.join(game_path, "Assets")
 	else:
-		return os.path.join(current_path, "TowerDefence/Assets", get_name(element) + ".png")
+		return os.path.join(game_path, "Assets", get_name(element) + ".png")
 
 
 def get_name(variable_to_find_name):
@@ -32,20 +31,23 @@ def get_name(variable_to_find_name):
 
 
 def get_health_color(unit):
-		normalized_health = unit.health / unit.max_health
-		green = min(255, round(255 * 2 * normalized_health))
-		red = min(255, 255 * 2 - round(255 * 2 * normalized_health))
-		return (red, green, 0)
+	normalized_health = unit.health / unit.max_health
+	if normalized_health < 0.0:
+		return RED
+
+	green = min(255, round(255 * 2 * normalized_health))
+	red = min(255, 255 * 2 - round(255 * 2 * normalized_health))
+	return (red, green, 0)
 
 
 class DisplayGraphics(Display):
-	def __init__(self, interface, width, height, other_display=None):
+	def __init__(self, interface, width, height, game_path, other_display=None):
 		super().__init__()
+		self.interface = interface
 		self.width = width
 		self.height = height
 		self.fps = 30
-		self.interface = interface
-
+		self.game_path = game_path
 		self.copy_from_other = False
 
 		if not other_display is None:
@@ -85,7 +87,7 @@ class DisplayGraphics(Display):
 		#draw units
 		for unit in field.units:
 			if not hasattr(type(unit), "loaded_image"):
-				type(unit).loaded_image = pygame.image.load(get_assets_path(unit))
+				type(unit).loaded_image = pygame.image.load(get_assets_path(self.game_path, unit))
 				type(unit).loaded_image = pygame.transform.scale(type(unit).loaded_image, unit.shape)
 				type(unit).loaded_image.set_colorkey(EMPTY)
 			
@@ -95,7 +97,7 @@ class DisplayGraphics(Display):
 		#draw tower
 		for tower in field.towers:
 			if not hasattr(type(tower), "loaded_image"):
-				type(tower).loaded_image = pygame.image.load(get_assets_path(tower))
+				type(tower).loaded_image = pygame.image.load(get_assets_path(self.game_path, tower))
 				type(tower).loaded_image = pygame.transform.scale(type(tower).loaded_image, type(tower).shape)
 				type(tower).loaded_image.set_colorkey(EMPTY)
 
@@ -108,7 +110,7 @@ class DisplayGraphics(Display):
 
 		#draw castle
 		if not hasattr(field.castle, "loaded_image"):
-			field.castle.loaded_image = pygame.image.load(get_assets_path(field.castle))
+			field.castle.loaded_image = pygame.image.load(get_assets_path(self.game_path, field.castle))
 			field.castle.loaded_image = pygame.transform.scale(field.castle.loaded_image, 
 				(field.castle.width, field.castle.height))
 			field.castle.loaded_image.set_colorkey(EMPTY)
@@ -137,12 +139,12 @@ class DisplayGraphics(Display):
 			error_catcher.search_for_errors(None)
 
 		if error_catcher.CastleError_count > 0:
-			lose_game_image = pygame.image.load(os.path.join(get_assets_path() + "/YouDied.png"))
+			lose_game_image = pygame.image.load(os.path.join(get_assets_path(self.game_path) + "/YouDied.png"))
 			self.screen.blit(lose_game_image, (0, self.height / 3 * 2))
 			error_catcher.search_for_errors(None)
 
 		if error_catcher.WinError_count > 0:
-			win_game_image = pygame.image.load(os.path.join(get_assets_path() + "/EpicWin.png"))
+			win_game_image = pygame.image.load(os.path.join(get_assets_path(self.game_path) + "/EpicWin.png"))
 			win_game_image = pygame.transform.scale(win_game_image, (self.width, self.height // 3))
 			self.screen.blit(win_game_image, (0, 511))
 			error_catcher.search_for_errors(None)

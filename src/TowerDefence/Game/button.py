@@ -6,7 +6,7 @@ import sys
 
 class Button():
 
-	def __init__(self, data):
+	def __init__(self, data, game_path):
 		self.color = tuple(data["color"])
 		self.task = data["task"]
 		self.coordinates = Coordinates(coordinates=data["coordinates"])
@@ -17,6 +17,7 @@ class Button():
 		self.text_color = tuple(data["text_color"])
 		self.center = Coordinates(self.coordinates.x + self.width // 2, self.coordinates.y + self.height // 2)
 		self.image_name = data["image"]
+		self.game_path = game_path
 
 
 	def clicked(self, pos) -> bool:
@@ -28,8 +29,7 @@ class Button():
 	def draw(self, screen) -> None:
 		if not hasattr(self, "rect"):	
 			self.rect = pygame.Rect((self.coordinates.x, self.coordinates.y, self.width, self.height))
-			current_path = os.path.abspath(os.getcwd())
-			self.image = pygame.image.load(os.path.join(current_path, "TowerDefence/Assets/" + self.image_name))
+			self.image = pygame.image.load(os.path.join(self.game_path, "Assets/" + self.image_name))
 			self.image = pygame.transform.scale(self.image, (self.width, self.height))
 
 		screen.blit(self.image, self.coordinates.tuple)

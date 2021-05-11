@@ -23,10 +23,10 @@ from ..Command.place_tower import PlaceTowerCommand
 
 
 class Game:
-	def __init__(self, mode, level, other_display):
-		current_path = os.getcwd()
+	def __init__(self, mode, level, game_path, other_display):
+		self.game_path = game_path
 
-		with open(os.path.join(current_path, "TowerDefence/Data/" + level + ".json")) as f:
+		with open(os.path.join(self.game_path, "Data/" + level + ".json")) as f:
 			data = json.loads(os.path.join(f.read()))
 			self.width = data["shape"]["width"]
 			self.height = data["shape"]["height"]
@@ -36,14 +36,14 @@ class Game:
 		self.pocket = Pocket()
 
 		if mode == "console":
-			self.display = DisplayConsole(other_display)
-			self.dispatcher = DispatcherConsole()
+			self.display = DisplayConsole(self.game_path, other_display)
+			self.dispatcher = DispatcherConsole(self.game_path)
 			self.interface = None
 			self.error_catcher = ErrorCatcherConsole()
 		elif mode == "graphics":
-			self.interface = Interface(self.width, self.height, data["interface"], data["buttons"])
-			self.display = DisplayGraphics(self.interface, max(self.width, interface_width), self.height + interface_height, other_display)
-			self.dispatcher = DispatcherGraphics(self.interface)
+			self.interface = Interface(self.width, self.height, data["interface"], data["buttons"], self.game_path)
+			self.display = DisplayGraphics(self.interface, max(self.width, interface_width), self.height + interface_height, self.game_path, other_display)
+			self.dispatcher = DispatcherGraphics(self.interface, self.game_path)
 			self.error_catcher = ErrorCatcherGraphics()
 		else:
 			raise ValueError("wrong type of mode")
