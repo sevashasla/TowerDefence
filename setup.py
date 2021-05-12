@@ -8,7 +8,7 @@ def read(fname):
 
 setup(
     name="TowerDefence",
-    version="0.0.5",
+    version="0.0.6",
     author="ArtemyBobkov & sevashasla",
     url="https://github.com/sevashasla/TowerDefence",
     long_description=read("README.md"),
@@ -16,7 +16,7 @@ setup(
     packages=find_packages(where="src"),
     package_dir={'': 'src'},
     package_data={
-        "TowerDefence": ["Assets/*.png", "Data/*.json"],
+        "TowerDefence": ["Assets/*", "Data/*"],
     },
     install_requires=[
         "numpy>=1.17.4",
