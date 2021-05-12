@@ -25,6 +25,12 @@ def get_assets_path(game_path, element=None):
 	else:
 		return os.path.join(game_path, "Assets", get_name(element) + ".png")
 
+def get_text_paths(game_path, text_name=None):
+	if text_name is None:
+		return os.path.join(game_path, "Data")
+	else:
+		return os.path.join(game_path, "Data", text_name)	
+
 
 def get_name(variable_to_find_name):
 	return type(variable_to_find_name).__name__
@@ -155,9 +161,29 @@ class DisplayGraphics(Display):
 	def show_menu(self):
 		self.clock.tick(self.fps)
 		self.screen.fill(WHITE)
-
 		#draw interface
 		self.interface.draw(self.screen)
+
+		for cell in self.interface.text:
+
+			# print(cell["text_path"], get_name(cell["text_path"]))
+			with open(get_text_paths(self.game_path, cell["text_path"]), 'r') as cell_file:
+				lines = cell_file.read().splitlines()
+			
+
+			for number, line in enumerate(lines):
+
+				number_of_tabs = line.count('\t')
+				line = line.strip('\t')
+
+				font = pygame.font.SysFont(FONT, 18)
+				text = font.render(line, True, BLACK)
+
+				text_rect = text.get_rect(topleft=Coordinates(cell["coordinates"][0] + 18 * number_of_tabs,
+															 cell["coordinates"][1] + 15 * number).tuple)
+
+				self.screen.blit(text, text_rect)
+		
 
 		pygame.display.flip()
 

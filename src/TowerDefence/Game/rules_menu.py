@@ -16,7 +16,7 @@ class RulesMenu:
 	def __init__(self, mode, game_path, other_display):
 		self.game_path = game_path
 
-		with open(os.path.join(self.game_path, "Data/levels_menu.json")) as f:
+		with open(os.path.join(self.game_path, "Data/rules_menu.json")) as f:
 			data = json.loads(os.path.join(f.read()))
 			self.width = data["shape"]["width"]
 			self.height = data["shape"]["height"]
@@ -29,7 +29,7 @@ class RulesMenu:
 			self.interface = None
 
 		elif mode == "graphics":
-			self.interface = Interface(self.width, self.height, data["interface"], data["buttons"], self.game_path)
+			self.interface = Interface(self.width, self.height, data["interface"], data["buttons"], data["text"], self.game_path)
 			self.display = DisplayGraphics(self.interface, max(self.width, interface_width), self.height + interface_height, game_path, other_display)
 			self.dispatcher = DispatcherGraphics(self.interface, self.game_path)
 		else:

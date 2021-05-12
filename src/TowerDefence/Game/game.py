@@ -41,7 +41,7 @@ class Game:
 			self.interface = None
 			self.error_catcher = ErrorCatcherConsole()
 		elif mode == "graphics":
-			self.interface = Interface(self.width, self.height, data["interface"], data["buttons"], self.game_path)
+			self.interface = Interface(self.width, self.height, data["interface"], data["buttons"], [], self.game_path)
 			self.display = DisplayGraphics(self.interface, max(self.width, interface_width), self.height + interface_height, self.game_path, other_display)
 			self.dispatcher = DispatcherGraphics(self.interface, self.game_path)
 			self.error_catcher = ErrorCatcherGraphics()

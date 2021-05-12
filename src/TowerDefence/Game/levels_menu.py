@@ -22,6 +22,7 @@ class LevelsMenu:
 			data = json.loads(os.path.join(f.read()))
 			self.width = data["shape"]["width"]
 			self.height = data["shape"]["height"]
+			self.text = data["text"]
 			interface_width = data["interface"]["width"]
 			interface_height = data["interface"]["height"]
 
@@ -33,7 +34,7 @@ class LevelsMenu:
 			self.interface = None
 
 		elif mode == "graphics":
-			self.interface = Interface(self.width, self.height, data["interface"], data["buttons"], self.game_path)
+			self.interface = Interface(self.width, self.height, data["interface"], data["buttons"], data["text"], self.game_path)
 			self.display = DisplayGraphics(self.interface, max(self.width, interface_width), self.height + interface_height, game_path, other_display)
 			self.dispatcher = DispatcherGraphics(self.interface, self.game_path)
 		else:

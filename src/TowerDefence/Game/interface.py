@@ -10,7 +10,7 @@ BLUE = (0, 0, 255)
 
 class Interface:
 	# def __init__(self, color, coordinates, width, height):
-	def __init__(self, screen_width, screen_height, interface_data, buttons_data, game_path):
+	def __init__(self, screen_width, screen_height, interface_data, buttons_data, text_data, game_path):
 
 		self.color = tuple(interface_data["color"])
 		self.coordinates = Coordinates(screen_height, 0)
@@ -20,6 +20,12 @@ class Interface:
 		self.buttons = []
 		for button in buttons_data:
 			self.buttons.append(Button(button, self.game_path))
+		self.text = []
+		for cell in text_data:
+			d = {'coordinates': cell["coordinates"],
+				 'text_path':   cell["text_path"]}
+			self.text.append(d)
+			
 
 
 	def draw(self, screen):

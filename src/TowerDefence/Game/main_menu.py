@@ -32,11 +32,11 @@ class MainMenu:
 
 
 		if mode == "console":
-			self.display = DisplayConsole(self.game_path)
+			self.display = DisplayConsole(data["text"], self.game_path)
 			self.dispatcher = DispatcherConsole(self.game_path)
 			self.interface = None
 		elif mode == "graphics":
-			self.interface = Interface(self.width, self.height, data["interface"], data["buttons"], game_path)
+			self.interface = Interface(self.width, self.height, data["interface"], data["buttons"], data["text"], game_path)
 			self.display = DisplayGraphics(self.interface, max(self.width, interface_width), self.height + interface_height, game_path)
 			self.dispatcher = DispatcherGraphics(self.interface, game_path)
 		else:
@@ -44,6 +44,7 @@ class MainMenu:
 
 
 	def start(self):
+		print("AAAAAAAAAAAAAAAAAAAAAAAAAAAA")
 
 		self.display.start()
 		self.dispatcher.start()

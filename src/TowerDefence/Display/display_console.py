@@ -29,7 +29,7 @@ class DisplayConsole(Display):
             sys.stdout.write("Game is over!\n")
 
     def show_menu(self):
-        pass
+        print(self.text)
 
     def show_game(self, field, pocket, error_catcher):
         if (time.time() - self.last_time_update) >= self.update_rate:

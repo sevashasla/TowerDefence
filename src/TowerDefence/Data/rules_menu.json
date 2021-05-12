@@ -9,42 +9,25 @@
 		"height" : 256,
 		"color": [0, 0, 255]
 	},
-
 	
 	"buttons": [
-		{
-			"coordinates": [255, 170],
-		 	"task": "LevelsMenu", 
-		 	"text_size": 15, 
-		 	"text_color": [0, 0, 0], 
-		 	"image": "LevelsMenuButton.png", 
-		 	"text": "",
-		 	"color": [255, 0, 0],
-		 	"width": 120,
-		 	"height": 40
-		},
-		{
-			"coordinates": [255, 340], 
-			"task": "RulesMenu", 
-			"text_size": 15, 
-			"text_color": [0, 0, 0], 
-			"image": "RulesMenuButton.png", 
-			"text": "",
-			"color": [255, 0, 0],
-			"width": 120,
-			"height": 40
-		},
 
 		{
-			"coordinates": [255, 510],
+			"coordinates": [1, 704],
 		 	"task": "Exit", 
 		 	"text_size": 15, 
 		 	"text_color": [0, 0, 0], 
 		 	"image": "Exit.png", 
 		 	"text": "",
 		 	"color": [255, 0, 0],
-		 	"width": 120,
-		 	"height": 120
+		 	"width": 40,
+		 	"height": 40
+		}
+	],
+	"text": [
+		{
+			"coordinates": [10, 10],
+			"text_path": "rules_menu.txt"
 		}
 	]
 }

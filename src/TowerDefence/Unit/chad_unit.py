@@ -3,11 +3,11 @@ from .unit import Unit
 
 class ChadUnit(Unit):
 
-	damage = 20
+	damage = 12
 	speed_of_attack = 0.75
 	range_of_attack = 75
 	bounty = 20
-	max_health = 20
+	max_health = 15
 	speed_abs = 1
 	
 
