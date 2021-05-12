@@ -38,6 +38,9 @@ class DispatcherConsole(Dispatcher):
 		if event_split == []:
 			pass
 
+		elif event_split[0] == "back":
+			events.append(QuitPageCommand())
+
 		elif event_split[0] == "levelmenu":
 			events.append(LevelsMenuCommand())
 
