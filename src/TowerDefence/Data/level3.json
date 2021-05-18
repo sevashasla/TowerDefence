@@ -1,0 +1,87 @@
+{
+	"shape": {
+		"width": 512, "height": 512
+	},
+
+	"movement_constants": {
+		"min_step": 10,
+		"max_step": 35,
+		"big_step": 65
+	},
+
+	"road": [
+		{"x1": 224, "y1": 0, "x2": 286, "y2": 511},
+		{"x1": 0, "y1": 194, "x2": 511, "y2": 256}
+	],
+
+	"waves": [
+		{"wave": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "time": 0.0},
+		{"wave": [-1], "time": 1.0}
+		
+	],
+
+	"castle": {
+		"width" : 62,
+		"height" : 62,
+		"coordinates": [224, 194],
+		"health": 500,
+		"produce_money": 1,
+		"cooldown": 5.0,
+		"x1": 200, "y1": 0, "x2": 250, "y2": 50
+	},
+
+	"interface": {
+		"width" : 512,
+		"height" : 256,
+		"color": [0, 0, 255]
+	},
+
+	"pocket": {
+		"init_money": 5,
+		"coordinates": [0, 0]
+	},
+
+	"spawn_point": [
+		{"x1": 224, "y1": 500, "x2": 286, "y2": 511, "mode": 0},
+		{"x1": 224, "y1": 0, "x2": 286, "y2": 11, "mode": 2},
+		{"x1": 0, "y1": 194, "x2": 11, "y2": 256, "mode": 1},
+		{"x1": 500, "y1": 194, "x2": 511, "y2": 256, "mode": 3}
+	],
+
+	"buttons": [
+		{
+			"coordinates": [128, 704],
+		 	"task": "AverageTower", 
+		 	"text_size": 15, 
+		 	"text_color": [0, 0, 0], 
+		 	"image": "AverageTowerButton.png", 
+		 	"text": "",
+		 	"color": [255, 0, 0],
+		 	"width": 120,
+		 	"height": 40
+		},
+		{
+			"coordinates": [384, 704], 
+			"task": "WeakTower", 
+			"text_size": 15, 
+			"text_color": [0, 0, 0], 
+			"image": "WeakTowerButton.png", 
+			"text": "",
+			"color": [255, 0, 0],
+			"width": 120,
+			"height": 40
+		},
+
+		{
+			"coordinates": [1, 704],
+		 	"task": "Exit", 
+		 	"text_size": 15, 
+		 	"text_color": [0, 0, 0], 
+		 	"image": "Exit.png", 
+		 	"text": "",
+		 	"color": [255, 0, 0],
+		 	"width": 40,
+		 	"height": 40
+		}
+	]
+}

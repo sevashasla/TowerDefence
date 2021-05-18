@@ -1,0 +1,40 @@
+							Welcome to TowerDefence game!
+
+The main purpose of player is to prevent units from getting to Castle and destroying it.
+You can use towers of two types (weak and average) to defend your castle.
+
+Weak tower parameters: 
+	health: 50
+	cost: 5
+	damage: 5
+	range of attack: average
+
+Average tower parameters:
+	health: 75
+	cost: 15
+	damage: 10
+	range of attack: large
+
+There are three types of units, which try to destroy our castle: weak, average and chad.
+
+Weak unit parameters:
+	health: 5
+	bounty: 5
+	damage: 4
+	range of attack: small
+
+Average unit parameters:
+	health: 10
+	bounty: 10
+	damage: 8
+	range of attack: small
+
+Chad unit parameters:
+	health: 15
+	bounty: 20
+	damage: 12
+	range of attack: average
+
+								Good luck!
+
+(c) created by @sevashasla and @ArtemyBobkov
