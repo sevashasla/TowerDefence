@@ -98,8 +98,3 @@ class Game:
 			except WinError:
 				self.error_catcher.has_WinError = True
 				self.error_catcher.search_for_errors('WinError')
-				
-		# self.dispatcher.finish()
-		# self.display.finish()
-
-		# return get_stop_command

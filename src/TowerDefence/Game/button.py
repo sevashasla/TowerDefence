@@ -5,12 +5,8 @@ import sys
 
 
 class Button():
-<<<<<<< HEAD:Game/button.py
-	def __init__(self, data):
-=======
 
 	def __init__(self, data, game_path):
->>>>>>> checkpoint_3:src/TowerDefence/Game/button.py
 		self.color = tuple(data["color"])
 		self.task = data["task"]
 		self.coordinates = Coordinates(coordinates=data["coordinates"])

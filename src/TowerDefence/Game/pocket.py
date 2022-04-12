@@ -28,9 +28,5 @@ class Pocket(object):
         def __str__(self):
             return f'"Pocket": {{"money": {self.get_money()}}}'
 
-<<<<<<< HEAD:Game/pocket.py
- 
-=======
         def dump(self, file=sys.stdout):
             file.write(str(self))
->>>>>>> checkpoint_3:src/TowerDefence/Game/pocket.py

@@ -1,4 +1,4 @@
-from .road import Road, FieldError
+from .road import Road
 from .castle import Castle
 from random import randint
 from .spawn_point import SpawnPoint
@@ -11,8 +11,8 @@ from ..Tower.tower_factories import *
 from ..Game.pocket import Pocket
 from ..Game.errors import *
 
-
 class Field:
+
 	def __init__(self, data):
 		self.width = data["shape"]["width"]
 		self.height = data["shape"]["height"]
@@ -20,13 +20,7 @@ class Field:
 		self.road = Road(self.width, self.height, data["road"])
 		self.castle = Castle(data["castle"])
 		self.spawn_point = SpawnPoint(data["spawn_point"], data["waves"])
-<<<<<<< HEAD:Map/field.py
-		
-		self.attacks_by_units = []
-		self.attacks_by_towers = []
-=======
 		Pocket.add_money(data["pocket"]["init_money"])
->>>>>>> checkpoint_3:src/TowerDefence/Map/field.py
 
 		self.units = []
 		self.towers = []		
@@ -39,29 +33,10 @@ class Field:
 		self.min_step = data["movement_constants"]["min_step"]
 		self.max_step = data["movement_constants"]["max_step"]
 		self.big_step = data["movement_constants"]["big_step"]
-<<<<<<< HEAD:Map/field.py
-
-	def can_make_step(self, unit, distance) -> bool:
-		try:
-			new_coords_x = unit.coordinates.x + distance * unit.speed[0]
-			new_coords_y = unit.coordinates.y + distance * unit.speed[1]
-=======
 
 		self.towers_placed = 0
 
 
-
-	def can_make_step(self, unit, distance) -> bool:
-		try:    
-			new_coords_x = unit.coordinates.x + distance * sign(unit.speed[0])
-			new_coords_y = unit.coordinates.y + distance * sign(unit.speed[1])
->>>>>>> checkpoint_3:src/TowerDefence/Map/field.py
-			new_coords = Coordinates(new_coords_x, new_coords_y)
-			if self.castle.belongs_to_castle(new_coords):
-				unit.speed = [0, 0]
-				return False
-		except:
-			pass
 
 	def can_make_step(self, unit, distance) -> bool:
 		try:    
@@ -76,10 +51,6 @@ class Field:
 		except IndexError:
 			new_coords_x = unit.coordinates.x + distance * sign(unit.speed[0])
 			new_coords_y = unit.coordinates.y + distance * sign(unit.speed[1])
-<<<<<<< HEAD:Map/field.py
-			print(new_coords_x, new_coords_y)
-=======
->>>>>>> checkpoint_3:src/TowerDefence/Map/field.py
 			return False
 		return False
 
@@ -95,6 +66,7 @@ class Field:
 
 		return False
 
+
 	def place_tower(self, tower):
 		if not self.can_place_tower(tower.coordinates):
 			raise FieldError
@@ -108,61 +80,33 @@ class Field:
 
 
 	def spawn_units(self):
-<<<<<<< HEAD:Map/field.py
-		self.waves_spawned += 1
-		for unit in self.spawn_point.spawn_wave():
-=======
 		new_wave = self.spawn_point.spawn_wave()
 		if new_wave is None:
 			self.all_waves_spawned = True
 			return
 		for unit in new_wave:
->>>>>>> checkpoint_3:src/TowerDefence/Map/field.py
 			unit.make_step()
 			self.units.append(unit)
 
 	def belong_to_field(self, coords):
 		return 0 <= coords.x <= self.width and 0 <= coords.y <= self.height
 
-		
-	def generate_random_distance(self):
-		return randint(self.min_step, self.max_step)
-
 
 	def units_step(self):
 		for unit in self.units:
-<<<<<<< HEAD:Map/field.py
-			
-			distance = self.generate_random_distance()
-			far_distance = self.big_step
-			directions = [False] * 4
-			shift = unit.get_speed_mode()
-			
-=======
 			distance = randint(self.min_step, self.max_step)
 			far_distance = self.big_step
 			directions = [False] * 4
 			shift = unit.get_speed_mode()
->>>>>>> checkpoint_3:src/TowerDefence/Map/field.py
 			if self.can_make_step(unit, distance):
 				directions[shift] = True
 				unit.make_step()
 				continue	
-<<<<<<< HEAD:Map/field.py
-			
-=======
->>>>>>> checkpoint_3:src/TowerDefence/Map/field.py
 			for i in range(1, 4):
 				unit.set_speed_mode((shift + i) % 4)
 				if self.can_make_step(unit, far_distance):
 					directions[(shift + i) % 4] = True
-<<<<<<< HEAD:Map/field.py
-			
 			unit.set_speed_mode(shift)
-			
-=======
-			unit.set_speed_mode(shift)
->>>>>>> checkpoint_3:src/TowerDefence/Map/field.py
 			for i in range(4):
 				if directions[i] and i != (shift + 2) % 4:
 					unit.set_speed_mode(i)
@@ -173,10 +117,7 @@ class Field:
 		for unit in self.units:
 			if unit.can_attack(self.castle):
 				unit.attack(self.castle)
-<<<<<<< HEAD:Map/field.py
-=======
 				self.attacks_by_units.append([unit.coordinates, self.castle.center])
->>>>>>> checkpoint_3:src/TowerDefence/Map/field.py
 				continue
 			for tower in self.towers:
 				if unit.can_attack(tower):
@@ -220,17 +161,14 @@ class Field:
 			self.units_attack()
 			self.collect_garbage()
 			if len(self.spawn_point.waves) and \
-			self.spawn_point != -1 and \
-			current_time - self.spawn_point.last_wave >= self.spawn_point.cooldown:
+			   self.spawn_point != -1 and \
+			   current_time - self.spawn_point.last_wave >= self.spawn_point.cooldown:
 				self.spawn_units()
 			self.last_update = current_time
 
-<<<<<<< HEAD:Map/field.py
-=======
 			if self.castle.get_health() <= 0:
 				raise CastleError
 
 			if self.all_waves_spawned and len(self.units) == 0:
 				raise WinError
->>>>>>> checkpoint_3:src/TowerDefence/Map/field.py
 
